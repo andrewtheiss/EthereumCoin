@@ -124,100 +124,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "decimals",
-				"outputs": [
-					{
-						"internalType": "uint8",
-						"name": "",
-						"type": "uint8"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "spender",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "subtractedValue",
-						"type": "uint256"
-					}
-				],
-				"name": "decreaseAllowance",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "spender",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "addedValue",
-						"type": "uint256"
-					}
-				],
-				"name": "increaseAllowance",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "initialize",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "name",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "symbol",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "totalSupply",
 				"outputs": [
 					{
@@ -295,24 +201,6 @@
 				"balanceOf(address)": {
 					"details": "See {IERC20-balanceOf}."
 				},
-				"decimals()": {
-					"details": "Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5.05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless this function is overridden; NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}."
-				},
-				"decreaseAllowance(address,uint256)": {
-					"details": "Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`."
-				},
-				"increaseAllowance(address,uint256)": {
-					"details": "Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address."
-				},
-				"initialize()": {
-					"details": "Sets the values for {name} and {symbol}. The defaut value of {decimals} is 18. To select a different value for {decimals} you should overload it. All three of these values are immutable: they can only be set once during construction."
-				},
-				"name()": {
-					"details": "Returns the name of the token."
-				},
-				"symbol()": {
-					"details": "Returns the symbol of the token, usually a shorter version of the name."
-				},
 				"totalSupply()": {
 					"details": "See {IERC20-totalSupply}."
 				},
@@ -349,11 +237,11 @@
 	},
 	"sources": {
 		"contracts/HWC.sol": {
-			"keccak256": "0x62448ddf06a1bad01dc06262fa52391278a408eab6155cfc7b01f46fba7b180d",
+			"keccak256": "0x36475033121dcfb83580ed14ff34439c400691ce244ab56b46d6e382d096a69a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://00adbdc4d0dddfbab7e348cc13992d8cd025f43d5ee07a20013d02f056b6ea58",
-				"dweb:/ipfs/QmfYGtAtrroDh5RtUDTMFLiF5pxhTgvwUeLTC3TpnE2h1p"
+				"bzz-raw://012cce03761040dae066bbc73835a21e28324e50ea40ae7ca44903dbb57798c3",
+				"dweb:/ipfs/QmXf4gTzdQmuepX3QxL8dncEyPojrDoTaUSQiWi5UN5uep"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
@@ -466,14 +354,6 @@
 			"urls": [
 				"bzz-raw://7fa12ba5e349dec9ea9fd4a510a3dd75842d95f9083a7c84689c537bee155d9f",
 				"dweb:/ipfs/QmZwvSHuuZGxQEjCy5ihuC2XMUYj14AVyH7spMY7Ed6uUV"
-			]
-		},
-		"hardhat/console.sol": {
-			"keccak256": "0x72b6a1d297cd3b033d7c2e4a7e7864934bb767db6453623f1c3082c6534547f4",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://a8cb8681076e765c214e0d51cac989325f6b98e315eaae06ee0cbd5a9f084763",
-				"dweb:/ipfs/QmNWGHi4zmjxQTYN3NMGnJd49jBT5dE4bxTdWEaDuJrC6N"
 			]
 		}
 	},
