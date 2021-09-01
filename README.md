@@ -19,9 +19,17 @@ Upgradable contracts have to parts: Proxy and implementation
 Proxy holds all state information
 Implementation ... obviously implements how the code is executed
 
-# Hardhat 
+# Hardhat
 Upgradability requires Hardhat to be installed as well into the project root.
 `npm install --save-dev hardhat`
 `npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers`
 `npm install --save-dev @nomiclabs/hardhat-web3 web3`
 `npm install --save-dev @openzeppelin/contracts-upgradeable`
+
+# Updating node:
+Use moralis.io
+https://faucets.blockxlabs.com/ for eth
+https://faucet.goerli.mudit.blog/
+
+# Running
+`npx hardhat run .\scripts\deploy.js --network goerli --show-stack-traces`

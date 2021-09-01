@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\HWC.sol": {
-      "lastModificationDate": 1630490004988,
-      "contentHash": "c484bfad401cba1cb76a86c13f89e3a5",
+      "lastModificationDate": 1630521673647,
+      "contentHash": "43ce719630c5441b778080b0ceeff88c",
       "sourceName": "contracts/HWC.sol",
       "solcConfig": {
         "version": "0.8.7",
@@ -30,11 +30,13 @@
       "imports": [
         "./includes/IERC20.sol",
         "./includes/SafeMath.sol",
+        "hardhat/console.sol",
         "./includes/UUPSUpgradeable.sol",
         "./includes/Initializable.sol",
         "./includes/Owner.sol",
         "./includes/ERC20Upgradeable.sol",
-        "./includes/OwnableUpgradeable.sol"
+        "./includes/OwnableUpgradeable.sol",
+        "./includes/ContextUpgradeable.sol"
       ],
       "versionPragmas": [
         "^0.8.7"
@@ -537,6 +539,40 @@
       ],
       "artifacts": [
         "ContextUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1630479958286,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
       ]
     }
   }

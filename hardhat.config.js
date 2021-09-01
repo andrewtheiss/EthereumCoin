@@ -5,7 +5,7 @@ let secret = require("./scripts/hardhat/secret.json")
 task("balance", "Prints an account's balance")
   .addParam("account", "The account's address")
   .setAction(async (taskArgs) => {
-    
+
     const account = web3.utils.toChecksumAddress(taskArgs.account);
     const balance = await web3.eth.getBalance(account);
 
@@ -35,8 +35,16 @@ module.exports = {
           accounts : [secret.key]
       },
       kovan: {
-          url : "https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+          url : secret.kovanUrl,
           accounts : [secret.key]
+      },
+      rinkeby: {
+          url : "https://speedy-nodes-nyc.moralis.io/152b90f24e6ee9dbba3494ba/eth/rinkeby",
+          accounts : ["4921cd08d350c54abcbd1f8843e921643046036f9251d4fa4199ae36d4bb2dcb"]
+      },
+      goerli: {
+          url : "https://speedy-nodes-nyc.moralis.io/97baba290fa95486247731ca/eth/goerli",
+          accounts : ["4921cd08d350c54abcbd1f8843e921643046036f9251d4fa4199ae36d4bb2dcb"]
       }
   }
 };

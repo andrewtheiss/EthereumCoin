@@ -2,6 +2,7 @@
 pragma solidity ^0.8.7;
 import "./includes/IERC20.sol";
 import "./includes/SafeMath.sol";
+import "hardhat/console.sol";
 
 // Upgradable libraries.  
 // UUPS makes sure the upgradeTo method is always available
@@ -11,6 +12,7 @@ import "./includes/Initializable.sol";
 import './includes/Owner.sol';
 import "./includes/ERC20Upgradeable.sol";
 import "./includes/OwnableUpgradeable.sol";
+import "./includes/ContextUpgradeable.sol";
 
 /** 
  * TODO:
@@ -20,10 +22,8 @@ import "./includes/OwnableUpgradeable.sol";
  *  Document and detail token details
  *  
  */
-contract HWC is Owner, Initializable, ERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable {
-    
-    mapping (address => uint256) private _balances;
-    mapping (address => mapping (address => uint256)) private _allowances;
+//contract HWC is Owner, Initializable, ContextUpgradeable, ERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable {
+contract HWC is Initializable, ERC20Upgradeable {
 
     /**
      * @dev Sets the values for {name} and {symbol}.
@@ -44,6 +44,6 @@ contract HWC is Owner, Initializable, ERC20Upgradeable, UUPSUpgradeable, Ownable
     /**
      * @dev Overwrite upgradable 
      */
-    function _authorizeUpgrade(address) internal override onlyOwner {}
+    //function _authorizeUpgrade(address) internal override onlyOwner {}
 
 }
