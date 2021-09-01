@@ -1,0 +1,543 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\HWC.sol": {
+      "lastModificationDate": 1630490004988,
+      "contentHash": "c484bfad401cba1cb76a86c13f89e3a5",
+      "sourceName": "contracts/HWC.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./includes/IERC20.sol",
+        "./includes/SafeMath.sol",
+        "./includes/UUPSUpgradeable.sol",
+        "./includes/Initializable.sol",
+        "./includes/Owner.sol",
+        "./includes/ERC20Upgradeable.sol",
+        "./includes/OwnableUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.7"
+      ],
+      "artifacts": [
+        "HWC"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\IERC20.sol": {
+      "lastModificationDate": 1630488014648,
+      "contentHash": "c5e592828d7dcdeae2c356b8f4e4df94",
+      "sourceName": "contracts/includes/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\SafeMath.sol": {
+      "lastModificationDate": 1630488009986,
+      "contentHash": "5f8c58ebd781b333458a9456a9527fc3",
+      "sourceName": "contracts/includes/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\UUPSUpgradeable.sol": {
+      "lastModificationDate": 1630489956149,
+      "contentHash": "5ba4145ddc03b7eb1cb0683cb560a59c",
+      "sourceName": "contracts/includes/UUPSUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ERC1967UpgradeUpgradeable.sol",
+        "./Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "UUPSUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\Initializable.sol": {
+      "lastModificationDate": 1630488406296,
+      "contentHash": "0ba5d29083e1effc7f468a3d7a5d68ae",
+      "sourceName": "contracts/includes/Initializable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Initializable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\Owner.sol": {
+      "lastModificationDate": 1630489959500,
+      "contentHash": "5ccb1e6761b1d2d686de9226162f3b43",
+      "sourceName": "contracts/includes/Owner.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "Owner"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\ERC20Upgradeable.sol": {
+      "lastModificationDate": 1630489949397,
+      "contentHash": "54bb63aad3c5461a374a9fd3052ac5b3",
+      "sourceName": "contracts/includes/ERC20Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20Upgradeable.sol",
+        "./IERC20MetadataUpgradeable.sol",
+        "./ContextUpgradeable.sol",
+        "./Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20Upgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\OwnableUpgradeable.sol": {
+      "lastModificationDate": 1630489948421,
+      "contentHash": "27442f31fd2cd3f7c8db01a5e897f85b",
+      "sourceName": "contracts/includes/OwnableUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ContextUpgradeable.sol",
+        "./Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OwnableUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\ERC1967UpgradeUpgradeable.sol": {
+      "lastModificationDate": 1630489958437,
+      "contentHash": "952311b49262c18b4b467a5efc0870c3",
+      "sourceName": "contracts/includes/ERC1967UpgradeUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IBeaconUpgradeable.sol",
+        "./AddressUpgradeable.sol",
+        "./StorageSlotUpgradeable.sol",
+        "./Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.2"
+      ],
+      "artifacts": [
+        "ERC1967UpgradeUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\IBeaconUpgradeable.sol": {
+      "lastModificationDate": 1630489955389,
+      "contentHash": "7ac99adfe128571bc43ac0c9b9898b6c",
+      "sourceName": "contracts/includes/IBeaconUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IBeaconUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\AddressUpgradeable.sol": {
+      "lastModificationDate": 1630489952589,
+      "contentHash": "d3af9810e7db529785bc911a7be5fa9e",
+      "sourceName": "contracts/includes/AddressUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AddressUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\StorageSlotUpgradeable.sol": {
+      "lastModificationDate": 1630489950900,
+      "contentHash": "797b0973f66062c983cc4f3ff511b55b",
+      "sourceName": "contracts/includes/StorageSlotUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "StorageSlotUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\IERC20Upgradeable.sol": {
+      "lastModificationDate": 1630489942397,
+      "contentHash": "206d9bc5b279b2d5a9eb810085c01c87",
+      "sourceName": "contracts/includes/IERC20Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Upgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\IERC20MetadataUpgradeable.sol": {
+      "lastModificationDate": 1630489944999,
+      "contentHash": "f90d22b57902bd788bc14a58863f536b",
+      "sourceName": "contracts/includes/IERC20MetadataUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20Upgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20MetadataUpgradeable"
+      ]
+    },
+    "C:\\Users\\andre\\Documents\\WebDev\\EthereumCoin\\contracts\\includes\\ContextUpgradeable.sol": {
+      "lastModificationDate": 1630489393950,
+      "contentHash": "036cd66e6ea00f801d61c918db3a8400",
+      "sourceName": "contracts/includes/ContextUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ContextUpgradeable"
+      ]
+    }
+  }
+}

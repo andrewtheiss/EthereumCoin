@@ -9,25 +9,6 @@
 				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "previousAdmin",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "newAdmin",
-						"type": "address"
-					}
-				],
-				"name": "AdminChanged",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
 						"indexed": true,
 						"internalType": "address",
 						"name": "owner",
@@ -55,57 +36,6 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "beacon",
-						"type": "address"
-					}
-				],
-				"name": "BeaconUpgraded",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "oldOwner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "OwnerSet",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "previousOwner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "OwnershipTransferred",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
 						"name": "from",
 						"type": "address"
 					},
@@ -123,19 +53,6 @@
 					}
 				],
 				"name": "Transfer",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "implementation",
-						"type": "address"
-					}
-				],
-				"name": "Upgraded",
 				"type": "event"
 			},
 			{
@@ -206,19 +123,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "changeOwner",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "decimals",
 				"outputs": [
@@ -256,19 +160,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getOwner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -294,13 +185,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "initialize",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "name",
 				"outputs": [
 					{
@@ -310,26 +194,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "owner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -410,53 +274,10 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "transferOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newImplementation",
-						"type": "address"
-					}
-				],
-				"name": "upgradeTo",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newImplementation",
-						"type": "address"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					}
-				],
-				"name": "upgradeToAndCall",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
+			"details": "Implementation of the {IERC20} interface. This implementation is agnostic to the way tokens are created. This means that a supply mechanism has to be added in a derived contract using {_mint}. For a generic mechanism see {ERC20PresetMinterPauser}. TIP: For a detailed writeup see our guide https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How to implement supply mechanisms]. We have followed general OpenZeppelin Contracts guidelines: functions revert instead returning `false` on failure. This behavior is nonetheless conventional and does not conflict with the expectations of ERC20 applications. Additionally, an {Approval} event is emitted on calls to {transferFrom}. This allows applications to reconstruct the allowance for all accounts just by listening to said events. Other implementations of the EIP may not emit these events, as it isn't required by the specification. Finally, the non-standard {decreaseAllowance} and {increaseAllowance} functions have been added to mitigate the well-known issues around setting allowances. See {IERC20-approve}.",
 			"kind": "dev",
 			"methods": {
 				"allowance(address,address)": {
@@ -468,38 +289,17 @@
 				"balanceOf(address)": {
 					"details": "See {IERC20-balanceOf}."
 				},
-				"changeOwner(address)": {
-					"details": "Change owner",
-					"params": {
-						"newOwner": "address of new owner"
-					}
-				},
 				"decimals()": {
 					"details": "Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5.05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the value {ERC20} uses, unless this function is overridden; NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}."
 				},
 				"decreaseAllowance(address,uint256)": {
 					"details": "Atomically decreases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`."
 				},
-				"getOwner()": {
-					"details": "Return owner address ",
-					"returns": {
-						"_0": "address of owner"
-					}
-				},
 				"increaseAllowance(address,uint256)": {
 					"details": "Atomically increases the allowance granted to `spender` by the caller. This is an alternative to {approve} that can be used as a mitigation for problems described in {IERC20-approve}. Emits an {Approval} event indicating the updated allowance. Requirements: - `spender` cannot be the zero address."
 				},
-				"initialize()": {
-					"details": "Sets the values for {name} and {symbol}. The defaut value of {decimals} is 18. To select a different value for {decimals} you should overload it. All three of these values are immutable: they can only be set once during construction."
-				},
 				"name()": {
 					"details": "Returns the name of the token."
-				},
-				"owner()": {
-					"details": "Returns the address of the current owner."
-				},
-				"renounceOwnership()": {
-					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
 				},
 				"symbol()": {
 					"details": "Returns the symbol of the token, usually a shorter version of the name."
@@ -512,15 +312,6 @@
 				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}. Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`."
-				},
-				"transferOwnership(address)": {
-					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
-				},
-				"upgradeTo(address)": {
-					"details": "Upgrade the implementation of the proxy to `newImplementation`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
-				},
-				"upgradeToAndCall(address,bytes)": {
-					"details": "Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
 				}
 			},
 			"version": 1
@@ -528,13 +319,12 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {},
-			"notice": "TODO:  Make sure it's upgradable:      TODO: Upgradable requires we remove ALL selfdestruct, delegatecall and constructors  Make owner transferrable  Document and detail token details  ",
 			"version": 1
 		}
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/HWC.sol": "HWC"
+			"contracts/includes/ERC20Upgradeable.sol": "ERC20Upgradeable"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -548,22 +338,6 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/HWC.sol": {
-			"keccak256": "0xe1c4b7f280c04f87b38ab90ee7be6793bc56e546006e08b82cf50817ba098535",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://035ab4f421f9743f5451938d1e03ac48f6800ddc9629295c58f8829a3bb621a6",
-				"dweb:/ipfs/QmdDfP449thGEC4EufdndeWFwZH7SWrkoMLedAJ5LDet6A"
-			]
-		},
-		"contracts/includes/AddressUpgradeable.sol": {
-			"keccak256": "0x01b96340fedbf63c993bc1716d4ef5f0bc8db0af2e0103a5b2c20ab398fc16d6",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://2daa051426bc70495e9911177c34716c5c113430879bbd1523592732b71fd433",
-				"dweb:/ipfs/QmdVEoUgKGG23CusFCmbRpp6XGho9x52BL1Fb9EsvuiT4g"
-			]
-		},
 		"contracts/includes/ContextUpgradeable.sol": {
 			"keccak256": "0xa4d8ed92d61ed5a295c8bbd5a7ec0da0fa7af5a9eede7b97516e738247f5dcee",
 			"license": "MIT",
@@ -572,36 +346,12 @@
 				"dweb:/ipfs/QmeSvaKH7SX7Y2bWYV8oAJmkW5rS38kRomRrpizPXF9Rvj"
 			]
 		},
-		"contracts/includes/ERC1967UpgradeUpgradeable.sol": {
-			"keccak256": "0x83d939d8995eb21161d8951483d898a5de008579cc52c8b7858b13e12ee172d8",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://775268d680a5e970cda22281c81ef3ce57fa5aae0d55736a58670a6ca57f3917",
-				"dweb:/ipfs/QmWAEWoDZGxBe64khAdVq4W5MHzxuuPUDiVa2KbarkUBRG"
-			]
-		},
 		"contracts/includes/ERC20Upgradeable.sol": {
 			"keccak256": "0xe873a208e14c08a8c408f262dca318b3901707c7df5f0d5845a19432c2634514",
 			"license": "MIT",
 			"urls": [
 				"bzz-raw://812e5683f51dd9fbeaa299dacaabf4c0a1d4f141704126c150a54e0aca2892c1",
 				"dweb:/ipfs/QmXQ45auTrMErKKfF6zso5r72faAsSNfpm6vhET4aNfHpJ"
-			]
-		},
-		"contracts/includes/IBeaconUpgradeable.sol": {
-			"keccak256": "0x1440f4b82d718504a4a5faf89faa03953fbd083546a37633d03bdfb770d8e5ce",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://03fe0b015fdc5a562d17a72b32513cf9722884c49dc8c3ef268d6dbe35d6a2e5",
-				"dweb:/ipfs/QmefBnrGjTSi8pbzNNKDpahPC39tDuTHb94p3nW5TKps5X"
-			]
-		},
-		"contracts/includes/IERC20.sol": {
-			"keccak256": "0x6a7ad162b0f5cdf5c5986a00af904728407eada0458c8a610ecc758c91ff2800",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://70e189ddc436e9420f3827778510d9d2eb0bfc87b03db103ba6c65fd6d52d266",
-				"dweb:/ipfs/Qmd1xpLzBSbK888Y2qdKMX5BMtNTuzbhkwVZVEb2eAXU2D"
 			]
 		},
 		"contracts/includes/IERC20MetadataUpgradeable.sol": {
@@ -626,46 +376,6 @@
 			"urls": [
 				"bzz-raw://fe615eefc638937427e9f0cad5a7538369971a8cc31d9247a4c670b7c266cc4c",
 				"dweb:/ipfs/QmRW3bh4qxhjPDbNxTm2nMpSa7qpjMbKSbtTSQ1rVtY4yn"
-			]
-		},
-		"contracts/includes/OwnableUpgradeable.sol": {
-			"keccak256": "0xe29c81c2924d9ea64d741a30d8bb91f0ad46f03975f4beaa342d8506a8b4dfb7",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://c54c2a4db2613d193687b0bec922059cd2d0ee58cede0a411c4b62d9430bed20",
-				"dweb:/ipfs/QmWp6KMa73amxXU72Pmhc83a412akFVMi9qqeNyXs2LQzr"
-			]
-		},
-		"contracts/includes/Owner.sol": {
-			"keccak256": "0x1e624ada939528fff73575187024d951aa6d33d4cbaad97ecf1f3e2a7d717583",
-			"license": "GPL-3.0",
-			"urls": [
-				"bzz-raw://e3f3c6ab93acd1a8bd389f852149d59b6d713efc51458ff95bba42c3329fb0d1",
-				"dweb:/ipfs/QmP7NEPrSbYRM4DzpJ31YUC2KNXUX4USuQk3jMNRUdzVyV"
-			]
-		},
-		"contracts/includes/SafeMath.sol": {
-			"keccak256": "0xa9900c322a5f15bc245dbfa6c7ff8d2180222d8d8a4065a56a4a9725edf4ddc0",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://2d19ba1ccff3f4cdda470d3917e3dec57545c4dc2db5268f37583c0006c7555a",
-				"dweb:/ipfs/QmTZLQheXqD4MGzodXTyyyC5H45fRwtvJgzfpFVEvE4G9B"
-			]
-		},
-		"contracts/includes/StorageSlotUpgradeable.sol": {
-			"keccak256": "0x318f02419d5b62ef2b7b089192d25ae1fccd0cb2ba60764ea276157d65e8dc62",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://8ea32e6014a4e9989e3693481a84742ef5245520fc0444363117f61a9e45870f",
-				"dweb:/ipfs/QmYsUEWDEKCxcpepirVp3TqJytPpRvP7dhWpS5Y77gWTVp"
-			]
-		},
-		"contracts/includes/UUPSUpgradeable.sol": {
-			"keccak256": "0xda1bc61b9dc67237e6b197b859b5ce85ad5b6e19fe761c18d6ff4bbb45ad7a48",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://7fa12ba5e349dec9ea9fd4a510a3dd75842d95f9083a7c84689c537bee155d9f",
-				"dweb:/ipfs/QmZwvSHuuZGxQEjCy5ihuC2XMUYj14AVyH7spMY7Ed6uUV"
 			]
 		}
 	},

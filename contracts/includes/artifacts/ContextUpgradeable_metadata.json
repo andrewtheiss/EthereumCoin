@@ -19,7 +19,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/includes/Context.sol": "Context"
+			"contracts/includes/ContextUpgradeable.sol": "ContextUpgradeable"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -33,12 +33,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/includes/Context.sol": {
-			"keccak256": "0x527b10317924dfa415cc9a48da42fccdab3d9101d0129cfa4aaf47789c865fcc",
+		"contracts/includes/ContextUpgradeable.sol": {
+			"keccak256": "0xa4d8ed92d61ed5a295c8bbd5a7ec0da0fa7af5a9eede7b97516e738247f5dcee",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://976530aa77f72b36561f12afbf83e0ae3763fb54ad960edb19e245c457ba4a9f",
-				"dweb:/ipfs/QmPMqatNxDSTVXGzmXHVEvxsHbEbh2YLhmwBFhuwQCDQyz"
+				"bzz-raw://3595d722506d052592a3222887655c651caaccea2ab380be9e614437d3d256df",
+				"dweb:/ipfs/QmeSvaKH7SX7Y2bWYV8oAJmkW5rS38kRomRrpizPXF9Rvj"
+			]
+		},
+		"contracts/includes/Initializable.sol": {
+			"keccak256": "0x476523e15af92c3a58f7aba9ae2ee4f5dffac4ff3b3490cffaf2020f50c09b83",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fe615eefc638937427e9f0cad5a7538369971a8cc31d9247a4c670b7c266cc4c",
+				"dweb:/ipfs/QmRW3bh4qxhjPDbNxTm2nMpSa7qpjMbKSbtTSQ1rVtY4yn"
 			]
 		}
 	},
