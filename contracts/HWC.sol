@@ -3,16 +3,23 @@ pragma solidity ^0.8.7;
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.0/contracts/token/ERC20/IERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.0/contracts/utils/Context.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.0/contracts/utils/math/SafeMath.sol";
+
+// Upgradable libraries.  
+// UUPS makes sure the upgradeTo method is always available
+// Initializable takes care of contructor alternative behavior
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
 import './includes/Owner.sol';
 
 /** 
  * TODO:
- *  Make sure it's upgradable
+ *  Make sure it's upgradable:
+ *      TODO: Upgradable requires we remove ALL selfdestruct, delegatecall and constructors
  *  Make owner transferrable
  *  Document and detail token details
  *  
  */
-contract HWC is Owner, Context, IERC20 {
+contract HWC is Owner, Context, IERC20, Initializable, UUPSUpgradeable {
     
     mapping (address => uint256) private _balances;
     mapping (address => mapping (address => uint256)) private _allowances;
@@ -30,7 +37,7 @@ contract HWC is Owner, Context, IERC20 {
      * All three of these values are immutable: they can only be set once during
      * construction.
      */
-    constructor () {
+    function initialize() public initializer {
 
         _name = "Harvard-Westlake Coin";
         _symbol = "HWC";
