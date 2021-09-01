@@ -1,6 +1,5 @@
 // run via:
-// npx hardhat run scripts/hardhat/deploy.js --network localhost
-// npx hardhat run scripts/hardhat/deploy.js --network matic
+// npx hardhat run .\scripts\hardhat\deploy.js --network ropsten
 const hre = require("hardhat")
 
 async function main() {

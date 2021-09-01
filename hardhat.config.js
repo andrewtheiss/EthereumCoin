@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-web3");
+let secret = require("./scripts/hardhat/secret.json")
 
 task("balance", "Prints an account's balance")
   .addParam("account", "The account's address")
@@ -29,12 +30,12 @@ task("delayed-hello", "Prints 'Hello, World!' after a second", async () => {
 module.exports = {
   solidity: "0.8.7",
   networks: {
-      matic: {
-          url:"https://rpc-mumbai.maticvigil.com",
-          accounts: [privateKey] // Enter privateKey here
-      },
       ropsten: {
           url : secret.url,
+          accounts : [secret.key]
+      },
+      kovan: {
+          url : "https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
           accounts : [secret.key]
       }
   }
