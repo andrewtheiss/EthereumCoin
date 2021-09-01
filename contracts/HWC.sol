@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.0/contracts/token/ERC20/IERC20.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.0/contracts/utils/Context.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.0/contracts/utils/math/SafeMath.sol";
+import "./includes/IERC20.sol";
+import "./includes/Context.sol";
+import "./includes/SafeMath.sol";
 
 // Upgradable libraries.  
 // UUPS makes sure the upgradeTo method is always available
 // Initializable takes care of contructor alternative behavior
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
+import "./includes/UUPSUpgradeable.sol";
+import "./includes/Initializable.sol";
 import './includes/Owner.sol';
 
 /** 

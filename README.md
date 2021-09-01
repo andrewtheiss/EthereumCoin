@@ -24,3 +24,4 @@ Upgradability requires Hardhat to be installed as well into the project root.
 `npm install --save-dev hardhat`
 `npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers`
 `npm install --save-dev @nomiclabs/hardhat-web3 web3`
+`npm install --save-dev @openzeppelin/contracts-upgradeable`
