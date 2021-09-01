@@ -31,5 +31,5 @@ Use moralis.io
 https://faucets.blockxlabs.com/ for eth
 https://faucet.goerli.mudit.blog/
 
-# Running
+# Deployment
 `npx hardhat run .\scripts\deploy.js --network goerli --show-stack-traces`

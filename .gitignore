@@ -1,3 +1,4 @@
 /node_modules/
 scripts/hardhat/secret.json
 /artifacts/
+/cache/
