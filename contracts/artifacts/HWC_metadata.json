@@ -9,6 +9,25 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "previousAdmin",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "newAdmin",
+						"type": "address"
+					}
+				],
+				"name": "AdminChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": true,
 						"internalType": "address",
 						"name": "owner",
@@ -36,6 +55,38 @@
 					{
 						"indexed": true,
 						"internalType": "address",
+						"name": "beacon",
+						"type": "address"
+					}
+				],
+				"name": "BeaconUpgraded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
 						"name": "from",
 						"type": "address"
 					},
@@ -53,6 +104,32 @@
 					}
 				],
 				"name": "Transfer",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "implementation",
+						"type": "address"
+					}
+				],
+				"name": "Upgraded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "ValueChanged",
 				"type": "event"
 			},
 			{
@@ -192,6 +269,26 @@
 			},
 			{
 				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "totalSupply",
 				"outputs": [
 					{
@@ -255,6 +352,50 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newImplementation",
+						"type": "address"
+					}
+				],
+				"name": "upgradeTo",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newImplementation",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "upgradeToAndCall",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -269,6 +410,12 @@
 				"balanceOf(address)": {
 					"details": "See {IERC20-balanceOf}."
 				},
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
 				"totalSupply()": {
 					"details": "See {IERC20-totalSupply}."
 				},
@@ -277,6 +424,15 @@
 				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}. Requirements: - `sender` and `recipient` cannot be the zero address. - `sender` must have a balance of at least `amount`. - the caller must have allowance for ``sender``'s tokens of at least `amount`."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"upgradeTo(address)": {
+					"details": "Upgrade the implementation of the proxy to `newImplementation`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
+				},
+				"upgradeToAndCall(address,bytes)": {
+					"details": "Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
 				}
 			},
 			"version": 1
@@ -284,7 +440,7 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {},
-			"notice": "TODO:  Make sure it's upgradable:      TODO: Upgradable requires we remove ALL selfdestruct, delegatecall and constructors  Make owner transferrable  Document and detail token details // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--  ",
+			"notice": "TODO:  Make sure it's upgradable:  TODO : include UUPS https://forum.openzeppelin.com/t/uups-proxies-tutorial-solidity-javascript/7786      https://docs.openzeppelin.com/learn/upgrading-smart-contracts      https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable  Weigh minting and fair launch vs max total supply and distribution    Make owner transferrable  Document and detail token details // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--  ",
 			"version": 1
 		}
 	},
@@ -305,11 +461,11 @@
 	},
 	"sources": {
 		"contracts/HWC.sol": {
-			"keccak256": "0x78e081b615c15b335a2c543537cbfd978fe46fe9c6efc3810fc28c912a34a823",
+			"keccak256": "0x7bc06dd07c295578139935ad8d14d31c7bf4a119d70efe18c1e52a64049668ed",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ad2d000c0d0ebc49906bee49d535ac01986724ca068ad745efc74e6ac7bf3bb6",
-				"dweb:/ipfs/QmXcSMoK39X9iAEKDvfU9B2vndyi3F8eHcJLNB29Ccazy7"
+				"bzz-raw://a1fe9db291f46c8be17329ca54239219b70c66b00629bff9c3487bcad206ff67",
+				"dweb:/ipfs/QmSMuWsuupvArf9jwER6XrsNbjA7Z973nY4qLKd5VJr3hv"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {

@@ -12,14 +12,16 @@ import "./includes/ContextUpgradeable.sol";
 /** 
  * TODO:
  *  Make sure it's upgradable:
- *      TODO: Upgradable requires we remove ALL selfdestruct, delegatecall and constructors
+ *  TODO : include UUPS https://forum.openzeppelin.com/t/uups-proxies-tutorial-solidity-javascript/7786
+ *      https://docs.openzeppelin.com/learn/upgrading-smart-contracts
+ *      https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable
+ *  Weigh minting and fair launch vs max total supply and distribution  
  *  Make owner transferrable
  *  Document and detail token details
  * // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--
  *  
  */
-//contract HWC is Owner, Initializable, ContextUpgradeable, ERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable {
-contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
+contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable  {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
@@ -38,11 +40,14 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
     // initializer function and call the parent initializer of the contract you extend.
     function initialize() initializer public {
        __ERC20_init("Harvard-Westlake Coin", "HWC");
+       _admin = msg.sender;
+       //_mint(msg.sender, 1000 * 10 ** _decimals);
     }
      
     function __ERC20_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
+        __Ownable_init();
     }
 
     function __ERC20_init_unchained(string memory name, string memory symbol) internal initializer {
@@ -55,8 +60,10 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
         _balances[msg.sender] = 1000; // 1000 for the creator
     }
     
+    
     /// TODO ////////////// PUT ALL CLASS PERIOD CODE INTO INCLUDE FILE //////////////
     // Save max 7 class periods
+    // Need to store class lists so that we can distribute tokens to an entire class at a time
     address[][7] _addressesForClassPeriod;
     
     function addAddressForClassPeriod(uint256 period, address _address) public {
@@ -67,8 +74,21 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
     function getAllAddressesForClassPeriod(uint256 period) public view returns (address[] memory) {
         return _addressesForClassPeriod[period];
     }
+    //////////////// END CLASS CODE ////////////////////////
     
-    // Need to store class lists so that we can distribute tokens to an entire class at a time
+    
+    // Emitted when the stored value changes
+    event ValueChanged(uint256 value);
+    
+    // Required for UUPSUpgradeable
+    function _authorizeUpgrade(address) internal view override {
+        require(msg.sender == _admin, "HWCoin : Not admin");
+        
+    }
+    
+    
+    
+    
     
     /**
      * @dev See {IERC20-totalSupply}.

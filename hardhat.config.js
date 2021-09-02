@@ -1,5 +1,8 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-web3");
+require('@nomiclabs/hardhat-ethers');
+require('@openzeppelin/hardhat-upgrades');
+
 let secret = require("./scripts/hardhat/secret.json")
 
 task("balance", "Prints an account's balance")

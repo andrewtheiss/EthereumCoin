@@ -2,3 +2,4 @@
 scripts/hardhat/secret.json
 /artifacts/
 /cache/
+.openzeppelin/goerli.json
