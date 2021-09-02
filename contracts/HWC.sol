@@ -28,23 +28,31 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
+    address private _admin;
     
     // Save space for class periods so we can give coin to entire periods at once
     address[][7] public _periods1_to_7;
-
-    function __ERC20_init() internal initializer {
+    
+    // Constructors are replaced by internal initializer functions following the naming convention
+    //  __{ContractName}_init. Since these are internal, you must always define your own public 
+    // initializer function and call the parent initializer of the contract you extend.
+    function initialize() initializer public {
+       __ERC20_init("Harvard-Westlake Coin", "HWC");
+    }
+     
+    function __ERC20_init(string memory name, string memory symbol) internal initializer {
         __Context_init_unchained();
-        __ERC20_init_unchained();
+        __ERC20_init_unchained(name, symbol);
     }
 
-    function __ERC20_init_unchained() internal initializer {
-        _name = "Harvard-Westlake Coin";
-        _symbol = "HWC";
+    function __ERC20_init_unchained(string memory name, string memory symbol) internal initializer {
+        _name = name;
+        _symbol = symbol;
         _decimals = 18;
-        _totalSupply = 620000000000000000000000000000;  // 62 Billion with 18 decimals
+        _totalSupply = 620000000000;  // 62 Billion with 18 decimals
         
         // TODO: Remove before deployment
-        _balances[msg.sender] = 1000000000000000000000; // 1000 for the creator
+        _balances[msg.sender] = 1000; // 1000 for the creator
     }
     
     /// TODO ////////////// PUT ALL CLASS PERIOD CODE INTO INCLUDE FILE //////////////
@@ -52,6 +60,7 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
     address[][7] _addressesForClassPeriod;
     
     function addAddressForClassPeriod(uint256 period, address _address) public {
+        require(msg.sender == _admin, "HWCoin : Not admin");
         _addressesForClassPeriod[period].push(_address);
     }
         
