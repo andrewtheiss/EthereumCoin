@@ -58,6 +58,48 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "_periods1_to_7",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "period",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "addAddressForClassPeriod",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "owner",
 						"type": "address"
@@ -117,6 +159,25 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "period",
+						"type": "uint256"
+					}
+				],
+				"name": "getAllAddressesForClassPeriod",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
 					}
 				],
 				"stateMutability": "view",
@@ -216,7 +277,7 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {},
-			"notice": "TODO:  Make sure it's upgradable:      TODO: Upgradable requires we remove ALL selfdestruct, delegatecall and constructors  Make owner transferrable  Document and detail token details  ",
+			"notice": "TODO:  Make sure it's upgradable:      TODO: Upgradable requires we remove ALL selfdestruct, delegatecall and constructors  Make owner transferrable  Document and detail token details // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--  ",
 			"version": 1
 		}
 	},
@@ -237,11 +298,11 @@
 	},
 	"sources": {
 		"contracts/HWC.sol": {
-			"keccak256": "0x36475033121dcfb83580ed14ff34439c400691ce244ab56b46d6e382d096a69a",
+			"keccak256": "0xb8f230284bd043e70f2065600c32602f9b3d0ac78e02ae51f314b8e50b655634",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://012cce03761040dae066bbc73835a21e28324e50ea40ae7ca44903dbb57798c3",
-				"dweb:/ipfs/QmXf4gTzdQmuepX3QxL8dncEyPojrDoTaUSQiWi5UN5uep"
+				"bzz-raw://b4e64a9d4af6e6ec2f2e4cde2fe2124492deea1c44b9b26466513fb631d0d4f9",
+				"dweb:/ipfs/QmTGXS1Xes9nrWj5BdXiJtkUkA2yuwZy2kmnNQt2c14jod"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
@@ -325,11 +386,11 @@
 			]
 		},
 		"contracts/includes/Owner.sol": {
-			"keccak256": "0x1e624ada939528fff73575187024d951aa6d33d4cbaad97ecf1f3e2a7d717583",
+			"keccak256": "0xa140e318c0e77bfc7a954653a04e65ca2085b37a4e66a33dd23572b3b786b4ce",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://e3f3c6ab93acd1a8bd389f852149d59b6d713efc51458ff95bba42c3329fb0d1",
-				"dweb:/ipfs/QmP7NEPrSbYRM4DzpJ31YUC2KNXUX4USuQk3jMNRUdzVyV"
+				"bzz-raw://707fc0dcab5247a461d78baca03daecc88d74e5b6502dacd7059623f74ddef6e",
+				"dweb:/ipfs/QmQERuB4PdrNyMfua66NvPL1reT6XB6JM3nak41s6rpScx"
 			]
 		},
 		"contracts/includes/SafeMath.sol": {

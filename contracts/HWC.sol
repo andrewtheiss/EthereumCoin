@@ -2,10 +2,6 @@
 pragma solidity ^0.8.7;
 import "./includes/IERC20.sol";
 import "./includes/SafeMath.sol";
-
-// Upgradable libraries.  
-// UUPS makes sure the upgradeTo method is always available
-// Initializable takes care of contructor alternative behavior
 import "./includes/UUPSUpgradeable.sol";
 import "./includes/Initializable.sol";
 import './includes/Owner.sol';
@@ -19,6 +15,7 @@ import "./includes/ContextUpgradeable.sol";
  *      TODO: Upgradable requires we remove ALL selfdestruct, delegatecall and constructors
  *  Make owner transferrable
  *  Document and detail token details
+ * // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--
  *  
  */
 //contract HWC is Owner, Initializable, ContextUpgradeable, ERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable {
@@ -28,10 +25,12 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
     mapping(address => mapping(address => uint256)) private _allowances;
 
     uint256 private _totalSupply;
-
     string private _name;
     string private _symbol;
     uint8 private _decimals;
+    
+    // Save space for class periods so we can give coin to entire periods at once
+    address[][7] public _periods1_to_7;
 
     function __ERC20_init() internal initializer {
         __Context_init_unchained();
@@ -42,7 +41,25 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable  {
         _name = "Harvard-Westlake Coin";
         _symbol = "HWC";
         _decimals = 18;
+        _totalSupply = 620000000000000000000000000000;  // 62 Billion with 18 decimals
+        
+        // TODO: Remove before deployment
+        _balances[msg.sender] = 1000000000000000000000; // 1000 for the creator
     }
+    
+    /// TODO ////////////// PUT ALL CLASS PERIOD CODE INTO INCLUDE FILE //////////////
+    // Save max 7 class periods
+    address[][7] _addressesForClassPeriod;
+    
+    function addAddressForClassPeriod(uint256 period, address _address) public {
+        _addressesForClassPeriod[period].push(_address);
+    }
+        
+    function getAllAddressesForClassPeriod(uint256 period) public view returns (address[] memory) {
+        return _addressesForClassPeriod[period];
+    }
+    
+    // Need to store class lists so that we can distribute tokens to an entire class at a time
     
     /**
      * @dev See {IERC20-totalSupply}.
