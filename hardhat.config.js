@@ -1,6 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-web3");
-require('@nomiclabs/hardhat-ethers');
 require('@openzeppelin/hardhat-upgrades');
 
 let secret = require("./scripts/hardhat/secret.json")
@@ -23,6 +22,7 @@ task("delayed-hello", "Prints 'Hello, World!' after a second", async () => {
     }, 1000);
   });
 });
+
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more

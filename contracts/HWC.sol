@@ -56,8 +56,8 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
         _decimals = 18;
         _totalSupply = 620000000000;  // 62 Billion with 18 decimals
         
-        // TODO: Remove before deployment
-        _balances[msg.sender] = 1000; // 1000 for the creator
+        // Create 10k supply for initial creator
+         _mint(msg.sender, 10000);
     }
     
     

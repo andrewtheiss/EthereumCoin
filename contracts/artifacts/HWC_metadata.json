@@ -461,11 +461,11 @@
 	},
 	"sources": {
 		"contracts/HWC.sol": {
-			"keccak256": "0x7bc06dd07c295578139935ad8d14d31c7bf4a119d70efe18c1e52a64049668ed",
+			"keccak256": "0xb65e75e01924b09c32943f5a56ae0108f142bc89b7d2f334fcaf47a74fa3ff4a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a1fe9db291f46c8be17329ca54239219b70c66b00629bff9c3487bcad206ff67",
-				"dweb:/ipfs/QmSMuWsuupvArf9jwER6XrsNbjA7Z973nY4qLKd5VJr3hv"
+				"bzz-raw://13860733e3b9a98d5243b30a793b3fd722f4bfd622a22571f6664ac065f44f77",
+				"dweb:/ipfs/QmQ7TWbVhbeL2rk8VYz5BifJcvbpmH55dcPfWDFWnkMthi"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
