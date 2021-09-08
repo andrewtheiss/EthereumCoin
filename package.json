@@ -12,6 +12,7 @@
     "web3": "^1.5.2"
   },
   "dependencies": {
+    "@opengsn/provider": "^2.2.2",
     "latest": "^0.2.0",
     "node": "^16.6.1",
     "nvm": "^0.0.4",

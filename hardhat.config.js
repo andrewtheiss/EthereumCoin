@@ -49,5 +49,10 @@ module.exports = {
           url : "https://speedy-nodes-nyc.moralis.io/97baba290fa95486247731ca/eth/goerli",
           accounts : ["4921cd08d350c54abcbd1f8843e921643046036f9251d4fa4199ae36d4bb2dcb"]
       }
+  },
+  compilers: {
+    solc: {
+      version: "^0.6.10"
+    }
   }
 };

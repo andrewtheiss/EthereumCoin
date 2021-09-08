@@ -38,3 +38,6 @@ https://faucet.goerli.mudit.blog/
 // Testing automatically runs everything inside the 'test' directory and leverages Chai for testing
 // https://ethereum-waffle.readthedocs.io/en/latest/matchers.html
 `npx hardhat test --show-stack-traces`
+
+# Paying for other people's transactions {https://docs.opengsn.org/javascript-client/tutorial.html#introduction}
+`npm install @opengsn/provider --save`
