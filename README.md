@@ -41,3 +41,29 @@ https://faucet.goerli.mudit.blog/
 
 # Paying for other people's transactions {https://docs.opengsn.org/javascript-client/tutorial.html#introduction}
 `npm install @opengsn/provider --save`
+
+
+# Plans
+After meeting with HW Crypto Club:  The following plans have been created.
+- Max Supply of 62 million
+- Staking
+- Staking with timelock
+- Burn NTF Purchases
+- Pre Mine 62K
+- Start Auction (if admin, start auction for NFT address)
+    - Accept only HWC
+    - Mint function for admin?
+ - Deposit to all class addresses
+
+# Phase 2 plans
+- Decentrallized governance
+- Delete admin keys
+-
+
+# Release plans
+- 1 token per class per student?
+
+
+# App Details
+- install firebase in the /app/ directory `npm install firebase`
+- install firebase tools `npm install -g firebase-tools`
