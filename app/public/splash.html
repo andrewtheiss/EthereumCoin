@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HW Coin</title>
+
+  <!-- Include Javascript library to attach to the Ethereum blockchain -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/9.0.2/firebase-app-compat.js"></script>
+
+  <!--
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body style="">
+  <div id="__next">
+    <div class="jsx-1999458080">
+      <div>
+        <div class="jsx-2464213343">
+          <div class="jsx-2464213343 header">
+            <div class="jsx-2464213343 background-graphics">
+              <div class="jsx-2464213343 left"></div>
+              <div class="jsx-2464213343 right"></div>
+            </div>
+            <div class="jsx-2464213343 content">
+              <div class="jsx-2464213343 top-menu-container">
+                <div class="jsx-4250080301 container">
+                  <div class="jsx-4250080301 logo-container"><a class="jsx-4250080301" href="/"><img src="/logos/convex-white.svg" alt="" class="jsx-4250080301 logo"></a></div>
+                  <div class="jsx-4250080301 menu-items"><a class="jsx-4250080301 menu-item " href="/stake">Stake</a><a class="jsx-4250080301 menu-item " href="/claim">Claim</a><a class="jsx-4250080301 menu-item " href="/lock-cvx">Lock CVX</a>
+                    <div class="jsx-414257070 container"><button class="MuiButtonBase-root MuiButton-root MuiButton-text menu-item" tabindex="0" type="button" aria-controls="top-menu-dropdown" aria-haspopup="true"><span
+                          class="MuiButton-label">More</span></button></div>
+                  </div>
+                  <div class="jsx-4250080301 wallet-info">
+                    <div class="jsx-2897066469 container disconnected">
+                      <div class="jsx-2078671758 container"><button class="MuiButtonBase-root MuiButton-root MuiButton-contained undefined   MuiButton-containedPrimary MuiButton-disableElevation" tabindex="0" type="button"
+                          aria-controls="wallet-info-dropdown" aria-haspopup="true" id="wallet-info-trigger"><span class="MuiButton-label">Connect Wallet<svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                              <path d="M7 10l5 5 5-5z"></path>
+                            </svg></span></button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h1 class="jsx-2464213343">Boosted Curve<br class="jsx-2464213343">Staking</h1>
+              <h2 class="jsx-2464213343">Deposit liquidity, earn boosted CRV and rewards</h2>
+              <div class="jsx-2464213343 ctas-container">
+                <div class="jsx-2464213343 button-container"><a
+                    class="jsx-2464213343 MuiButtonBase-root MuiButton-root MuiButton-contained undefined   MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation" tabindex="0" role="button"
+                    aria-disabled="false" href="/stake">Stake</a></div>
+              </div>
+              <div class="jsx-2464213343 kpis">
+                <div class="jsx-2464213343 kpi">
+                  <div class="jsx-2464213343 number"><span class="jsx-2464213343 small">$</span>8,320.2m</div>
+                  <div class="jsx-2464213343 label">TVL</div>
+                </div>
+                <div class="jsx-2464213343 kpi">
+                  <div class="jsx-2464213343 number"><span class="jsx-2464213343 small">$</span>132.1m</div>
+                  <div class="jsx-2464213343 label">Total Revenue</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="jsx-1804727429 container">
+          <div class="jsx-1804727429 block">
+            <div class="jsx-1804727429 content">
+              <div class="jsx-1804727429 category">Liquidity Providers</div>
+              <div class="jsx-1804727429 title">Earn CRV with a better boost</div>
+              <p class="jsx-1804727429">Deposit your Curve LP tokens to earn Curve trading fees, boosted CRV and CVX tokens.</p>
+              <p class="jsx-1804727429">Boost is pooled from CRV stakers so you do not need to worry about locking yourself.</p>
+            </div><img src="graphics/landing-page/features-highlights/lps.svg" alt="" class="jsx-1804727429 illustration">
+          </div>
+          <div class="jsx-1804727429 block">
+            <div class="jsx-1804727429 content">
+              <div class="jsx-1804727429 category">CRV Stakers</div>
+              <div class="jsx-1804727429 title">Put your CRV to work</div>
+              <p class="jsx-1804727429">Stake and earn additional CRV on top of CVX tokens and Curve trading fees.</p>
+            </div><img src="graphics/landing-page/features-highlights/crv-stakers.svg" alt="" class="jsx-1804727429 illustration">
+          </div>
+          <div class="jsx-1804727429 block">
+            <div class="jsx-1804727429 content">
+              <div class="jsx-1804727429 category">The Token</div>
+              <div class="jsx-1804727429 title">Stake CVX and earn more</div>
+              <p class="jsx-1804727429">Stake your CVX rewards back into the platform and earn platform fees.</p>
+            </div><img src="graphics/landing-page/features-highlights/cvx.svg" alt="" class="jsx-1804727429 illustration">
+          </div>
+        </div>
+        <div class="jsx-1472358503 container"><img src="graphics/landing-page/bg-stars.svg" alt="" class="jsx-1472358503 background-1"><img src="graphics/landing-page/bg-stars.svg" alt="" class="jsx-1472358503 background-2">
+          <div class="jsx-1472358503 content">
+            <h3 class="jsx-1472358503">How it works</h3>
+            <div class="jsx-1472358503 buttons-container"><button class="MuiButtonBase-root MuiButton-root MuiButton-outlined jss27   " tabindex="0" type="button"><span class="MuiButton-label">Liquidity Providers</span></button><button
+                class="MuiButtonBase-root MuiButton-root MuiButton-outlined jss27 active  " tabindex="0" type="button"><span class="MuiButton-label">CRV Stakers</span></button></div>
+            <div class="jsx-1472358503 blocks">
+              <div class="jsx-1472358503 block">
+                <div class="jsx-1472358503 step-label">Step 01</div><img src="graphics/landing-page/how-it-works/crv-stakers/01.svg" alt="" class="jsx-1472358503 illustration">
+                <div class="jsx-1472358503 description">Deposit any amount of CRV tokens into Convex</div><a
+                  class="jsx-1472358503 MuiButtonBase-root MuiButton-root MuiButton-contained jss28   MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation" tabindex="0" role="button"
+                  aria-disabled="false" href="/stake">Stake</a>
+              </div>
+              <div class="jsx-1472358503 block">
+                <div class="jsx-1472358503 step-label">Step 02</div><img src="graphics/landing-page/how-it-works/crv-stakers/02.svg" alt="" class="jsx-1472358503 illustration">
+                <div class="jsx-1472358503 description">Receive cvxCRV tokens in exchange for providing CRV</div>
+              </div>
+              <div class="jsx-1472358503 block">
+                <div class="jsx-1472358503 step-label">Step 03</div><img src="graphics/landing-page/how-it-works/crv-stakers/03.svg" alt="" class="jsx-1472358503 illustration">
+                <div class="jsx-1472358503 description">Receive a share of the total CRV rewards</div>
+              </div>
+              <div class="jsx-1472358503 block">
+                <div class="jsx-1472358503 step-label">Step 04</div><img src="graphics/landing-page/how-it-works/crv-stakers/04.svg" alt="" class="jsx-1472358503 illustration">
+                <div class="jsx-1472358503 description">Earn Curve platform trading fees</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="jsx-513013469 container">
+          <section class="jsx-513013469">
+            <h3 class="jsx-513013469">Audits</h3>
+            <div class="jsx-513013469 auditor"><img src="graphics/landing-page/links-area/mixbytes-logo.svg" alt="" class="jsx-513013469">
+              <div class="jsx-513013469 content">
+                <p class="jsx-513013469">MixBytes is a team of experienced developers providing top-notch blockchain solutions, smart contract security audits and tech advisory.</p>
+                <p class="jsx-513013469"><a href="https://github.com/convex-eth/platform/blob/main/audit/Convex%20Platform%20Security%20Audit%20Report.pdf" target="_blank" rel="noopener noreferrer" class="jsx-513013469">View the report</a></p>
+              </div>
+            </div>
+          </section>
+          <div class="jsx-513013469 stake-cta">
+            <div class="jsx-513013469 background-container"><img src="graphics/landing-page/bg-stars.svg" alt="" class="jsx-513013469 background-1"><img src="graphics/landing-page/bg-stars.svg" alt="" class="jsx-513013469 background-2"></div>
+            <div class="jsx-513013469 content">
+              <h3 class="jsx-513013469">Boost CRV rewards</h3><a
+                class="jsx-513013469 MuiButtonBase-root MuiButton-root MuiButton-contained undefined   MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge MuiButton-disableElevation" tabindex="0" role="button"
+                aria-disabled="false" href="/stake">Stake</a>
+            </div>
+          </div>
+          <section class="jsx-513013469">
+            <h3 class="jsx-513013469">Join the community</h3>
+            <div class="jsx-513013469 community"><a href="https://t.me/convexEthChat" target="_blank" rel="noopener noreferrer" class="jsx-513013469 block telegram"><span class="jsx-513013469">Telegram Chat</span>
+                <div class="jsx-513013469 icon-container"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"></path>
+                  </svg></div>
+              </a><a href="https://twitter.com/ConvexFinance" target="_blank" rel="noopener noreferrer" class="jsx-513013469 block twitter"><span class="jsx-513013469">Twitter</span>
+                <div class="jsx-513013469 icon-container"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z">
+                    </path>
+                  </svg></div>
+              </a><a href="https://github.com/convex-eth/platform" target="_blank" rel="noopener noreferrer" class="jsx-513013469 block github"><span class="jsx-513013469">GitHub</span>
+                <div class="jsx-513013469 icon-container"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3">
+                    </path>
+                  </svg></div>
+              </a></div>
+          </section>
+        </div>
+        <div class="jsx-2645377548 container">
+          <div class="jsx-2645377548 content">
+            <div class="jsx-2645377548 logos-container">
+              <div class="jsx-2645377548 logo-container"><img src="/logos/convex-color.svg" alt="" class="jsx-2645377548"></div>
+              <div class="jsx-2645377548 supported-by-container"><img src="/graphics/footer/supported-by.svg" alt="Supported by Curve" class="jsx-2645377548"></div>
+            </div>
+            <div class="jsx-2645377548 list">
+              <p class="jsx-2645377548 title">Community</p>
+              <ul class="jsx-2645377548">
+                <li class="jsx-2645377548"><a href="https://twitter.com/ConvexFinance" target="_blank" rel="noopener noreferrer" class="jsx-2645377548">Twitter</a></li>
+                <li class="jsx-2645377548"><a href="https://discord.gg/uAwvZfs9qU" target="_blank" rel="noopener noreferrer" class="jsx-2645377548">Discord</a></li>
+                <li class="jsx-2645377548"><a href="https://t.me/convexEthChat" target="_blank" rel="noopener noreferrer" class="jsx-2645377548">Telegram Chat</a></li>
+                <li class="jsx-2645377548"><a href="https://t.me/convexEth" target="_blank" rel="noopener noreferrer" class="jsx-2645377548">Telegram Announcements</a></li>
+              </ul>
+            </div>
+            <div class="jsx-2645377548 list">
+              <p class="jsx-2645377548 title">Resources</p>
+              <ul class="jsx-2645377548">
+                <li class="jsx-2645377548"><a href="https://docs.convexfinance.com" target="_blank" rel="noopener noreferrer" class="jsx-2645377548">Documentation</a></li>
+                <li class="jsx-2645377548"><a href="https://convexfinance.medium.com/" target="_blank" rel="noopener noreferrer" class="jsx-2645377548">Blog</a></li>
+                <li class="jsx-2645377548"><a href="mailto:contact@convexfinance.com" target="_blank" rel="noopener noreferrer" class="jsx-2645377548">contact@convexfinance.com</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script id="__NEXT_DATA__" type="application/json">
+    {
+      "props": {
+        "pageProps": {}
+      },
+      "page": "/",
+      "query": {},
+      "buildId": "p8YcYQnOW7EfFcXzXlKey",
+      "nextExport": true,
+      "autoExport": true,
+      "isFallback": false,
+      "scriptLoader": []
+    }
+  </script>
+  <next-route-announcer>
+    <p aria-live="assertive" id="__next-route-announcer__" role="alert"
+      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap; overflow-wrap: normal;">Boosted Curve
+      Staking</p>
+  </next-route-announcer>
+  <script src="/_next/static/chunks/578-77f5b11c307b5ea23abc.js"></script>
+  <script src="/_next/static/chunks/880-951bd1c51b62b533e16f.js"></script>
+  <script src="/_next/static/chunks/605-3e7188a6cbe46eb29fed.js"></script>
+  <script src="/_next/static/chunks/pages/lock-cvx-b8bebbd90c404757be0c.js"></script>
+  <script src="/_next/static/chunks/193-0777f3c9a5c9b70dda38.js"></script>
+  <script src="/_next/static/chunks/366-ab327834cbd2a34f69b1.js"></script>
+  <script src="/_next/static/chunks/pages/claim-66699ba00ef14b5103d2.js"></script>
+  <script src="/_next/static/chunks/pages/stake-fb81de4fb268271098e7.js"></script>
+  <div role="presentation" class="MuiPopover-root" id="top-menu-dropdown" style="position: fixed; z-index: 1300; inset: 0px; visibility: hidden;" aria-hidden="true">
+    <div tabindex="0" data-test="sentinelStart"></div>
+    <div class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation0 MuiPaper-rounded" tabindex="-1" style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;">
+      <ul class="MuiList-root MuiMenu-list MuiList-padding" role="menu" tabindex="-1"><a class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button" tabindex="0" aria-disabled="false"
+          role="menuitem" href="https://vote.convexfinance.com/#/" target="_blank" rel="noopener noreferrer">Governance</a><a class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button"
+          tabindex="-1" aria-disabled="false" role="menuitem" href="https://twitter.com/ConvexFinance" target="_blank" rel="noopener noreferrer">Twitter</a><a
+          class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button" tabindex="-1" aria-disabled="false" role="menuitem" href="https://discord.gg/uAwvZfs9qU" target="_blank"
+          rel="noopener noreferrer">Discord</a><a class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button" tabindex="-1" aria-disabled="false" role="menuitem"
+          href="https://t.me/convexEthChat" target="_blank" rel="noopener noreferrer">Telegram Chat</a><a class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button" tabindex="-1"
+          aria-disabled="false" role="menuitem" href="https://t.me/convexEth" target="_blank" rel="noopener noreferrer">Telegram Announcements</a><a
+          class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button" tabindex="-1" aria-disabled="false" role="menuitem" href="https://docs.convexfinance.com" target="_blank"
+          rel="noopener noreferrer">Documentation</a><a class="MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button" tabindex="-1" aria-disabled="false" role="menuitem"
+          href="https://convexfinance.medium.com/" target="_blank" rel="noopener noreferrer">Blog</a></ul>
+    </div>
+    <div tabindex="0" data-test="sentinelEnd"></div>
+  </div>
+  <div role="presentation" class="MuiPopover-root" id="wallet-info-dropdown" style="position: fixed; z-index: 1300; inset: 0px; visibility: hidden;" aria-hidden="true">
+    <div tabindex="0" data-test="sentinelStart"></div>
+    <div class="MuiPaper-root MuiMenu-paper MuiPopover-paper MuiPaper-elevation0 MuiPaper-rounded" tabindex="-1" style="opacity: 0; transform: scale(0.75, 0.5625); visibility: hidden;">
+      <ul class="MuiList-root MuiMenu-list MuiList-padding" role="menu" tabindex="-1"><button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button   MuiButton-containedSecondary MuiButton-disableElevation"
+          tabindex="0" type="button" role="menuitem" aria-disabled="false"><span class="MuiButton-label">MetaMask</span></button><button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button   MuiButton-containedSecondary MuiButton-disableElevation"
+          tabindex="-1" type="button" role="menuitem" aria-disabled="false"><span class="MuiButton-label">WalletConnect</span></button><button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button   MuiButton-containedSecondary MuiButton-disableElevation"
+          tabindex="-1" type="button" role="menuitem" aria-disabled="false"><span class="MuiButton-label">Coinbase Wallet</span></button><button
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button   MuiButton-containedSecondary MuiButton-disableElevation"
+          tabindex="-1" type="button" role="menuitem" aria-disabled="false"><span class="MuiButton-label">Keystone</span></button></ul>
+    </div>
+    <div tabindex="0" data-test="sentinelEnd"></div>
+  </div>
+</body>
+
+<script src="scripts/firebaseInitialize.js"></script>
+
+</html>
