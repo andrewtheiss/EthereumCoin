@@ -1,0 +1,3 @@
+let HWCoin = {
+  currentAccount : ""
+};
