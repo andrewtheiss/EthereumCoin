@@ -47,13 +47,13 @@ function showWalletConnected() {
  */
 document.getElementById("wallet-connect-button").onclick = async function() {
   try {
+
+    // Step 1 is giving metamask permission to access the website
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     HWCoin.currentAccount = accounts[0];
+    showWalletConnected();
 
-    // Update UI to show account
-    console.log(account);
-    showWalletConnected(account);
-
+    // Grab provider details
     const provider = await detectEthereumProvider()// Request account access if needed
     console.log(provider);
 
