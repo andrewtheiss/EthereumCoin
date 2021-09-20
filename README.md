@@ -33,7 +33,10 @@ https://faucets.blockxlabs.com/ for eth
 https://faucet.goerli.mudit.blog/
 
 # Deployment
-`npx hardhat run .\scripts\deploy.js --network goerli --show-stack-traces`
+// Deployment of the base contract (only really done once.. all subsequent calls should only deploy the implementation)
+`npx hardhat run .\scripts\deploy_upgradable.js --network goerli --show-stack-traces`
+
+`npx hardhat run .\scripts\deploy_upgradable_implementation.js --network goerli --show-stack-traces`
 
 # Testing
 // Testing automatically runs everything inside the 'test' directory and leverages Chai for testing

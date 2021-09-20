@@ -7,8 +7,18 @@ const { ethers, upgrades } = require('hardhat');
 
 async function main () {
   const HWC = await ethers.getContractFactory('HWC');
+  
+  // Parameters for how to deploy are https://docs.openzeppelin.com/upgrades-plugins/1.x/api-truffle-upgrades
+  const hwc = await upgrades.deployProxy(
+      HWC, 
+      [], // args for initialize
+      { 
+          initializer: 'initialize', 
+          kind: 'uups' 
+      }
+   );
+  
   console.log('Deploying HWC...');
-  const hwc = await upgrades.deployProxy(HWC, [], { initializer: 'initialize' });
   await hwc.deployed();
   console.log('HWC deployed to:', hwc.address);
 }

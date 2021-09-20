@@ -1,3 +1,3 @@
 let HWC_ADDRESS = {
-  goerli : "0x7f6539C67f25d0b26D61Daeb3936e5cc417c9e4A"
+  goerli : "0x701259d84b7e04828437AAf568c8Dc0D98e37141"
 };
