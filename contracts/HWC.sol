@@ -34,11 +34,14 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
     
     // Save space for class periods so we can give coin to entire periods at once
     address[][7] public _periods1_to_7;
+    address[] public _teachers;
+    address[] public _nextPayout;
     
     // Constructors are replaced by internal initializer functions following the naming convention
     //  __{ContractName}_init. Since these are internal, you must always define your own public 
     // initializer function and call the parent initializer of the contract you extend.
     function initialize() initializer public {
+        OwnableUpgradeable.__Ownable_init();
        __ERC20_init("Harvard-Westlake Coin", "HWC");
        _admin = msg.sender;
        //_mint(msg.sender, 1000 * 10 ** _decimals);

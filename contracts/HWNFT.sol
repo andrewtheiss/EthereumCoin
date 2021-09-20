@@ -1,3 +1,4 @@
+/*
 pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721Full.sol";
@@ -20,3 +21,4 @@ contract HWNFT is ERC721Full {
         return newItemId;
     }
 }
+*/

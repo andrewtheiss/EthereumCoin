@@ -5,6 +5,7 @@ After you have installed dependencies (Under 'Installation' and 'Contract Upgrad
 `remixd -s C:\Users\andre\Documents\WebDev\EthereumCoin --remix-ide https://remix.ethereum.org`
 
 # Installation
+To start, install node version 16 (not 14)
 To interface with Remix, we need to install npm and the latest remixd package (which interfaces with remix.ethereum). To do this, follow directions at https://remix-ide.readthedocs.io/en/latest/remixd.html or type
 `npm install -g @remix-project/remixd`.  If you're out of date, perhaps try `npm uninstall -g remixd` first.
 

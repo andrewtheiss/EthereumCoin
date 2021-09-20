@@ -47,6 +47,12 @@ function showWalletConnected() {
     case "0x2a" :
       chainSearch = "kovan." + chainSearch;
       break;
+    case "0x89" :
+      chainSearch = "polygonscan.com";
+      break;
+    case "0x13881" :
+      chainSearch = "mumbai.polygonscan.com";
+      break;
     default:
       break;
   }
