@@ -5,11 +5,15 @@ import "./includes/SafeMath.sol";
 import "./includes/UUPSUpgradeable.sol";
 import "./includes/Initializable.sol";
 import './includes/Owner.sol';
-import "./includes/ERC20Upgradeable.sol";
+import "./includes/ERC1155Upgradeable.sol";
 import "./includes/OwnableUpgradeable.sol";
 import "./includes/ContextUpgradeable.sol";
+import "./includes/ERC165Upgradeable.sol";
+import "./includes/ERC165Upgradeable.sol";
 
-/** 
+// https://docs.openzeppelin.com/contracts/3.x/erc1155
+// https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable
+/*
  * TODO:
  *  Make sure it's upgradable:
  *  TODO : include UUPS https://forum.openzeppelin.com/t/uups-proxies-tutorial-solidity-javascript/7786
@@ -17,20 +21,32 @@ import "./includes/ContextUpgradeable.sol";
  *      https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable
  *  Weigh minting and fair launch vs max total supply and distribution  
  *  Make owner transferrable
- *  Document and detail token details
- * // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--
+ * 
+import "@openzeppelin/contracts/token/ERC1155/ERC1155Holder.sol";
+
+ contract MyContract is ERC1155Holder 
+ Example ERC1155 https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0/contracts/presets/ERC1155PresetMinterPauser.sol
  *  
  */
-contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable  {
+contract HWC is Initializable, ContextUpgradeable, ERC1155Upgradeable, UUPSUpgradeable, OwnableUpgradeable  {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
 
+    // Mapping from account to operator approvals
+    mapping(address => mapping(address => bool)) private _operatorApprovals;
+    
     uint256 private _totalSupply;
-    string private _name;
+    string private _name;  // Removed and moved to json file
     string private _symbol;
     uint8 private _decimals;
     address private _admin;
+    
+    // A nonce to ensure we have a unique id each time we mint.
+    uint256 public nonce;
+    
+    // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
+    string private _uri;
     
     // Save space for class periods so we can give coin to entire periods at once
     address[][7] public _periods1_to_7;
@@ -39,9 +55,25 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
     //  __{ContractName}_init. Since these are internal, you must always define your own public 
     // initializer function and call the parent initializer of the contract you extend.
     function initialize() initializer public {
-       __ERC20_init("Harvard-Westlake Coin", "HWC");
+       __ERC1155_init("Uri");
        _admin = msg.sender;
        //_mint(msg.sender, 1000 * 10 ** _decimals);
+    }
+    
+    /**
+     * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE`, and `PAUSER_ROLE` to the account that
+     * deploys the contract.
+     */
+    function __ERC1155_init(string memory uri) internal initializer {
+        __Context_init_unchained();
+        __ERC165_init_unchained();
+        __AccessControl_init_unchained();
+        __AccessControlEnumerable_init_unchained();
+        __ERC1155_init_unchained(uri);
+        __ERC1155Burnable_init_unchained();
+        __Pausable_init_unchained();
+        __ERC1155Pausable_init_unchained();
+        __ERC1155PresetMinterPauser_init_unchained(uri);
     }
      
     function __ERC20_init(string memory name, string memory symbol) internal initializer {
@@ -57,7 +89,7 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
         _totalSupply = 620000000000;  // 62 Billion with 18 decimals
         
         // Create 10k supply for initial creator
-         _mint(msg.sender, 10000);
+       // _mint(msg.sender, 10000);
     }
     
     
@@ -88,238 +120,185 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
     
     
     
-    
-    
     /**
-     * @dev See {IERC20-totalSupply}.
+     * @dev See {IERC165-supportsInterface}.
      */
-    function totalSupply() public view virtual override returns (uint256) {
-        return _totalSupply;
-    }
-    
-    /**
-     * @dev See {IERC20-balanceOf}.
-     */
-    function balanceOf(address account) public view virtual override returns (uint256) {
-        return _balances[account];
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
+        return
+            interfaceId == type(IERC1155Upgradeable).interfaceId ||
+            interfaceId == type(IERC1155MetadataURIUpgradeable).interfaceId ||
+            super.supportsInterface(interfaceId);
     }
 
     /**
-     * @dev See {IERC20-transfer}.
+     * @dev See {IERC1155MetadataURI-uri}.
      *
-     * Requirements:
+     * This implementation returns the same URI for *all* token types. It relies
+     * on the token type ID substitution mechanism
+     * https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the EIP].
      *
-     * - `recipient` cannot be the zero address.
-     * - the caller must have a balance of at least `amount`.
+     * Clients calling this function must replace the `\{id\}` substring with the
+     * actual token type ID.
      */
-    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-        _transfer(_msgSender(), recipient, amount);
-        return true;
+    function uri(uint256) public view virtual override returns (string memory) {
+        return _uri;
     }
 
     /**
-     * @dev See {IERC20-allowance}.
-     */
-    function allowance(address owner, address spender) public view virtual override returns (uint256) {
-        return _allowances[owner][spender];
-    }
-
-    /**
-     * @dev See {IERC20-approve}.
-     *
-     * Requirements:
-     *
-     * - `spender` cannot be the zero address.
-     */
-    function approve(address spender, uint256 amount) public virtual override returns (bool) {
-        _approve(_msgSender(), spender, amount);
-        return true;
-    }
-
-    /**
-     * @dev See {IERC20-transferFrom}.
-     *
-     * Emits an {Approval} event indicating the updated allowance. This is not
-     * required by the EIP. See the note at the beginning of {ERC20}.
-     *
-     * Requirements:
-     *
-     * - `sender` and `recipient` cannot be the zero address.
-     * - `sender` must have a balance of at least `amount`.
-     * - the caller must have allowance for ``sender``'s tokens of at least
-     * `amount`.
-     */
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) public virtual override returns (bool) {
-        _transfer(sender, recipient, amount);
-
-        uint256 currentAllowance = _allowances[sender][_msgSender()];
-        require(currentAllowance >= amount, "ERC20: transfer amount exceeds allowance");
-        unchecked {
-            _approve(sender, _msgSender(), currentAllowance - amount);
-        }
-
-        return true;
-    }
-    
-    
-
-    /**
-     * @dev Moves `amount` of tokens from `sender` to `recipient`.
-     *
-     * This internal function is equivalent to {transfer}, and can be used to
-     * e.g. implement automatic token fees, slashing mechanisms, etc.
-     *
-     * Emits a {Transfer} event.
-     *
-     * Requirements:
-     *
-     * - `sender` cannot be the zero address.
-     * - `recipient` cannot be the zero address.
-     * - `sender` must have a balance of at least `amount`.
-     */
-    function _transfer(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) internal virtual {
-        require(sender != address(0), "ERC20: transfer from the zero address");
-        require(recipient != address(0), "ERC20: transfer to the zero address");
-
-        _beforeTokenTransfer(sender, recipient, amount);
-
-        uint256 senderBalance = _balances[sender];
-        require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
-        unchecked {
-            _balances[sender] = senderBalance - amount;
-        }
-        _balances[recipient] += amount;
-
-        emit Transfer(sender, recipient, amount);
-
-        _afterTokenTransfer(sender, recipient, amount);
-    }
-
-    /** @dev Creates `amount` tokens and assigns them to `account`, increasing
-     * the total supply.
-     *
-     * Emits a {Transfer} event with `from` set to the zero address.
+     * @dev See {IERC1155-balanceOf}.
      *
      * Requirements:
      *
      * - `account` cannot be the zero address.
      */
-    function _mint(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: mint to the zero address");
-
-        _beforeTokenTransfer(address(0), account, amount);
-
-        _totalSupply += amount;
-        _balances[account] += amount;
-        emit Transfer(address(0), account, amount);
-
-        _afterTokenTransfer(address(0), account, amount);
+    function balanceOf(address account, uint256 id) public view virtual override returns (uint256) {
+        require(account != address(0), "ERC1155: balance query for the zero address");
+        return _balances[id][account];
     }
 
     /**
-     * @dev Destroys `amount` tokens from `account`, reducing the
-     * total supply.
-     *
-     * Emits a {Transfer} event with `to` set to the zero address.
+     * @dev See {IERC1155-balanceOfBatch}.
      *
      * Requirements:
      *
-     * - `account` cannot be the zero address.
-     * - `account` must have at least `amount` tokens.
+     * - `accounts` and `ids` must have the same length.
      */
-    function _burn(address account, uint256 amount) internal virtual {
-        require(account != address(0), "ERC20: burn from the zero address");
+    function balanceOfBatch(address[] memory accounts, uint256[] memory ids)
+        public
+        view
+        virtual
+        override
+        returns (uint256[] memory)
+    {
+        require(accounts.length == ids.length, "ERC1155: accounts and ids length mismatch");
 
-        _beforeTokenTransfer(account, address(0), amount);
+        uint256[] memory batchBalances = new uint256[](accounts.length);
 
-        uint256 accountBalance = _balances[account];
-        require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
-        unchecked {
-            _balances[account] = accountBalance - amount;
+        for (uint256 i = 0; i < accounts.length; ++i) {
+            batchBalances[i] = balanceOf(accounts[i], ids[i]);
         }
-        _totalSupply -= amount;
 
-        emit Transfer(account, address(0), amount);
-
-        _afterTokenTransfer(account, address(0), amount);
+        return batchBalances;
     }
 
     /**
-     * @dev Sets `amount` as the allowance of `spender` over the `owner` s tokens.
+     * @dev See {IERC1155-setApprovalForAll}.
+     */
+    function setApprovalForAll(address operator, bool approved) public virtual override {
+        require(_msgSender() != operator, "ERC1155: setting approval status for self");
+
+        _operatorApprovals[_msgSender()][operator] = approved;
+        emit ApprovalForAll(_msgSender(), operator, approved);
+    }
+
+    /**
+     * @dev See {IERC1155-isApprovedForAll}.
+     */
+    function isApprovedForAll(address account, address operator) public view virtual override returns (bool) {
+        return _operatorApprovals[account][operator];
+    }
+
+    /**
+     * @dev See {IERC1155-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) public virtual override {
+        require(
+            from == _msgSender() || isApprovedForAll(from, _msgSender()),
+            "ERC1155: caller is not owner nor approved"
+        );
+        _safeTransferFrom(from, to, id, amount, data);
+    }
+
+    /**
+     * @dev See {IERC1155-safeBatchTransferFrom}.
+     */
+    function safeBatchTransferFrom(
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) public virtual override {
+        require(
+            from == _msgSender() || isApprovedForAll(from, _msgSender()),
+            "ERC1155: transfer caller is not owner nor approved"
+        );
+        _safeBatchTransferFrom(from, to, ids, amounts, data);
+    }
+
+
+
+    /**
+     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {_safeTransferFrom}.
      *
-     * This internal function is equivalent to `approve`, and can be used to
-     * e.g. set automatic allowances for certain subsystems, etc.
-     *
-     * Emits an {Approval} event.
+     * Emits a {TransferBatch} event.
      *
      * Requirements:
      *
-     * - `owner` cannot be the zero address.
-     * - `spender` cannot be the zero address.
+     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the
+     * acceptance magic value.
      */
-    function _approve(
-        address owner,
-        address spender,
-        uint256 amount
+    function _safeBatchTransferFrom(
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
     ) internal virtual {
-        require(owner != address(0), "ERC20: approve from the zero address");
-        require(spender != address(0), "ERC20: approve to the zero address");
+        require(ids.length == amounts.length, "ERC1155: ids and amounts length mismatch");
+        require(to != address(0), "ERC1155: transfer to the zero address");
 
-        _allowances[owner][spender] = amount;
-        emit Approval(owner, spender, amount);
+        address operator = _msgSender();
+
+        _beforeTokenTransfer(operator, from, to, ids, amounts, data);
+
+        for (uint256 i = 0; i < ids.length; ++i) {
+            uint256 id = ids[i];
+            uint256 amount = amounts[i];
+
+            uint256 fromBalance = _balances[id][from];
+            require(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
+            unchecked {
+                _balances[id][from] = fromBalance - amount;
+            }
+            _balances[id][to] += amount;
+        }
+
+        emit TransferBatch(operator, from, to, ids, amounts);
+
+        _doSafeBatchTransferAcceptanceCheck(operator, from, to, ids, amounts, data);
+    }
+    
+     function _doSafeBatchTransferAcceptanceCheck(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) private {
+        if (to.isContract()) {
+            try IERC1155ReceiverUpgradeable(to).onERC1155BatchReceived(operator, from, ids, amounts, data) returns (
+                bytes4 response
+            ) {
+                if (response != IERC1155ReceiverUpgradeable.onERC1155BatchReceived.selector) {
+                    revert("ERC1155: ERC1155Receiver rejected tokens");
+                }
+            } catch Error(string memory reason) {
+                revert(reason);
+            } catch {
+                revert("ERC1155: transfer to non ERC1155Receiver implementer");
+            }
+        }
     }
 
-    /**
-     * @dev Hook that is called before any transfer of tokens. This includes
-     * minting and burning.
-     *
-     * Calling conditions:
-     *
-     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
-     * will be transferred to `to`.
-     * - when `from` is zero, `amount` tokens will be minted for `to`.
-     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
-     * - `from` and `to` are never both zero.
-     *
-     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-     */
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual {}
 
-    /**
-     * @dev Hook that is called after any transfer of tokens. This includes
-     * minting and burning.
-     *
-     * Calling conditions:
-     *
-     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
-     * has been transferred to `to`.
-     * - when `from` is zero, `amount` tokens have been minted for `to`.
-     * - when `to` is zero, `amount` of ``from``'s tokens have been burned.
-     * - `from` and `to` are never both zero.
-     *
-     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-     */
-    function _afterTokenTransfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual {}
-    uint256[45] private __gap;
-    /**
-     * @dev Overwrite upgradable 
-     */
-    //function _authorizeUpgrade(address) internal override onlyOwner {}
+    uint256[47] private __gap;
 
 }

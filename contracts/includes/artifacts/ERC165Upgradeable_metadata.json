@@ -1,0 +1,86 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "bytes4",
+						"name": "interfaceId",
+						"type": "bytes4"
+					}
+				],
+				"name": "supportsInterface",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "Implementation of the {IERC165} interface. Contracts that want to implement ERC165 should inherit from this contract and override {supportsInterface} to check for the additional interface id that will be supported. For example: ```solidity function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId); } ``` Alternatively, {ERC165Storage} provides an easier to use but more expensive implementation.",
+			"kind": "dev",
+			"methods": {
+				"supportsInterface(bytes4)": {
+					"details": "See {IERC165-supportsInterface}."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/includes/ERC165Upgradeable.sol": "ERC165Upgradeable"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/includes/ERC165Upgradeable.sol": {
+			"keccak256": "0xb98d7f9e34f5bf265ca7268e074264882002645189b5e3da7535dad39568a2b4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bf301bffdb2be3524356154cb7f177c2544480696f1a83cb65b9ca7eaea3804e",
+				"dweb:/ipfs/QmUBrFapyM6DVtor2exBfhDgFUJgEN4kv6PxaUytzdoxhr"
+			]
+		},
+		"contracts/includes/IERC165Upgradeable.sol": {
+			"keccak256": "0xbfe6152f71bf950a4c1a0e4f0617a980ea891a410c430f63a8d5a146817cd10e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d5e327b8d4c8ad99d6bd7501bd30e8e0626797b027a41dfc0b070d176b1b9618",
+				"dweb:/ipfs/QmVSD4aLuq57Xoh4sWiLAHCqd7dVjfTRnWVgJn817fGynx"
+			]
+		},
+		"contracts/includes/Initializable.sol": {
+			"keccak256": "0x476523e15af92c3a58f7aba9ae2ee4f5dffac4ff3b3490cffaf2020f50c09b83",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fe615eefc638937427e9f0cad5a7538369971a8cc31d9247a4c670b7c266cc4c",
+				"dweb:/ipfs/QmRW3bh4qxhjPDbNxTm2nMpSa7qpjMbKSbtTSQ1rVtY4yn"
+			]
+		}
+	},
+	"version": 1
+}
