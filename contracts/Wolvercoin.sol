@@ -21,7 +21,7 @@ import "./includes/ContextUpgradeable.sol";
  * // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--
  *  
  */
-contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable  {
+contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable  {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
@@ -42,7 +42,7 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
     // initializer function and call the parent initializer of the contract you extend.
     function initialize() initializer public {
         OwnableUpgradeable.__Ownable_init();
-       __ERC20_init("Harvard-Westlake Coin", "HWC");
+       __ERC20_init("Wolvercoin", "WVC");
        _admin = msg.sender;
        //_mint(msg.sender, 1000 * 10 ** _decimals);
     }
@@ -70,7 +70,7 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
     address[][7] _addressesForClassPeriod;
     
     function addAddressForClassPeriod(uint256 period, address _address) public {
-        require(msg.sender == _admin, "HWCoin : Not admin");
+        require(msg.sender == _admin, "Wolvercoin : Not admin");
         _addressesForClassPeriod[period].push(_address);
     }
         
@@ -85,7 +85,7 @@ contract HWC is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgrad
     
     // Required for UUPSUpgradeable
     function _authorizeUpgrade(address) internal view override {
-        require(msg.sender == _admin, "HWCoin : Not admin");
+        require(msg.sender == _admin, "Wolvercoin : Not admin");
         
     }
     

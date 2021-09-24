@@ -484,7 +484,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/HWC.sol": "HWC"
+			"contracts/Wolvercoin.sol": "Wolvercoin"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -498,12 +498,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/HWC.sol": {
-			"keccak256": "0xf261043461860315baf0113b7321afc60aba83eb6064421076027de57c802ae4",
+		"contracts/Wolvercoin.sol": {
+			"keccak256": "0xaad165bdde22c1748c008dcf89ff39b52b0af3a2fbb61700fca17aa933be5a26",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://270b65da5b0a85f1208f413e822f5d4292ee25a54b57b005a5ec935de4534aa4",
-				"dweb:/ipfs/QmYvRqvWfq1ht9iPSew8PTNc5JbtH4Z7Bqwm6Hu5QHisfY"
+				"bzz-raw://57252531cf99bd8f0c1389f7ed6078541fe9b38ec751a53cdb92abff84496097",
+				"dweb:/ipfs/QmZPoE9rrrsXE4aF86LuVUVP7Eo13sGxdZjnKheGZsGb5R"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
