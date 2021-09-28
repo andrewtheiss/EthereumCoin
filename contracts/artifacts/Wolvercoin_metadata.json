@@ -306,6 +306,40 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "operator",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "onERC721Received",
+				"outputs": [
+					{
+						"internalType": "bytes4",
+						"name": "",
+						"type": "bytes4"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "owner",
 				"outputs": [
@@ -448,6 +482,9 @@
 				"balanceOf(address)": {
 					"details": "See {IERC20-balanceOf}."
 				},
+				"onERC721Received(address,address,uint256,bytes)": {
+					"details": "Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom} by `operator` from `from`, this function is called. It must return its Solidity selector to confirm the token transfer. If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted. The selector can be obtained in Solidity with `IERC721.onERC721Received.selector`."
+				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
 				},
@@ -499,11 +536,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0xaad165bdde22c1748c008dcf89ff39b52b0af3a2fbb61700fca17aa933be5a26",
+			"keccak256": "0x004c712730f529a4f31f96bc31c14f78d98ac38672851d7711bcaf94fdabc644",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://57252531cf99bd8f0c1389f7ed6078541fe9b38ec751a53cdb92abff84496097",
-				"dweb:/ipfs/QmZPoE9rrrsXE4aF86LuVUVP7Eo13sGxdZjnKheGZsGb5R"
+				"bzz-raw://9abc253c6a60605300b436ef2d78665bbf3ae564515f3ab8ae36202c54b6111f",
+				"dweb:/ipfs/QmafH9m7NQdttYoSju1FvnX5iYsEuTu2pwSkJUrRj6kj3x"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
@@ -568,6 +605,14 @@
 			"urls": [
 				"bzz-raw://9d91391ab027d9152e924594329c879ed167a261e0a1c7cd725e9bbd2822bea5",
 				"dweb:/ipfs/QmfTrf16iFJwPYC1wh6Uz86HM9JVrzfk24F9dT7BcX6gEP"
+			]
+		},
+		"contracts/includes/IERC721Receiver.sol": {
+			"keccak256": "0x90a757583c1a01e00be8727b6a738433278e37b88b24bb56e400aa76ea07755c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://414d83b8c805333eba2d96f8fab358fde720d998f3f4bb83d609cff6df560f4e",
+				"dweb:/ipfs/QmThgNkCR4Gv6Jz8cnXRJLomi1EzqHEstJPjfhELWqHWs1"
 			]
 		},
 		"contracts/includes/Initializable.sol": {

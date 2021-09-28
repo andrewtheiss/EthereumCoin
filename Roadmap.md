@@ -1,10 +1,10 @@
 # Prioritized list of TODO
 
 The following are to be done on testnet:
-  - Deploy ecr20 app to testnet
-  - Redeploy ecr20 app to testnet
-  - Create basic frontend to interact with ecr20 app
-  - Add new feature, Redeploy and verify that proxy is working code is updated
+  X Deploy ecr20 app to testnet
+  X Redeploy ecr20 app to testnet
+  X Create basic frontend to interact with ecr20 app
+  X Add new feature, Redeploy and verify that proxy is working code is updated
 
 Next:
   - Create ECR771 .sol contract minter for NFT creation

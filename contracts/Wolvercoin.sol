@@ -8,6 +8,7 @@ import './includes/Owner.sol';
 import "./includes/ERC20Upgradeable.sol";
 import "./includes/OwnableUpgradeable.sol";
 import "./includes/ContextUpgradeable.sol";
+import "./includes/IERC721Receiver.sol";
 
 /** 
  * TODO:
@@ -21,7 +22,7 @@ import "./includes/ContextUpgradeable.sol";
  * // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--
  *  
  */
-contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable  {
+contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable, IERC721Receiver  {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
@@ -89,8 +90,17 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         
     }
     
-    
-    
+    // TODO - Include SafeTransfer details, test this...
+    // https://docs.openzeppelin.com/contracts/3.x/api/token/erc721#ERC721-_safeTransfer-address-address-uint256-bytes-
+    // Handle IERC721Receiver implementation
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) public override returns (bytes4) {
+        return this.onERC721Received.selector ^ this.transfer.selector;
+    }
     
     
     /**
