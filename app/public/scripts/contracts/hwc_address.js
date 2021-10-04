@@ -1,3 +1,3 @@
-let HWC_ADDRESS = {
+let WVC_ADDRESS = {
   goerli : "0x701259d84b7e04828437AAf568c8Dc0D98e37141"
 };

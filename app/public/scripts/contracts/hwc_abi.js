@@ -1,4 +1,4 @@
-var ECR20_HWCABI = [
+var ECR20_WVCABI = [
 	{
 		"anonymous": false,
 		"inputs": [

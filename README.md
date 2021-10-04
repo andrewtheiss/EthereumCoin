@@ -55,7 +55,7 @@ After meeting with HW Crypto Club:  The following plans have been created.
 - Burn NTF Purchases
 - Pre Mine 62K
 - Start Auction (if admin, start auction for NFT address)
-    - Accept only HWC
+    - Accept only WVC
     - Mint function for admin?
  - Deposit to all class addresses
 

@@ -1,3 +1,3 @@
-let HWCoin = {
+let Wolvercoin = {
   currentAccount : ""
 };

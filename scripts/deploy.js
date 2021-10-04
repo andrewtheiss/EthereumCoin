@@ -11,11 +11,11 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const HWC = await hre.ethers.getContractFactory("HWC");
+  const WVC = await hre.ethers.getContractFactory("WVC");
 
   console.log("Getting contract factory");
 
-  const greeter = await HWC.deploy();
+  const greeter = await WVC.deploy();
 
   console.log("Awaiting deployment");
   await greeter.deployed();

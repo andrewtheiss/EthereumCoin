@@ -27,9 +27,9 @@ function showWalletConnected() {
   // Check and notify of wrong network
   checkAndNotifyOfWrongNetwork();
 
-// HWCoin.currentAccount
+// Wolvercoin.currentAccount
   const link = document.getElementById('link-to-etherscan');
-  let account = HWCoin.currentAccount.substring(0,5) + "..." +  HWCoin.currentAccount.substring(HWCoin.currentAccount.length-4, HWCoin.currentAccount.length);
+  let account = Wolvercoin.currentAccount.substring(0,5) + "..." +  Wolvercoin.currentAccount.substring(Wolvercoin.currentAccount.length-4, Wolvercoin.currentAccount.length);
   let chainSearch = "etherscan.io";
   switch (ethereum.chainId) {
     case "0x1" :
@@ -56,7 +56,7 @@ function showWalletConnected() {
     default:
       break;
   }
-  let scanLink = "https://" + chainSearch + "/address/" + HWCoin.currentAccount;
+  let scanLink = "https://" + chainSearch + "/address/" + Wolvercoin.currentAccount;
   link.href = scanLink;
   link.innerHTML = account;
 }
@@ -70,7 +70,7 @@ document.getElementById("wallet-connect-button").onclick = async function() {
 
     // Step 1 is giving metamask permission to access the website
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    HWCoin.currentAccount = accounts[0];
+    Wolvercoin.currentAccount = accounts[0];
     showWalletConnected();
 
     // Grab provider details
@@ -103,8 +103,8 @@ function handleAccountsChanged(accounts) {
   if (accounts.length === 0) {
     // MetaMask is locked or the user has not connected any accounts
     console.log('Please connect to MetaMask.');
-  } else if (accounts[0] !== HWCoin.currentAccount) {
-    HWCoin.currentAccount = accounts[0];
+  } else if (accounts[0] !== Wolvercoin.currentAccount) {
+    Wolvercoin.currentAccount = accounts[0];
     showWalletConnected();
   }
 }
