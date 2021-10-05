@@ -549,7 +549,7 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {},
-			"notice": "TODO:  Make sure it's upgradable:  TODO : include UUPS https://forum.openzeppelin.com/t/uups-proxies-tutorial-solidity-javascript/7786      https://docs.openzeppelin.com/learn/upgrading-smart-contracts      https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable  Weigh minting and fair launch vs max total supply and distribution    Make owner transferrable  Document and detail token details // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--  ",
+			"notice": "TODO:  Weigh minting and fair launch vs max total supply and distribution    Implement staking https://hackernoon.com/implementing-staking-in-solidity-1687302a82cf  Document and detail token details",
 			"version": 1
 		}
 	},
@@ -570,11 +570,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0xcf9fefa4f09b908eaac89b7e5fbba2eaae21fb06f63f867055d8cd651d30fc75",
+			"keccak256": "0x7c94f10d028736e29a8c2e8c3409c840df6dc4dbc7d3f9dae83bab2a74637cb1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://52f7b1c58b77e88bd7e4f942b2759d8d43809700720e7aa590d69d6c8b15a364",
-				"dweb:/ipfs/QmZZR1fBrGfanjnCqRLecpVoUHTsmoqCi65Qhf2RJRvYnH"
+				"bzz-raw://dd88676bb6c43985958a4910ace1e0ad240af0b54e1b77f346d8f5c0a29de720",
+				"dweb:/ipfs/QmeSBST95vynsNjbqkmfN8LfBMaouXSHLzR8Fq8xCn4yCF"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {

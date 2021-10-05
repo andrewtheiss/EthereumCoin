@@ -12,21 +12,18 @@ import "./includes/IERC721Receiver.sol";
 
 /** 
  * TODO:
- *  Make sure it's upgradable:
- *  TODO : include UUPS https://forum.openzeppelin.com/t/uups-proxies-tutorial-solidity-javascript/7786
- *      https://docs.openzeppelin.com/learn/upgrading-smart-contracts
- *      https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable
  *  Weigh minting and fair launch vs max total supply and distribution  
- *  Make owner transferrable
+ *  Implement staking https://hackernoon.com/implementing-staking-in-solidity-1687302a82cf
  *  Document and detail token details
- * // https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-totalSupply--
- *  
  */
 contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUPSUpgradeable, OwnableUpgradeable, IERC721Receiver  {
     mapping(address => uint256) private _balances;
-
+    mapping(address => uint256) private _stakeholders;
     mapping(address => mapping(address => uint256)) private _allowances;
-
+    
+    // Save max 7 class periods (store class lists so that we can distribute tokens to an entire class at a time)
+    address[][7] _addressesForClassPeriod;
+    
     uint256 private _totalSupply;
     string private _name;
     string private _symbol;
@@ -44,7 +41,6 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         OwnableUpgradeable.__Ownable_init();
        __ERC20_init("Wolvercoin", "WVC");
        _admin = msg.sender;
-       //_mint(msg.sender, 1000 * 10 ** _decimals);
     }
      
     function __ERC20_init(string memory name, string memory symbol) internal initializer {
@@ -59,15 +55,9 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         _decimals = 18;
         _totalSupply = 620000000000;  // 62 Billion with 18 decimals
         
-        // Create 10k supply for initial creator
-         _mint(msg.sender, 10000);
+        // Create 1k supply for initial creator
+         _mint(msg.sender, 1000);
     }
-    
-    
-    /// TODO ////////////// PUT ALL CLASS PERIOD CODE INTO INCLUDE FILE //////////////
-    // Save max 7 class periods
-    // Need to store class lists so that we can distribute tokens to an entire class at a time
-    address[][7] _addressesForClassPeriod;
     
     // Need to check for duplicates
     function addAddressForClassPeriod(uint256 period, address _address) public {
@@ -91,7 +81,7 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         return _addressesForClassPeriod[period];
     }
     
-    // Remove class period
+    // Remove all addresses for class period
     function removeAddressesForClassPeriod(uint256 period) public returns (address[] memory) {
         require(msg.sender == _admin, "Wolvercoin : Not admin");
         for (uint i = 0; i < _addressesForClassPeriod[period].length; i++) {
@@ -100,7 +90,7 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         return _addressesForClassPeriod[period];
     }
     
-    // Remove class period
+    // Remove addresses from class period
     function removeAddressFromClassPeriod(uint256 period, address _address) public returns (address[] memory) {
         require(msg.sender == _admin, "Wolvercoin : Not admin");
         
