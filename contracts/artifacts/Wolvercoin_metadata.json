@@ -157,30 +157,6 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "_periods1_to_7",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
 				"name": "_teachers",
@@ -309,22 +285,22 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "operator",
+						"name": "",
 						"type": "address"
 					},
 					{
 						"internalType": "address",
-						"name": "from",
+						"name": "",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "tokenId",
+						"name": "",
 						"type": "uint256"
 					},
 					{
 						"internalType": "bytes",
-						"name": "data",
+						"name": "",
 						"type": "bytes"
 					}
 				],
@@ -336,7 +312,7 @@
 						"type": "bytes4"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -353,8 +329,69 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "period",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_address",
+						"type": "address"
+					}
+				],
+				"name": "removeAddressFromClassPeriod",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "period",
+						"type": "uint256"
+					}
+				],
+				"name": "removeAddressesForClassPeriod",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "period",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "sendCoinToClassPeriod",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -482,9 +519,6 @@
 				"balanceOf(address)": {
 					"details": "See {IERC20-balanceOf}."
 				},
-				"onERC721Received(address,address,uint256,bytes)": {
-					"details": "Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom} by `operator` from `from`, this function is called. It must return its Solidity selector to confirm the token transfer. If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted. The selector can be obtained in Solidity with `IERC721.onERC721Received.selector`."
-				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
 				},
@@ -536,11 +570,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0x004c712730f529a4f31f96bc31c14f78d98ac38672851d7711bcaf94fdabc644",
+			"keccak256": "0xcf9fefa4f09b908eaac89b7e5fbba2eaae21fb06f63f867055d8cd651d30fc75",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9abc253c6a60605300b436ef2d78665bbf3ae564515f3ab8ae36202c54b6111f",
-				"dweb:/ipfs/QmafH9m7NQdttYoSju1FvnX5iYsEuTu2pwSkJUrRj6kj3x"
+				"bzz-raw://52f7b1c58b77e88bd7e4f942b2759d8d43809700720e7aa590d69d6c8b15a364",
+				"dweb:/ipfs/QmZZR1fBrGfanjnCqRLecpVoUHTsmoqCi65Qhf2RJRvYnH"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
@@ -656,11 +690,11 @@
 			]
 		},
 		"contracts/includes/UUPSUpgradeable.sol": {
-			"keccak256": "0xda1bc61b9dc67237e6b197b859b5ce85ad5b6e19fe761c18d6ff4bbb45ad7a48",
+			"keccak256": "0xa166b1970b4aee814415a5d505ca8603cf3ecff85a9b650df4e46cbf85f30e50",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7fa12ba5e349dec9ea9fd4a510a3dd75842d95f9083a7c84689c537bee155d9f",
-				"dweb:/ipfs/QmZwvSHuuZGxQEjCy5ihuC2XMUYj14AVyH7spMY7Ed6uUV"
+				"bzz-raw://637c343e856c084c1d270fd177aa5f4be620f1e5c203a4b95821b0011ec00eda",
+				"dweb:/ipfs/QmSjjAw5j3DDHB4cCcd3YaGrEZtQLp7g6sahxSLBM4D3MF"
 			]
 		}
 	},

@@ -34,7 +34,6 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
     address private _admin;
     
     // Save space for class periods so we can give coin to entire periods at once
-    address[][7] public _periods1_to_7;
     address[] public _teachers;
     address[] public _nextPayout;
     
@@ -70,13 +69,69 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
     // Need to store class lists so that we can distribute tokens to an entire class at a time
     address[][7] _addressesForClassPeriod;
     
+    // Need to check for duplicates
     function addAddressForClassPeriod(uint256 period, address _address) public {
         require(msg.sender == _admin, "Wolvercoin : Not admin");
-        _addressesForClassPeriod[period].push(_address);
+        
+        // See if they are in the period already
+        bool alreadyAdded = false;
+        for (uint i = 0; i < _addressesForClassPeriod[period].length; i++) {
+            if (_addressesForClassPeriod[period][i] == _address) {
+                alreadyAdded = true; 
+            }
+        }
+        
+        // Only add if not already in period
+        if (!alreadyAdded) {
+            _addressesForClassPeriod[period].push(_address);
+        }
     }
         
     function getAllAddressesForClassPeriod(uint256 period) public view returns (address[] memory) {
         return _addressesForClassPeriod[period];
+    }
+    
+    // Remove class period
+    function removeAddressesForClassPeriod(uint256 period) public returns (address[] memory) {
+        require(msg.sender == _admin, "Wolvercoin : Not admin");
+        for (uint i = 0; i < _addressesForClassPeriod[period].length; i++) {
+           _addressesForClassPeriod[period].pop();
+        }
+        return _addressesForClassPeriod[period];
+    }
+    
+    // Remove class period
+    function removeAddressFromClassPeriod(uint256 period, address _address) public returns (address[] memory) {
+        require(msg.sender == _admin, "Wolvercoin : Not admin");
+        
+        // Only remove if theree are addresses in this class
+        if (_addressesForClassPeriod[period].length > 0) {
+            bool addressExists = false;
+            uint256 addressToRemoveIndex = 0;
+            for (uint i = 0; i < _addressesForClassPeriod[period].length; i++) {
+                if (_addressesForClassPeriod[period][i] == _address) {
+                    addressExists = true;
+                    addressToRemoveIndex = i;   
+                }
+            }
+            
+            // Move the last 
+            if (addressExists) {
+                _addressesForClassPeriod[period][addressToRemoveIndex] = _addressesForClassPeriod[period][_addressesForClassPeriod[period].length - 1];
+                _addressesForClassPeriod[period].pop();
+            }
+        }
+        
+        return _addressesForClassPeriod[period];
+    }
+    
+    // Remove class period
+    function sendCoinToClassPeriod(uint256 period, uint256 amount ) public {
+        require(msg.sender == _admin, "Wolvercoin : Not admin");
+        
+        for (uint i = 0; i < _addressesForClassPeriod[period].length; i++) {
+           _mint(_addressesForClassPeriod[period][i], amount);
+        }
     }
     //////////////// END CLASS CODE ////////////////////////
     
@@ -94,11 +149,11 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
     // https://docs.openzeppelin.com/contracts/3.x/api/token/erc721#ERC721-_safeTransfer-address-address-uint256-bytes-
     // Handle IERC721Receiver implementation
     function onERC721Received(
-        address operator,
-        address from,
-        uint256 tokenId,
-        bytes calldata data
-    ) public override returns (bytes4) {
+        address,
+        address,
+        uint256,
+        bytes calldata 
+    ) public override pure returns (bytes4) {
         return this.onERC721Received.selector ^ this.transfer.selector;
     }
     

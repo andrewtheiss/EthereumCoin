@@ -1,0 +1,175 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "previousAdmin",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "newAdmin",
+						"type": "address"
+					}
+				],
+				"name": "AdminChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "beacon",
+						"type": "address"
+					}
+				],
+				"name": "BeaconUpgraded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "implementation",
+						"type": "address"
+					}
+				],
+				"name": "Upgraded",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newImplementation",
+						"type": "address"
+					}
+				],
+				"name": "upgradeTo",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newImplementation",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "upgradeToAndCall",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "An upgradeability mechanism designed for UUPS proxies. The functions included here can perform an upgrade of an {ERC1967Proxy}, when this contract is set as the implementation behind such a proxy. A security mechanism ensures that an upgrade does not turn off upgradeability accidentally, although this risk is reinstated if the upgrade retains upgradeability but removes the security mechanism, e.g. by replacing `UUPSUpgradeable` with a custom implementation of upgrades. The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism. _Available since v4.1._",
+			"kind": "dev",
+			"methods": {
+				"upgradeTo(address)": {
+					"details": "Upgrade the implementation of the proxy to `newImplementation`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
+				},
+				"upgradeToAndCall(address,bytes)": {
+					"details": "Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
+				}
+			},
+			"stateVariables": {
+				"__self": {
+					"custom:oz-upgrades-unsafe-allow": "state-variable-immutable state-variable-assignment"
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/includes/UUPSUpgradeable.sol": "UUPSUpgradeable"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/includes/AddressUpgradeable.sol": {
+			"keccak256": "0x01b96340fedbf63c993bc1716d4ef5f0bc8db0af2e0103a5b2c20ab398fc16d6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2daa051426bc70495e9911177c34716c5c113430879bbd1523592732b71fd433",
+				"dweb:/ipfs/QmdVEoUgKGG23CusFCmbRpp6XGho9x52BL1Fb9EsvuiT4g"
+			]
+		},
+		"contracts/includes/ERC1967UpgradeUpgradeable.sol": {
+			"keccak256": "0x83d939d8995eb21161d8951483d898a5de008579cc52c8b7858b13e12ee172d8",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://775268d680a5e970cda22281c81ef3ce57fa5aae0d55736a58670a6ca57f3917",
+				"dweb:/ipfs/QmWAEWoDZGxBe64khAdVq4W5MHzxuuPUDiVa2KbarkUBRG"
+			]
+		},
+		"contracts/includes/IBeaconUpgradeable.sol": {
+			"keccak256": "0x1440f4b82d718504a4a5faf89faa03953fbd083546a37633d03bdfb770d8e5ce",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://03fe0b015fdc5a562d17a72b32513cf9722884c49dc8c3ef268d6dbe35d6a2e5",
+				"dweb:/ipfs/QmefBnrGjTSi8pbzNNKDpahPC39tDuTHb94p3nW5TKps5X"
+			]
+		},
+		"contracts/includes/Initializable.sol": {
+			"keccak256": "0x476523e15af92c3a58f7aba9ae2ee4f5dffac4ff3b3490cffaf2020f50c09b83",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fe615eefc638937427e9f0cad5a7538369971a8cc31d9247a4c670b7c266cc4c",
+				"dweb:/ipfs/QmRW3bh4qxhjPDbNxTm2nMpSa7qpjMbKSbtTSQ1rVtY4yn"
+			]
+		},
+		"contracts/includes/StorageSlotUpgradeable.sol": {
+			"keccak256": "0x318f02419d5b62ef2b7b089192d25ae1fccd0cb2ba60764ea276157d65e8dc62",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8ea32e6014a4e9989e3693481a84742ef5245520fc0444363117f61a9e45870f",
+				"dweb:/ipfs/QmYsUEWDEKCxcpepirVp3TqJytPpRvP7dhWpS5Y77gWTVp"
+			]
+		},
+		"contracts/includes/UUPSUpgradeable.sol": {
+			"keccak256": "0xa166b1970b4aee814415a5d505ca8603cf3ecff85a9b650df4e46cbf85f30e50",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://637c343e856c084c1d270fd177aa5f4be620f1e5c203a4b95821b0011ec00eda",
+				"dweb:/ipfs/QmSjjAw5j3DDHB4cCcd3YaGrEZtQLp7g6sahxSLBM4D3MF"
+			]
+		}
+	},
+	"version": 1
+}
