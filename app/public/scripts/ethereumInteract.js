@@ -75,14 +75,13 @@ document.getElementById('addWalletToClass').onclick = async function() {
   let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
   let walletId = document.getElementById('addWalletToClass_WalletId');
   if (classPeriod.value.length > 0 && walletId.value.length > 0) {
-    await WolvercoinContract.methods.addAddressForClassPeriod(classPeriod.value, walletId.value).call(function (err, res) {
-      if (err) {
-        console.log("An error occured", err)
-        return
-      }
-      console.log("Wallet " + walletId.value + " has been added to class period " + classPeriod.value, res)
+    // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
+    await WolvercoinContract.methods.addAddressForClassPeriod(classPeriod.value, walletId.value)
+    .send({from : '0x9c3C6ff39f65689ED820476362615a347bB23b3F'})
+    .then(function(result) {
+      console.log(result);
     });
-  }
+  };
 };
 
 
