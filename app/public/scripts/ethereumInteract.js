@@ -50,28 +50,72 @@ document.getElementById('testContractInteraction').onclick = async function() {
 };
 
 
+document.getElementById('getWalletsForClass').onclick = async function() {
+
+  var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+  const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
+
+  await WolvercoinContract.methods.getAllAddressesForClassPeriod(1).call(function (err, res) {
+    if (err) {
+      console.log("An error occured", err)
+      return
+    }
+    console.log("The balance is: ", res)
+  });
+
+};
+
+
+document.getElementById('addWalletToClass').onclick = async function() {
+
+  var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+  const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
+
+  // Document elements
+  let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
+  let walletId = document.getElementById('addWalletToClass_WalletId');
+  if (classPeriod.value.length > 0 && walletId.value.length > 0) {
+    await WolvercoinContract.methods.addAddressForClassPeriod(classPeriod.value, walletId.value).call(function (err, res) {
+      if (err) {
+        console.log("An error occured", err)
+        return
+      }
+      console.log("Wallet " + walletId.value + " has been added to class period " + classPeriod.value, res)
+    });
+  }
+};
+
+
+
 var WVC = (async function (wind, doc) {
   // private
   const adminAddress = "0x9c3C6ff39f65689ED820476362615a347bB23b3F";
   var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
-  const hwcTokenContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
+  const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
 
   // Document elements
   let walletBalanceDiv = doc.getElementById('walletBalance');
   let stakedBalanceDiv = doc.getElementById('stakedBalance');
 
-    await hwcTokenContract.methods.balanceOf(adminAddress).call(function (err, res) {
-      if (err) {
-        console.log("An error occured", err)
-        return
-      }
-      walletBalanceDiv.innerHTML = res;
-      console.log("The balance is: ", res)
-    })
+  await WolvercoinContract.methods.balanceOf(adminAddress).call(function (err, res) {
+    if (err) {
+      console.log("An error occured", err)
+      return
+    }
+    walletBalanceDiv.innerHTML = res;
+    console.log("The balance is: ", res)
+  });
+  await WolvercoinContract.methods.owner().call(function (err, res) {
+    if (err) {
+      console.log("An error occured", err)
+      return
+    }
+    console.log("The admin is: ", res)
+  });
 
   // WVC gets set to this!
   return {
-    contract : hwcTokenContract,
+    contract : WolvercoinContract,
     provider : web3
   };
 }(window, document));
