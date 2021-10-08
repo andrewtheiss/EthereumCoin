@@ -103,7 +103,7 @@ document.getElementById('sendCoinToClassPeriod').onclick = async function() {
 
 
 document.getElementById('addCoinToMetamask').onclick = async function() {
-  alert("Contract Address: " + WVC_ADDRESS.goerli);
+  //alert("Contract Address: " + WVC_ADDRESS.goerli);
   const tokenAddress = WVC_ADDRESS.goerli;
   const tokenSymbol = 'WVC';
   const tokenDecimals = 18;
