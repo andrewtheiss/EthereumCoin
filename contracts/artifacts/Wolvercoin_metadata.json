@@ -570,11 +570,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0x7c94f10d028736e29a8c2e8c3409c840df6dc4dbc7d3f9dae83bab2a74637cb1",
+			"keccak256": "0xfe5e904dec073aa815d0b8ddf684e181d52526e7225105e4744491bbc87622a8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://dd88676bb6c43985958a4910ace1e0ad240af0b54e1b77f346d8f5c0a29de720",
-				"dweb:/ipfs/QmeSBST95vynsNjbqkmfN8LfBMaouXSHLzR8Fq8xCn4yCF"
+				"bzz-raw://2dc48ac1ee614e28b73c7136328e7c8350737b11f2572d9f6a443b2ef24255d3",
+				"dweb:/ipfs/QmRiQzwu9MwsKzRZG5EZNJCdXhAqLfo4qZ8E1h46G5g2xd"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {

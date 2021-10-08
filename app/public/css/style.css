@@ -349,3 +349,11 @@ body {
   padding: 10px;
   width: 400px;
 }
+
+.crypto-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 10px;
+  background-image: url('/wcoin.png');
+  background-size: contain;
+}

@@ -53,10 +53,10 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         _name = name;
         _symbol = symbol;
         _decimals = 18;
-        _totalSupply = 620000000000;  // 62 Billion with 18 decimals
+        _totalSupply = 62000000000000000000000000000;  // 62 Billion with 18 decimals
         
         // Create 1k supply for initial creator
-         _mint(msg.sender, 1000);
+         _mint(msg.sender, 1000000000000000000000);
     }
     
     // Need to check for duplicates
