@@ -136,44 +136,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "_nextPayout",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "_teachers",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "period",
 						"type": "uint256"
 					},
@@ -279,6 +241,19 @@
 				"name": "initialize",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "maxSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -394,6 +369,25 @@
 				"name": "sendCoinToClassPeriod",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "stakedBalanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -570,11 +564,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0xfe5e904dec073aa815d0b8ddf684e181d52526e7225105e4744491bbc87622a8",
+			"keccak256": "0xa73e4e9c5eda02b000f598fe7e5cba06e28fe265462b330a32436a6eb2a260e9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2dc48ac1ee614e28b73c7136328e7c8350737b11f2572d9f6a443b2ef24255d3",
-				"dweb:/ipfs/QmRiQzwu9MwsKzRZG5EZNJCdXhAqLfo4qZ8E1h46G5g2xd"
+				"bzz-raw://58b33902a6a70cf018df9f8cb9f0a04d2ccf5bd7c7511c90f7089c62e2f0c229",
+				"dweb:/ipfs/QmXzziSqqsGYfqnw5NxEg8pDLZXQYbw5PcxzC7FihN3H7o"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {

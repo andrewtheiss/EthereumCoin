@@ -9,6 +9,67 @@ function checkAndNotifyOfWrongNetwork() {
 
 }
 
+async function showBalances() {
+
+    if (!Wolvercoin.currentAccount) {
+      return;
+    }
+
+    var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+    const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
+
+    // Document elements
+    let walletBalanceDiv = document.getElementById('walletBalance');
+    let stakedBalanceDiv = document.getElementById('stakedBalance');
+
+    await WolvercoinContract.methods.balanceOf(Wolvercoin.currentAccount).call(function (err, res) {
+      if (err) {
+        console.log("An error occured", err)
+        return
+      }
+      let balance = Number(res) / Math.pow(10,18);
+      if (balance < 0.0001) {
+        if (balance == 0) {
+          balance = '0';
+        } else {
+          balance = "< 0.0001";
+        }
+      }
+      walletBalanceDiv.innerHTML = balance;
+      console.log("The balance is: ", res)
+    });
+
+    await WolvercoinContract.methods.stakedBalanceOf(Wolvercoin.currentAccount).call(function (err, res) {
+      if (err) {
+        console.log("An error occured", err)
+        return
+      }
+      let balance = Number(res) / Math.pow(10,18);
+      if (balance < 0.0001) {
+        if (balance == 0) {
+          balance = '0';
+        } else {
+          balance = "< 0.0001";
+        }
+      }
+      stakedBalanceDiv.innerHTML = balance;
+      console.log("The balance is: ", res)
+    });
+
+    await WolvercoinContract.methods.owner().call(function (err, res) {
+      if (err) {
+        console.log("An error occured", err)
+        return
+      }
+      console.log("The admin is: ", res)
+    });
+
+    // WVC gets set to this!
+    Wolvercoin.contract = WolvercoinContract;
+    Wolvercoin.provider = web3;
+
+}
+
 /**
  * showWalletConnected
  *    will update all UI elements given the connected account
@@ -17,11 +78,18 @@ function showWalletConnected() {
   const el = document.querySelector('#wallet-connected');
   if (el.classList.contains("hidden")) {
     el.classList.remove("hidden");
-
   }
+
   const el2 = document.querySelector('#wallet-connect-button');
   if (!el2.classList.contains("hidden")) {
     el2.classList.add("hidden");
+  }
+
+  if (Wolvercoin.currentAccount == '0x9c3c6ff39f65689ed820476362615a347bb23b3f') {
+      const el = document.querySelector('#isAdminOnly');
+      if (el.classList.contains("hidden")) {
+        el.classList.remove("hidden");
+      }
   }
 
   // Check and notify of wrong network
@@ -72,6 +140,7 @@ document.getElementById("wallet-connect-button").onclick = async function() {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     Wolvercoin.currentAccount = accounts[0];
     showWalletConnected();
+    showBalances();
 
     // Grab provider details
     const provider = await detectEthereumProvider()// Request account access if needed
@@ -123,6 +192,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 });
 
+ethereum.on('disconnect', (accounts) => {
+  window.location.reload();
+});
+
 ethereum.on('accountsChanged', (accounts) => {
   // Handle the new accounts, or lack thereof.
   // "accounts" will always be an array, but it can be empty.
@@ -139,64 +212,65 @@ ethereum.on('chainChanged', (chainId) => {
 
 async function swtichToPolygonNetwork() {
   // Swtich Eth chain to desired mainnet
+  let goerli = {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "wallet_addEthereumChain",
+      "params": [
+        {
+          "chainId": "0x5",
+          "chainName": "Goerli",
+          "rpcUrls": ["https://goerli.infura.io/v3/INSERT_API_KEY_HERE"],
+          "nativeCurrency": {
+            "name": "Goerli ETH",
+            "symbol": "gorETH",
+            "decimals": 18
+          },
+          "blockExplorerUrls": ["https://goerli.etherscan.io"]
+        }
+      ]
+    };
+
+    let matic = {
+      method: 'wallet_addEthereumChain',
+      params: [{
+        // MUST specify the integer ID of the chain as a hexadecimal string, per the eth_chainId Ethereum RPC method.
+        // The wallet SHOULD compare the specified chainId value with the eth_chainId return value from the endpoint.
+        // If these values are not identical, the wallet MUST reject the request.
+        chainId: '0x89',
+
+        // If provided, MUST specify one or more URLs pointing to RPC endpoints that can be used to communicate with the chain.
+        rpcUrls: ['https://rpc-mainnet.matic.network'],
+
+        // Seriously you need a comment for this?
+        symbol: 'MATIC',
+
+        // If provided, MUST specify one or more URLs pointing to block explorer web sites for the chain.
+        blockExplorerUrls : ['https://polygonscan.com/'],
+
+        nativeCurrency: {
+          name: "MATIC",
+          symbol: "MATIC",
+          decimals: 18
+        },
+
+        // If provided, MUST specify a human-readable name for the chain.
+        chainName : 'Polygon'
+       }]
+    };
+
+    let chain = goerli;
+
   try {
     await ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0x89' }],
+      params: [{ chainId: chain.params.chainId }],
     });
   } catch (switchError) {
     // This error code indicates that the chain has not been added to MetaMask.
     if (switchError.code === 4902) {
-
-      //
-    let goerli = {
-        "id": 1,
-        "jsonrpc": "2.0",
-        "method": "wallet_addEthereumChain",
-        "params": [
-          {
-            "chainId": "0x5",
-            "chainName": "Goerli",
-            "rpcUrls": ["https://goerli.infura.io/v3/INSERT_API_KEY_HERE"],
-            "nativeCurrency": {
-              "name": "Goerli ETH",
-              "symbol": "gorETH",
-              "decimals": 18
-            },
-            "blockExplorerUrls": ["https://goerli.etherscan.io"]
-          }
-        ]
-      };
-
-      let matic = {
-        method: 'wallet_addEthereumChain',
-        params: [{
-          // MUST specify the integer ID of the chain as a hexadecimal string, per the eth_chainId Ethereum RPC method.
-          // The wallet SHOULD compare the specified chainId value with the eth_chainId return value from the endpoint.
-          // If these values are not identical, the wallet MUST reject the request.
-          chainId: '0x89',
-
-          // If provided, MUST specify one or more URLs pointing to RPC endpoints that can be used to communicate with the chain.
-          rpcUrls: ['https://rpc-mainnet.matic.network'],
-
-          // Seriously you need a comment for this?
-          symbol: 'MATIC',
-
-          // If provided, MUST specify one or more URLs pointing to block explorer web sites for the chain.
-          blockExplorerUrls : ['https://polygonscan.com/'],
-
-          nativeCurrency: {
-            name: "MATIC",
-            symbol: "MATIC",
-            decimals: 18
-          },
-
-          // If provided, MUST specify a human-readable name for the chain.
-          chainName : 'Polygon'
-         }]
-      };
       try {
-        await ethereum.request(matic);
+        await ethereum.request(chain);
       } catch (addError) {
         // handle "add" error
       }

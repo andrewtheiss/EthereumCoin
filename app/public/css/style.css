@@ -62,7 +62,7 @@ body {
 
 .outer-container {
   background-color: rgb(255, 255, 255);
-  padding-bottom: 65px;
+  padding-bottom: 30px;
 }
 
 .container {
@@ -356,4 +356,12 @@ body {
   margin-right: 10px;
   background-image: url('/wcoin.png');
   background-size: contain;
+}
+
+.load-hide {
+  display: none;
+}
+
+.admin-only.hidden {
+  display: none;
 }

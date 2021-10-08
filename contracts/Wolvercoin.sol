@@ -25,14 +25,14 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
     address[][7] _addressesForClassPeriod;
     
     uint256 private _totalSupply;
+    uint256 private _maxSupply;
     string private _name;
     string private _symbol;
     uint8 private _decimals;
     address private _admin;
     
     // Save space for class periods so we can give coin to entire periods at once
-    address[] public _teachers;
-    address[] public _nextPayout;
+    //address[] private _teachers;
     
     // Constructors are replaced by internal initializer functions following the naming convention
     //  __{ContractName}_init. Since these are internal, you must always define your own public 
@@ -53,7 +53,8 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         _name = name;
         _symbol = symbol;
         _decimals = 18;
-        _totalSupply = 62000000000000000000000000000;  // 62 Billion with 18 decimals
+        _totalSupply = 0; 
+        _maxSupply = 62000000000000000000000000000;  // 62 Billion with 18 decimals
         
         // Create 1k supply for initial creator
          _mint(msg.sender, 1000000000000000000000);
@@ -76,6 +77,7 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
             _addressesForClassPeriod[period].push(_address);
         }
     }
+    
         
     function getAllAddressesForClassPeriod(uint256 period) public view returns (address[] memory) {
         return _addressesForClassPeriod[period];
@@ -155,6 +157,10 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         return _totalSupply;
     }
     
+    function maxSupply() public view returns (uint256) {
+        return _maxSupply;
+    }
+    
     /**
      * @dev See {IERC20-balanceOf}.
      */
@@ -162,6 +168,9 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
         return _balances[account];
     }
 
+    function stakedBalanceOf(address account) public view returns (uint256) {
+        return _stakeholders[account];
+    }
     /**
      * @dev See {IERC20-transfer}.
      *

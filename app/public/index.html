@@ -29,10 +29,10 @@
         <div class="menu-container">
           <div class="logo-container"><a class="logo-link" href="/">Wolvercoin</a></div>
           <div class="menu-items">
-            <a class="menu-item active" href="/balance">Balances</a>
-            <a class="menu-item " href="/nfts">NFTs</a>
-            <a class="menu-item " href="/announcements">Announcements</a>
-            <a class="menu-item " href="/docs">Docs</a>
+            <a class="menu-item active" href="/">Balances</a>
+            <a class="menu-item " href="/#nfts">NFTs</a>
+            <a class="menu-item " href="/#announcements">Announcements</a>
+            <a class="menu-item " href="/#docs">Docs</a>
           </div>
           <div class="wallet-info">
             <div id="wallet-connected" class="wallet-connected-container hidden">
@@ -73,20 +73,54 @@
         </div>
       </div>
     </div>
-    <button id="testContractInteraction">Check Balance</button>
-    <button id="getWalletsForClass">Get Wallets For Class</button>
-    <div class="add-wallet-to-class">
-      <button id="addWalletToClass">Add Wallet To Class</button>
-      <br />
-      <label for="addWalletToClass_ClassPeriod">Class Period:</label>
-      <input type="text" size="4" id="addWalletToClass_ClassPeriod"></input>
-      <br />
-      <label for="addWalletToClass_WalletId">Wallet Id:</label>
-      <input type="text" size="40" id="addWalletToClass_WalletId"></input>
+    <div id="isAdminOnly" class="admin-only hidden">
+      <div class="add-wallet-to-class">
+        <button id="checkBalanceForWallet">Check Balance</button>
+        <br />
+        <label for="checkBalanceForWallet_WalletId">Wallet Id:</label>
+        <input type="text" size="40" id="checkBalanceForWallet_WalletId"></input>
+      </div>
+
+      <div class="add-wallet-to-class">
+        <button id="getWalletsForClass">Get Wallets For Class</button>
+        <br />
+        <label for="getWalletsForClass_ClassPeriod">Class Period:</label>
+        <input type="text" size="4" id="getWalletsForClass_ClassPeriod"></input>
+      </div>
+      <div class="add-wallet-to-class">
+        <button id="addWalletToClass">Add Wallet To Class</button>
+        <br />
+        <label for="addWalletToClass_ClassPeriod">Class Period:</label>
+        <input type="text" size="4" id="addWalletToClass_ClassPeriod"></input>
+        <br />
+        <label for="addWalletToClass_WalletId">Wallet Id:</label>
+        <input type="text" size="40" id="addWalletToClass_WalletId"></input>
+      </div>
+
+      <div class="add-wallet-to-class">
+        <button id="removeWalletFromClass">Remove Wallet From Class</button>
+        <br />
+        <label for="removeWalletFromClass_ClassPeriod">Class Period:</label>
+        <input type="text" size="4" id="removeWalletFromClass_ClassPeriod"></input>
+        <br />
+        <label for="removeWalletFromClass_WalletId">Wallet Id:</label>
+        <input type="text" size="40" id="removeWalletFromClass_WalletId"></input>
+      </div>
+
+      <div class="add-wallet-to-class">
+        <button id="sendCoinToClassPeriod">Send Coin to Class</button>
+        <br />
+        <label for="sendCoinToClassPeriod_ClassPeriod">Class Period:</label>
+        <input type="text" size="4" id="sendCoinToClassPeriod_ClassPeriod"></input>
+        <br />
+        <label for="sendCoinToClassPeriod_amount">Amount:</label>
+        <input type="text" size="8" id="sendCoinToClassPeriod_amount"></input>
+      </div>
+
+
     </div>
-    <button id="removeWalletFromClass">Remove Wallet From Class</button>
   </div>
-  <p id="load">Firebase SDK Loading&hellip;</p>
+  <p id="load" class="load-hide"></p>
 </body>
 
 <script src="scripts/firebaseInitialize.js"></script>
