@@ -22,7 +22,7 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
     mapping(address => mapping(address => uint256)) private _allowances;
     
     // Save max 7 class periods (store class lists so that we can distribute tokens to an entire class at a time)
-    address[][7] _addressesForClassPeriod;
+    address[][7] private _addressesForClassPeriod;
     
     uint256 private _totalSupply;
     uint256 private _maxSupply;

@@ -6,7 +6,7 @@
 const { ethers, upgrades } = require('hardhat');
 
 async function main () {
-  const WVCProxyAddress = "0x67191edc9a99F06534dEa33daD88B8103748cD66";
+  const WVCProxyAddress = "0x9615f92DC41613cD06497330B4e2a8FE570ABb24";
   const WVCUpgrade = await ethers.getContractFactory('Wolvercoin');
   console.log('Deploying WVC Upgrade...');
   const wvc = await upgrades.upgradeProxy(

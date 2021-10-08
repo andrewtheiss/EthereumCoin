@@ -564,11 +564,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0xa73e4e9c5eda02b000f598fe7e5cba06e28fe265462b330a32436a6eb2a260e9",
+			"keccak256": "0x52d1a95ddffc18c3a6b53b53750548057881562926eb606086b69aa6c786f182",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://58b33902a6a70cf018df9f8cb9f0a04d2ccf5bd7c7511c90f7089c62e2f0c229",
-				"dweb:/ipfs/QmXzziSqqsGYfqnw5NxEg8pDLZXQYbw5PcxzC7FihN3H7o"
+				"bzz-raw://fe4214aa3e8c1c74d039bb229677dbd8a2ed8a807e665b7486857052388f0dc8",
+				"dweb:/ipfs/QmWQDENdj8ti7MSDssg8EjxVHvqyC2ukNUVzZoSkrGKeUT"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {

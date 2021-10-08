@@ -8,12 +8,20 @@ document.getElementById('checkBalanceForWallet').onclick = async function() {
   if (walletId.length < 10) {
     return;
   }
-  await WolvercoinContract.methods.getAllAddressesForClassPeriod(walletId).call(function (err, res) {
+  await WolvercoinContract.methods.balanceOf(walletId).call(function (err, res) {
     if (err) {
       console.log("An error occured", err)
       return
     }
-    console.log("The wallet balance is " + res);
+    let balance = Number(res) / Math.pow(10,18);
+    if (balance < 0.0001) {
+      if (balance == 0) {
+        balance = '0';
+      } else {
+        balance = "< 0.0001";
+      }
+    }
+    console.log("The wallet balance is " + balance);
   });
 };
 
@@ -23,7 +31,7 @@ document.getElementById('getWalletsForClass').onclick = async function() {
   const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
 
   let classPeriod = document.getElementById('getWalletsForClass_ClassPeriod').value;
-  if (!isNaN(classPeriod)) {
+  if (isNaN(classPeriod)) {
     classPeriod = 0;
   }
   await WolvercoinContract.methods.getAllAddressesForClassPeriod(classPeriod).call(function (err, res) {
@@ -31,7 +39,8 @@ document.getElementById('getWalletsForClass').onclick = async function() {
       console.log("An error occured", err)
       return
     }
-    console.log("The wallets for this period are:" + JSON.stringify(res));
+    let walletsForPeriod = document.getElementById('walletsForPeriod');
+    walletsForPeriod.innerHTML = "The wallets for period " + classPeriod + " are: " + JSON.stringify(res);
   });
 };
 
@@ -63,7 +72,7 @@ document.getElementById('removeWalletFromClass').onclick = async function() {
   let walletId = document.getElementById('removeWalletFromClass_WalletId');
   if (classPeriod.value.length > 0 && walletId.value.length > 0) {
     // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
-    await WolvercoinContract.methods.removeAddressForClassPeriod(classPeriod.value, walletId.value)
+    await WolvercoinContract.methods.removeAddressFromClassPeriod(classPeriod.value, walletId.value)
     .send({from : Wolvercoin.currentAccount})
     .then(function(result) {
       console.log(result);
