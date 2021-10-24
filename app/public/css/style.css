@@ -365,3 +365,26 @@ body {
 .admin-only.hidden {
   display: none;
 }
+
+.switch-network {
+  margin: 0px auto;
+  text-align: center;
+  padding: 10px 0px 0px 0px;
+}
+.switch-network.hidden {
+  display: none;
+}
+
+.switch-network-button {
+  font-weight: 600;
+  padding: 5px 20px;
+  border: 2px solid #ff5555;
+  background-color: red;
+  border-radius: 7px;
+}
+.switch-network-button:hover {
+  background-color: #dd0000;
+}
+.switch-network-button:active {
+border: 2px solid #dd3333;
+}

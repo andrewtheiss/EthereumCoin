@@ -1,13 +1,41 @@
-let NETWORK_ENV = 'DEV'; // 'PROD' is
+
+
 
 /**
  *
  *  Check if on polygon network or testnet and
  */
-function checkAndNotifyOfWrongNetwork() {
-  // Check network ID's : Move this to a config file
+async function checkAndNotifyOfWrongNetwork() {
 
+  const provider = await detectEthereumProvider();
+  if (provider) {
+    const chainId = await provider.request({
+        method: 'eth_chainId'
+      })
+      console.log(chainId);
+
+      // If the current blockchain is not the desired network, show the button to switch
+      const containerElement = document.querySelector('#switch-network');
+      const buttonElement = document.querySelector('#switch-network-button');
+      let env = NETWORK[ENV];            // dev or prod
+      let env_name = NETWORK.NAME[env];  // goerli or matic
+      if (chainId != NETWORK.CHAIN_ID[NETWORK[ENV]]) {
+        if (containerElement.classList.contains("hidden")) {
+          containerElement.classList.remove("hidden");
+        }
+        buttonElement.innerHTML = "Wrong Network!  Click to connect to " + env_name + "";
+      } else {
+        if (!containerElement.classList.contains("hidden")) {
+          containerElement.classList.add("hidden");
+        }
+      }
+  }
 }
+
+
+document.getElementById("switch-network-button").onclick = async function() {
+ switchToCorrectNetwork();
+};
 
 async function showBalances() {
 
@@ -133,7 +161,7 @@ function showWalletConnected() {
  *  Create button event to connect MetaMask account
  */
 document.getElementById("wallet-connect-button").onclick = async function() {
-  swtichToPolygonNetwork();
+  switchToCorrectNetwork();
   try {
 
     // Step 1 is giving metamask permission to access the website
@@ -210,67 +238,21 @@ ethereum.on('chainChanged', (chainId) => {
 
 
 
-async function swtichToPolygonNetwork() {
-  // Swtich Eth chain to desired mainnet
-  let goerli = {
-      "id": 1,
-      "jsonrpc": "2.0",
-      "method": "wallet_addEthereumChain",
-      "params": [
-        {
-          "chainId": "0x5",
-          "chainName": "Goerli",
-          "rpcUrls": ["https://goerli.infura.io/v3/INSERT_API_KEY_HERE"],
-          "nativeCurrency": {
-            "name": "Goerli ETH",
-            "symbol": "gorETH",
-            "decimals": 18
-          },
-          "blockExplorerUrls": ["https://goerli.etherscan.io"]
-        }
-      ]
-    };
-
-    let matic = {
-      method: 'wallet_addEthereumChain',
-      params: [{
-        // MUST specify the integer ID of the chain as a hexadecimal string, per the eth_chainId Ethereum RPC method.
-        // The wallet SHOULD compare the specified chainId value with the eth_chainId return value from the endpoint.
-        // If these values are not identical, the wallet MUST reject the request.
-        chainId: '0x89',
-
-        // If provided, MUST specify one or more URLs pointing to RPC endpoints that can be used to communicate with the chain.
-        rpcUrls: ['https://rpc-mainnet.matic.network'],
-
-        // Seriously you need a comment for this?
-        symbol: 'MATIC',
-
-        // If provided, MUST specify one or more URLs pointing to block explorer web sites for the chain.
-        blockExplorerUrls : ['https://polygonscan.com/'],
-
-        nativeCurrency: {
-          name: "MATIC",
-          symbol: "MATIC",
-          decimals: 18
-        },
-
-        // If provided, MUST specify a human-readable name for the chain.
-        chainName : 'Polygon'
-       }]
-    };
-
-    let chain = goerli;
+async function switchToCorrectNetwork() {
+  let env = NETWORK[ENV];            // dev or prod
+  let env_name = NETWORK.NAME[env];  // goerli or matic
+  let chainParams = NETWORK.PARAMS[env_name]  // Object of all params, ID, jsonrpc.. etc
 
   try {
     await ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: chain.params.chainId }],
+      params: [{ chainId: chainParams.params[0].chainId }],
     });
   } catch (switchError) {
     // This error code indicates that the chain has not been added to MetaMask.
     if (switchError.code === 4902) {
       try {
-        await ethereum.request(chain);
+        await ethereum.request(chainParams);
       } catch (addError) {
         // handle "add" error
       }
@@ -279,3 +261,11 @@ async function swtichToPolygonNetwork() {
   }
 
 }
+
+// Counter to continue checking for network
+(async function (wind, doc) {
+
+    wind.checkChain = setInterval(function() {
+        checkAndNotifyOfWrongNetwork();
+    }, 3000);
+})(window, document);
