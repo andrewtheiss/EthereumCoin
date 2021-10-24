@@ -12,7 +12,6 @@ async function checkAndNotifyOfWrongNetwork() {
     const chainId = await provider.request({
         method: 'eth_chainId'
       })
-      console.log(chainId);
 
       // If the current blockchain is not the desired network, show the button to switch
       const containerElement = document.querySelector('#switch-network');

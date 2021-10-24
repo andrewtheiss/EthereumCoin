@@ -23,11 +23,11 @@ let NETWORK = {
     prod : "0x89"
   },
   NAME : {
-    dev : "goerli",
-    prod : "matic"
+    dev : "Goerli",
+    prod : "Matic"
   },
   PARAMS : {
-    goerli : {
+    Goerli : {
         "id": 1,
         "jsonrpc": "2.0",
         "method": "wallet_addEthereumChain",
@@ -45,7 +45,7 @@ let NETWORK = {
           }
         ]
       },
-      matic : {
+      Matic : {
         method: 'wallet_addEthereumChain',
         params: [{
           // MUST specify the integer ID of the chain as a hexadecimal string, per the eth_chainId Ethereum RPC method.
