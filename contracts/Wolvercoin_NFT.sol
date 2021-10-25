@@ -1,25 +1,36 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
-/*
 
-import "@openzeppelin/contracts/token/ERC721/ERC721Full.sol";
-import "@openzeppelin/contracts/drafts/Counters.sol";
+import "./includes/ERC721.sol";
 
-contract Wolvercoin_NFT is ERC721Full {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+contract Wolvercoin_NFT is ERC721 {
+    constructor(string memory name, string memory symbol) ERC721(name, symbol) {}
 
-    constructor() ERC721Full("HWNFT", "ITM") public {
+    function baseURI() public view returns (string memory) {
+        return _baseURI();
     }
 
-    function awardItem(address player, string memory tokenURI) public returns (uint256) {
-        _tokenIds.increment();
+    function exists(uint256 tokenId) public view returns (bool) {
+        return _exists(tokenId);
+    }
 
-        uint256 newItemId = _tokenIds.current();
-        _mint(player, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+    function mint(address to, uint256 tokenId) public {
+        _mint(to, tokenId);
+    }
 
-        return newItemId;
+    function safeMint(address to, uint256 tokenId) public {
+        _safeMint(to, tokenId);
+    }
+
+    function safeMint(
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) public {
+        _safeMint(to, tokenId, _data);
+    }
+
+    function burn(uint256 tokenId) public {
+        _burn(tokenId);
     }
 }
-*/
