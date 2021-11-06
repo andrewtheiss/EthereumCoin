@@ -33,4 +33,7 @@ contract Wolvercoin_NFT is ERC721 {
     function burn(uint256 tokenId) public {
         _burn(tokenId);
     }
+    
+    // Need to be able to check the balance of a certain address
+    
 }

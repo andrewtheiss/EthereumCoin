@@ -31,6 +31,46 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
     uint8 private _decimals;
     address private _admin;
     
+    // Wolvercoin_NFT_Contract_Address
+    address private _wolvercoin_NFT;
+    
+    function setWolvercoinNFTAddress(address nftAddress) public {
+        _wolvercoin_NFT = nftAddress;
+    }
+    
+    function approveReleaseNFTToAddress(uint256 nftId) public returns (bytes memory) { //, address destAccount) public {
+        /*
+         bool public retrive;
+           bool public retrive_setter;
+           address public baseaddress = 0xca598f876f79a5f8f479bfa1dcc8f4f2dffbd5c2;
+           uint a = 5;
+           bytes32 b ="Lina";
+           function caller(){
+                retrive = baseaddress.call.gas(10000)(bytes8(keccak256("getdata()")));
+                retrive_setter = baseaddress.call.gas(1000000)(bytes24(keccak256("setdata(uint, bytes32)")),a,b);
+           }
+           */
+           
+           // call approve(address addressTo, uint256 tokenId)
+           //_wolvercoin_NFT.call.gas(100000)(bytes4(keccak256("approve(address, uint256")),destAccount, nftId);
+           (bool success, bytes memory data)  = _wolvercoin_NFT.call(abi.encodeWithSignature("mint(address,uint256)",msg.sender, nftId));
+           if (success) {
+               // Call additional method
+               
+           }
+           return data;
+           
+           // call approve(address addressTo, uint256 tokenId)
+           //_wolvercoin_NFT.call.gas(100000)(bytes24(keccak256("approve(address, uint256")),destAccount, nftId);
+    }
+    
+    /*
+    modifier onlyOwner override {
+      require(msg.sender == owner);
+      _;
+    }
+    */
+    
     // Save space for class periods so we can give coin to entire periods at once
     //address[] private _teachers;
     

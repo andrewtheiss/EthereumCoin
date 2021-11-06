@@ -201,6 +201,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "approveReleaseNFTToAddress",
+				"outputs": [
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "account",
 						"type": "address"
@@ -367,6 +386,19 @@
 					}
 				],
 				"name": "sendCoinToClassPeriod",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "nftAddress",
+						"type": "address"
+					}
+				],
+				"name": "setWolvercoinNFTAddress",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -564,11 +596,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0x52d1a95ddffc18c3a6b53b53750548057881562926eb606086b69aa6c786f182",
+			"keccak256": "0x74a8b84c3da8412321e6882265f21f099616f7d165328d1426c1208e941008d5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fe4214aa3e8c1c74d039bb229677dbd8a2ed8a807e665b7486857052388f0dc8",
-				"dweb:/ipfs/QmWQDENdj8ti7MSDssg8EjxVHvqyC2ukNUVzZoSkrGKeUT"
+				"bzz-raw://fe37cdb3ae6c80191eeea110f8fbc7a71e57e9297a3c69095a97d623075d6d43",
+				"dweb:/ipfs/QmRPeYnQp1qvbC1xyKf2zZVSruVJ8nBgsfLWsxacmV1rHu"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
