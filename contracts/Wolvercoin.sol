@@ -33,12 +33,14 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
     
     // Wolvercoin_NFT_Contract_Address
     address private _wolvercoin_NFT;
+    event Response(bool success, bytes data);
     
     function setWolvercoinNFTAddress(address nftAddress) public {
         _wolvercoin_NFT = nftAddress;
     }
     
-    function approveReleaseNFTToAddress(uint256 nftId) public returns (bytes memory) { //, address destAccount) public {
+    // https://solidity-by-example.org/function-selector/
+    function approveReleaseNFTToAddress(uint256 nftId) public { //, address destAccount) public {
         /*
          bool public retrive;
            bool public retrive_setter;
@@ -51,14 +53,13 @@ contract Wolvercoin is Initializable, ContextUpgradeable, IERC20Upgradeable, UUP
            }
            */
            
+           // https://solidity-by-example.org/app/dutch-auction/
            // call approve(address addressTo, uint256 tokenId)
            //_wolvercoin_NFT.call.gas(100000)(bytes4(keccak256("approve(address, uint256")),destAccount, nftId);
            (bool success, bytes memory data)  = _wolvercoin_NFT.call(abi.encodeWithSignature("mint(address,uint256)",msg.sender, nftId));
-           if (success) {
-               // Call additional method
-               
-           }
-           return data;
+        require(success);
+           emit Response(success, data);
+           
            
            // call approve(address addressTo, uint256 tokenId)
            //_wolvercoin_NFT.call.gas(100000)(bytes24(keccak256("approve(address, uint256")),destAccount, nftId);

@@ -85,6 +85,25 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "Response",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": true,
 						"internalType": "address",
 						"name": "from",
@@ -206,14 +225,21 @@
 						"type": "uint256"
 					}
 				],
-				"name": "approveReleaseNFTToAddress",
-				"outputs": [
+				"name": "approveExistsTest",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
 					{
-						"internalType": "bytes",
-						"name": "",
-						"type": "bytes"
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
 					}
 				],
+				"name": "approveReleaseNFTToAddress",
+				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -596,11 +622,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin.sol": {
-			"keccak256": "0x74a8b84c3da8412321e6882265f21f099616f7d165328d1426c1208e941008d5",
+			"keccak256": "0x69ec4b012c064850006e2ad2a7fc7dd3d3a1d273980dfbe7f0062771e25c1cce",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fe37cdb3ae6c80191eeea110f8fbc7a71e57e9297a3c69095a97d623075d6d43",
-				"dweb:/ipfs/QmRPeYnQp1qvbC1xyKf2zZVSruVJ8nBgsfLWsxacmV1rHu"
+				"bzz-raw://46bce77594f4ddd49f07c508c027249b175f484c48567fe7769de2a09dd9457a",
+				"dweb:/ipfs/QmYCtCcacSpg7zrQh3Wt194QdMVoX6u5Fjx7fc6z5pDn9t"
 			]
 		},
 		"contracts/includes/AddressUpgradeable.sol": {
