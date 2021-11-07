@@ -523,12 +523,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/Wolvercoin_NFT.sol": {
-			"keccak256": "0x1b7e06e2c4c50eccd312ccddb0169493913aea77649aa99306db98cba960e45b",
+		"contracts/WolverAuctions.sol": {
+			"keccak256": "0xbfe84a1ef9d9d831d4da23dd35d5b6023b035172ec03e4d596a023f5672a1fe5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a60544005b3b5738f5fa6d714dc0c301dd012d1a872535ae619098e61fc9d955",
-				"dweb:/ipfs/QmZPhVsP5gNHNrEiAaSUJT7b9wcCaLbXhCXrhNKrfjh9Jt"
+				"bzz-raw://cf97bdefdfdeda856bfdc359070f7bfae20f1409f5892f0b6ca696a97b99180f",
+				"dweb:/ipfs/QmbGt6icELJtdASnjhfhcB2HXGu1gZLmKHcWonDpDPKH4U"
+			]
+		},
+		"contracts/Wolvercoin_NFT.sol": {
+			"keccak256": "0x6737d57c3518d7e85067f7f6dafb5a1caf816be62b2feb67ebc416c5ffa4f92b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59d5c331696ca365b6e44728c8419d701b85d159c938ddfbc632fd7582599e4b",
+				"dweb:/ipfs/QmXfGfeaN67vAcTDDbSCotMzgLPYuTKykjiY55Y6mu5XAP"
 			]
 		},
 		"contracts/includes/Address.sol": {
