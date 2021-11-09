@@ -38,6 +38,9 @@ https://faucet.goerli.mudit.blog/
 
 `npx hardhat run .\scripts\deploy_upgradable_implementation.js --network goerli --show-stack-traces`
 
+// And obviously similar for Wolver NFT
+`npx hardhat run .\scripts\deploy_nsfw.js --network goerli --show-stack-traces`
+
 # Testing
 // Testing automatically runs everything inside the 'test' directory and leverages Chai for testing
 // https://ethereum-waffle.readthedocs.io/en/latest/matchers.html
