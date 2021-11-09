@@ -6,27 +6,6 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "symbol",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_password",
-						"type": "string"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -74,25 +53,6 @@
 					}
 				],
 				"name": "ApprovalForAll",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "oldOwner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "OwnerSet",
 				"type": "event"
 			},
 			{
@@ -150,24 +110,11 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "balance",
 						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "changeOwner",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -182,20 +129,7 @@
 				"outputs": [
 					{
 						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getOwner",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
+						"name": "operator",
 						"type": "address"
 					}
 				],
@@ -227,19 +161,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "name",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -251,42 +172,11 @@
 				"outputs": [
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "owner",
 						"type": "address"
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					}
-				],
-				"name": "safeMintAsOwner",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					}
-				],
-				"name": "safeMintToContractAsOwner",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -331,7 +221,7 @@
 					},
 					{
 						"internalType": "bytes",
-						"name": "_data",
+						"name": "data",
 						"type": "bytes"
 					}
 				],
@@ -349,31 +239,12 @@
 					},
 					{
 						"internalType": "bool",
-						"name": "approved",
+						"name": "_approved",
 						"type": "bool"
 					}
 				],
 				"name": "setApprovalForAll",
 				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "_password",
-						"type": "string"
-					}
-				],
-				"name": "setPassword",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -391,19 +262,6 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "symbol",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -445,27 +303,8 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
-					}
-				],
-				"name": "tokenURI",
-				"outputs": [
-					{
-						"internalType": "string",
-						"name": "",
-						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -509,69 +348,50 @@
 			}
 		],
 		"devdoc": {
+			"details": "See https://eips.ethereum.org/EIPS/eip-721",
 			"kind": "dev",
 			"methods": {
 				"approve(address,uint256)": {
-					"details": "See {IERC721-approve}."
+					"details": "Gives permission to `to` to transfer `tokenId` token to another account. The approval is cleared when the token is transferred. Only a single account can be approved at a time, so approving the zero address clears previous approvals. Requirements: - The caller must own the token or be an approved operator. - `tokenId` must exist. Emits an {Approval} event."
 				},
 				"balanceOf(address)": {
-					"details": "See {IERC721-balanceOf}."
-				},
-				"changeOwner(address)": {
-					"details": "Change owner",
-					"params": {
-						"newOwner": "address of new owner"
-					}
+					"details": "Returns the number of tokens in ``owner``'s account."
 				},
 				"getApproved(uint256)": {
-					"details": "See {IERC721-getApproved}."
-				},
-				"getOwner()": {
-					"details": "Return owner address ",
-					"returns": {
-						"_0": "address of owner"
-					}
+					"details": "Returns the account approved for `tokenId` token. Requirements: - `tokenId` must exist."
 				},
 				"isApprovedForAll(address,address)": {
-					"details": "See {IERC721-isApprovedForAll}."
-				},
-				"name()": {
-					"details": "See {IERC721Metadata-name}."
+					"details": "Returns if the `operator` is allowed to manage all of the assets of `owner`. See {setApprovalForAll}"
 				},
 				"ownerOf(uint256)": {
-					"details": "See {IERC721-ownerOf}."
+					"details": "Returns the owner of the `tokenId` token. Requirements: - `tokenId` must exist."
 				},
 				"safeTransferFrom(address,address,uint256)": {
-					"details": "See {IERC721-safeTransferFrom}."
+					"details": "Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients are aware of the ERC721 protocol to prevent tokens from being forever locked. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must exist and be owned by `from`. - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}. - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer. Emits a {Transfer} event."
 				},
 				"safeTransferFrom(address,address,uint256,bytes)": {
-					"details": "See {IERC721-safeTransferFrom}."
+					"details": "Safely transfers `tokenId` token from `from` to `to`. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must exist and be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer. Emits a {Transfer} event."
 				},
 				"setApprovalForAll(address,bool)": {
-					"details": "See {IERC721-setApprovalForAll}."
+					"details": "Approve or remove `operator` as an operator for the caller. Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller. Requirements: - The `operator` cannot be the caller. Emits an {ApprovalForAll} event."
 				},
 				"supportsInterface(bytes4)": {
-					"details": "See {IERC165-supportsInterface}."
-				},
-				"symbol()": {
-					"details": "See {IERC721Metadata-symbol}."
+					"details": "Returns true if this contract implements the interface defined by `interfaceId`. See the corresponding https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section] to learn more about how these ids are created. This function call must use less than 30 000 gas."
 				},
 				"tokenByIndex(uint256)": {
-					"details": "See {IERC721Enumerable-tokenByIndex}."
+					"details": "Returns a token ID at a given `index` of all the tokens stored by the contract. Use along with {totalSupply} to enumerate all tokens."
 				},
 				"tokenOfOwnerByIndex(address,uint256)": {
-					"details": "See {IERC721Enumerable-tokenOfOwnerByIndex}."
-				},
-				"tokenURI(uint256)": {
-					"details": "See {IERC721Metadata-tokenURI}."
+					"details": "Returns a token ID owned by `owner` at a given `index` of its token list. Use along with {balanceOf} to enumerate all of ``owner``'s tokens."
 				},
 				"totalSupply()": {
-					"details": "See {IERC721Enumerable-totalSupply}."
+					"details": "Returns the total amount of tokens stored by the contract."
 				},
 				"transferFrom(address,address,uint256)": {
-					"details": "See {IERC721-transferFrom}."
+					"details": "Transfers `tokenId` token from `from` to `to`. WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. Emits a {Transfer} event."
 				}
 			},
+			"title": "ERC-721 Non-Fungible Token Standard, optional enumeration extension",
 			"version": 1
 		},
 		"userdoc": {
@@ -582,7 +402,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Wolvercoin_NFT.sol": "Wolvercoin_NFT"
+			"contracts/includes/IERC721Enumerable.sol": "IERC721Enumerable"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -596,54 +416,6 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/Wolvercoin_NFT.sol": {
-			"keccak256": "0x088d243636580fce9f84313e58d120da86ac9a24bc040740ef6a75a667379904",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://53f1caa3311cd0d2fc459682bc60461ec2425fe9e9ac63a5b724beee51366a96",
-				"dweb:/ipfs/QmXiWdAjUtcvaotTsT2AupHCBHXzZhzyHXBzMa9QVzXFfj"
-			]
-		},
-		"contracts/includes/Address.sol": {
-			"keccak256": "0x08ca3feab6ec25776c3f3dede27b2072959921392ea1151e7ada8bf7e9783608",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://d75f70ac3b0762b8786490a57844240ce499630f49b91a11db7193f80200fc8a",
-				"dweb:/ipfs/QmeikVyo7yoac1v5zR8W7NERoE4HynHUKXkgYe7j2DdDRb"
-			]
-		},
-		"contracts/includes/Context.sol": {
-			"keccak256": "0x5d0f925d07aed7df9aab02e0b57d60021fef2d85155ac1e0b37c890461047c0c",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://c41bf64650fb7c98d94db76cfe2737a9f57ee885d2edcbc14e4f3efd6c2a49da",
-				"dweb:/ipfs/QmQzpyT19tQ9atCLcbRt2y9svkoQB5RFEXmU2TKYHec9du"
-			]
-		},
-		"contracts/includes/ERC165.sol": {
-			"keccak256": "0xb753659a8c66ae0a8ca5f0312409347c9fddc90d04d862ec80986b1677dc0fb1",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://f6d38119d9b93ae38fa3637271f74539332bf2105161743ba2367dfb4c709f1f",
-				"dweb:/ipfs/QmWFtkDxaJZ148QPqwR8ugaRicdhoTbU3dgaxtJ6MEGQ59"
-			]
-		},
-		"contracts/includes/ERC721.sol": {
-			"keccak256": "0xc7a1d4bd5b49736061c5170055077c0c577af1284907cd1b240475027f752ddd",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://d2bd19772b95a01abb8b4339439a2f0a7c4f3926efdac8a74ac9dbc31f4d7ae7",
-				"dweb:/ipfs/QmbtrC6QkmbncYiaH5kCyjFmrHGuaBfK51FXh3D1kPEUEp"
-			]
-		},
-		"contracts/includes/ERC721Enumerable.sol": {
-			"keccak256": "0xc249f2e22da8a77afa52d7bae48fe723015caba4f9b65367679da79334c64d69",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://39fd3411cccb39c0b06676f614af34fd9e5bbce94803006c1d8655bc5e8eda86",
-				"dweb:/ipfs/QmUzbJGo39spRisLijqZeXSW9Xtai8beJHPj9rjAeZW7Pb"
-			]
-		},
 		"contracts/includes/IERC165.sol": {
 			"keccak256": "0x45fad00a8b56c2971664ee286914030ba6d777af3db201f34817b3255d296692",
 			"license": "MIT",
@@ -666,38 +438,6 @@
 			"urls": [
 				"bzz-raw://1bb12b685cccaf892f7a8186cf92228c261f9f8f84ec47259f5393982aa81b9f",
 				"dweb:/ipfs/QmPohaCQYBWotegrxwWcjDRgguh5vFxkRbiCCvJsLjKW24"
-			]
-		},
-		"contracts/includes/IERC721Metadata.sol": {
-			"keccak256": "0xec888b2416d68d96a92449de9285e207da7ccba610d01d524bd3f7973e8b7a56",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://b9d8a6d22c0a18ed653e31dc5d53fe345f44672ad2ce91bd273df908e7c49025",
-				"dweb:/ipfs/QmYhvEL5AQTMLagQq4jT5jKn7XsuXptCH6L1HkBCB4qVa3"
-			]
-		},
-		"contracts/includes/IERC721Receiver.sol": {
-			"keccak256": "0x90a757583c1a01e00be8727b6a738433278e37b88b24bb56e400aa76ea07755c",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://414d83b8c805333eba2d96f8fab358fde720d998f3f4bb83d609cff6df560f4e",
-				"dweb:/ipfs/QmThgNkCR4Gv6Jz8cnXRJLomi1EzqHEstJPjfhELWqHWs1"
-			]
-		},
-		"contracts/includes/Owner.sol": {
-			"keccak256": "0xa140e318c0e77bfc7a954653a04e65ca2085b37a4e66a33dd23572b3b786b4ce",
-			"license": "GPL-3.0",
-			"urls": [
-				"bzz-raw://707fc0dcab5247a461d78baca03daecc88d74e5b6502dacd7059623f74ddef6e",
-				"dweb:/ipfs/QmQERuB4PdrNyMfua66NvPL1reT6XB6JM3nak41s6rpScx"
-			]
-		},
-		"contracts/includes/Strings.sol": {
-			"keccak256": "0x878afb03bce35fd0079b4a7d5dc798c9ae505c1d4fbb788372787cb9bf2afda4",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://f99bcfece5989ed700de3aa089b7551e4aa4c944696a724378e1e5926c00d70d",
-				"dweb:/ipfs/QmZhojT5PwNWxUojyt82cTsnT9nvh3qezrPzKox7XZArwC"
 			]
 		}
 	},
