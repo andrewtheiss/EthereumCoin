@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wolvercoin</title>
   <script src="scripts/globals.js"></script>
+  <script src="scripts/nav.js"></script>
 
   <!-- Include Javascript library to attach to the Ethereum blockchain -->
   <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
@@ -29,10 +30,10 @@
         <div class="menu-container">
           <div class="logo-container"><a class="logo-link" href="/">Wolvercoin</a></div>
           <div class="menu-items">
-            <a class="menu-item active" href="/">Balances</a>
-            <a class="menu-item " href="/#nfts">NFTs</a>
-            <a class="menu-item " href="/#announcements">Announcements</a>
-            <a class="menu-item " href="/#docs">Docs</a>
+            <a id="menu_home" class="menu-item" href="/#">Balances</a>
+            <a id="menu_nfts" class="menu-item " href="/#nfts">NFTs</a>
+            <a id="menu_announcements" class="menu-item " href="/#announcements">Announcements</a>
+            <a id="menu_docs" class="menu-item " href="/#docs">Docs</a>
           </div>
           <div class="wallet-info">
             <div id="wallet-connected" class="wallet-connected-container hidden">
@@ -62,18 +63,28 @@
           </div>
         </div>
       </div>
-      <div class="header-row">
-        <div class="header-item">
-          <p class="title">Wallet Balance</p>
-          <p class="figure"><span id="walletBalance">-</span></p>
-        </div>
-        <div class="header-item">
-          <p class="title">Total Deposits</p>
-          <p class="figure"><span id="stakedBalance">-</span></p>
+      <div class="inner-content">
+        <div id="inner-content-home" class="inner-content-home hidden">
+          <div class="header-row">
+            <div class="header-item">
+              <p class="title">Wallet Balance</p>
+              <p class="figure"><span id="walletBalance">-</span></p>
+            </div>
+            <div class="header-item">
+              <p class="title">Total Deposits</p>
+              <p class="figure"><span id="stakedBalance">-</span></p>
+            </div>
+          </div>
+          <div id="switch-network" class="switch-network hidden">
+            <button class="switch-network-button" id="switch-network-button">Switch To the Correct Network</button>
+          </div>
         </div>
       </div>
-      <div id="switch-network" class="switch-network hidden">
-        <button class="switch-network-button" id="switch-network-button">Switch To the Correct Network</button>
+      <div id="inner-content-nfts" class="inner-content-nfts hidden">
+      </div>
+      <div id="inner-content-announcements" class="inner-content-announcements hidden">
+      </div>
+      <div id="inner-content-docs" class="inner-content-docs hidden">
       </div>
     </div>
     <div id="isAdminOnly" class="admin-only hidden">
@@ -133,5 +144,8 @@
 <script type="text/javascript" src="./scripts/contracts/wvc_abi.js"></script>
 <script type="text/javascript" src="./scripts/contracts/wvc_address.js"></script>
 <script src="scripts/ethereumInteract.js"></script>
-
+<script>
+// Load page content of the part of the site we're going to
+showContent(getNavFromUrl(window.location.href));
+</script>
 </html>

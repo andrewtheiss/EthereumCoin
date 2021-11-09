@@ -1,7 +1,10 @@
 // Environment and Netowork go hand in hand
 let ENV = 'DEV';
 let Wolvercoin = {
-  currentAccount : ""
+  currentAccount : "",
+  pagesLoaded : {
+    home : true
+  }
 };
 
 

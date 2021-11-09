@@ -388,3 +388,6 @@ body {
 .switch-network-button:active {
 border: 2px solid #dd3333;
 }
+.hidden {
+  display:none;
+}
