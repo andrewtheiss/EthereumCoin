@@ -143,8 +143,8 @@ contract WinAuction {
     
     event Win(address winner, uint256 amount);
 
-    IERC721 public immutable nft;
-    uint public immutable nftId;
+    IERC721 public nft;
+    uint public nftId;
 
     address payable public seller;
     address public winner;
@@ -158,10 +158,10 @@ contract WinAuction {
         nftId = _nftId;
     }
 
-    // Winds the auction for the specified amount
+    // Wins the auction for the specified amount
     function win() external payable {
         winner = msg.sender;
-        nft.transferFrom(seller, msg.sender, nftId);
+        nft.safeTransferFrom(seller, msg.sender, nftId);
         seller.transfer(msg.value);
 
         emit Win(msg.sender, msg.value);

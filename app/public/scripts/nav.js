@@ -1,6 +1,9 @@
 function getNavFromUrl(urlString) {
   let navIdx = urlString.lastIndexOf("#") + 1;
   let nav = urlString.substring(navIdx);
+  if (navIdx == 0) {
+    nav = "";
+  }
 
   switch (nav) {
     case "":
@@ -21,6 +24,8 @@ function checkLoadContentOnceForPage(contentType) {
    var contentLoaded = Wolvercoin.pagesLoaded[contentType];
 
    if (typeof(contentLoaded) == 'undefined' || !contentLoaded) {
+     $("#inner-content-" + contentType).load("/pages/" + contentType +".html");
+     Wolvercoin.pagesLoaded[contentType] = true;
      // Show loading
      // Call to load content
    }
