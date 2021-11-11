@@ -391,10 +391,18 @@ border: 2px solid #dd3333;
 .hidden {
   display:none;
 }
-.announcements {
+.inner-content.announcements {
   text-align: center;
   width: 500px;
+  color: #bbbbbb;
   margin: 0px auto;
+}
+.announcements-title {
+  margin: 0px auto;
+  padding: 20px;
+  color: #bbbbbb;
+  text-align: center;
+
 }
 .nft-image-preview {
   width: 150px;
