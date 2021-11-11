@@ -7,8 +7,8 @@
     <label for="nameInput">Name</label>
     <input type="text" id="nameInput" name="name" /><br />
 
-    <label for="messageInput">Message</label>
-    <textarea id="messageInput" cols="30" rows="2" name="message"></textarea><br />
+    <label for="descriptionInput">Description</label>
+    <textarea id="descriptionInput" cols="30" rows="2" name="message"></textarea><br />
 
     <label for="passwordInput">Password</label>
     <input id="passwordInput" cols="30" rows="2" name="password"></input><br />
@@ -19,11 +19,14 @@
     <img id="nft_image_preview" class="nft-image-preview"></img><br />
 
     <button id="nft_ipfs_upload" class="button">Upload to IPFS</button>
-    <button id="nft_mint" class="button" disabled="disabled">Mint NFT</button>
-
+    <button id="nft_mint" class="button" disabled="disabled">Mint NFT</button><br />
+    <b><a href="" id="ipfs_upload_json_url" target="_blank" class="link-to-ifps-validation"></a></b>
   </div>
-
   <script>
+    let dev = true;
+
+    let ipfsUrl = false;
+
     let photoData = '';
     // demo purposes only
     const codeElem = document.getElementById("code");
@@ -96,31 +99,57 @@
       }
     }
 
+    function mintNFT() {
+
+    }
+
+   function updateIPFSHash(hash) {
+      // Show 'mint NFT'
+      ipfsUrl = "https://gateway.pinata.cloud/ipfs/" + hash;
+      console.log('IPFS upload:' + ipfsUrl)
+      $("#ipfs_upload_json_url").attr('href', ipfsUrl).html("Verify Ipfs Upload");
+      $('#nft_mint').prop('disabled', false);
+      $('#nft_ipfs_upload').prop('disabled', true);
+      $('#descriptionInput').prop('disabled', true);
+      $('#passwordInput').prop('disabled', true);
+      $('#pictureInput').prop('disabled', true);
+      $('#nameInput').prop('disabled', true);
+
+    }
+
     function submitFormToIPFS() {
+      var self = this;
       console.log('submitting form');
       let data = {
         name: 'test nameInput',
         description: 'test desc',
         image: photoData
       };
-      fetch("https://api.pinata.cloud/pinning/pinJSONToIPFS", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            //  "Content-Type": "application/json",
-            //  Accept: "application/json"
-
-            // Dev Only, obfuscate when going to prod
-            pinata_api_key: "bb8f09c99b53458ffb7b",
-            pinata_secret_api_key: "26d0687df99869d7f5642176e545f4455529a2b52e8a1258ee3f32a76a4fbe75"
-          }
-        })
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
+      $.ajax({
+        url : "https://api.pinata.cloud/pinning/pinJSONToIPFS",
+        method: "POST",
+        data: JSON.stringify(data),
+        contentType : "application/json",
+        headers : {
+          // Dev Only, obfuscate when going to prod
+          pinata_api_key: "bb8f09c99b53458ffb7b",
+          pinata_secret_api_key: "26d0687df99869d7f5642176e545f4455529a2b52e8a1258ee3f32a76a4fbe75"
+        },
+        success : function(response, body, xhr) {
+          /*
+            {
+                "IpfsHash": "QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
+                "PinSize": 58958,
+                "Timestamp": "2021-11-11T19:22:55.071Z"
+            }
+          */
+          updateIPFSHash(response.IpfsHash);
+        },
+        error : function(error) {
+          alert('something went wrong during upload, please check the log');
           console.log(error);
-        });
+        }
+      });
     }
     const handleForm = async (event) => {
       event.preventDefault();
@@ -145,13 +174,25 @@
 
       codeElem.textContent = JSON.stringify(data, undefined, 2);
 
-      // Click handler for form submission to IPFS
-      $("#nft_ipfs_upload").click(function() {
-        // Validate form
-        validateForm();
-        // Submit form data
-        submitFormToIPFS();
-      });
     };
+
+
+    // Click handler for form submission to IPFS
+    $("#nft_ipfs_upload").click(function() {
+      // Validate form
+      validateForm();
+      // Submit form data
+      submitFormToIPFS();
+    });
+
+    $("#nft_mint").click(function() {
+      // Call to blockchain code and try and mint NFT with hashUrl
+      console.log('minting');
+    })
+
+    if (dev) {
+      let hash = 'QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4';
+      updateIPFSHash(hash);
+    }
   </script>
 </div>
