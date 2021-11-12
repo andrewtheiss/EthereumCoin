@@ -44,7 +44,7 @@
     let NFTContractABI = false;
 
     // dweb:/ipfs/QmXz4p4sGq4Aq28HTdcXp2yEVUTnwSqnQQTEhYRiaiqNDz
-    let NFTContractAddress = "0x7AFC953801CB103b76b965ad770528E39AaBc126";
+    let NFTContractAddress = "0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF";
     let dev = false;
 
     let ipfsUrl = false;
@@ -92,8 +92,8 @@
           photoDataBuffer = reader.readAsBinaryString(file);
 
           reader.onload = function(event) {
-            const magic_array_buffer_converted_to_buffer = buffer.Buffer(reader.result);
-            photoDataBuffer = magic_array_buffer_converted_to_buffer;
+            //const magic_array_buffer_converted_to_buffer = buffer.Buffer(reader.result);
+            //photoDataBuffer = magic_array_buffer_converted_to_buffer;
             // if it's multiple upload field then set the object key as picture[0], picture[1]
             // otherwise just use picture
             const fileKey = `${inputKey}${
