@@ -9,29 +9,48 @@
 
     <label for="descriptionInput">Description</label>
     <textarea id="descriptionInput" cols="30" rows="2" name="message"></textarea><br />
-
+    <!--
     <label for="passwordInput">Password</label>
     <input id="passwordInput" cols="30" rows="2" name="password"></input><br />
-
+    -->
     <label for="pictureInput">Picture</label>
     <input type="file" id="pictureInput" name="picture" multiple /><br />
 
     <img id="nft_image_preview" class="nft-image-preview"></img><br />
 
     <button id="nft_ipfs_upload" class="button">Upload to IPFS</button>
-    <button id="nft_mint" class="button" disabled="disabled">Mint NFT</button><br />
-    <b><a href="" id="ipfs_upload_json_url" target="_blank" class="link-to-ifps-validation"></a></b>
+
+    <br />
+    <div class="hidden" id="mint_nft_container">
+      <label for="contractToBeApprovedInput">Your Auction Smart Contract Address:</label>
+      <input id="contractToBeApprovedInput" cols="30" name="contract"></input><br />
+      <button id="nft_mint" class="button" disabled="disabled">Mint NFT</button><br />
+      <b><a href="" id="ipfs_upload_json_url" target="_blank" class="link-to-ifps-validation"></a></b>
+    </div>
+    <div id="after_nft_mint" class="hidden" style="display:none;">
+      <br />
+      <br />
+      <b><a href="" id="url_of_contract" target="_blank" class="link-to-ifps-validation"></a></b>
+
+      <label for="nftIdInput">The NFT Id You Minted:</label>
+      <input id="nftIdInput" cols="30" disabled="disabled" name="nftId"></input><br />
+    </div>
+    <div>
+      <div>TXN Of your NFT:<a href="" id="minted_nft_txn" target="_blank" class="link-to-ifps-validation"></a></div>
+      <div>ID of your NFT: <span id="minted_nft_id"></span></div>
+    </div>
   </div>
   <script>
     let NFTContractABI = false;
 
-    // dweb:/ipfs/Qmdi3FZMCLXgJNCZ39whFiMy5GmJjKASNSSqMJo96ncCWZ
-    let NFTContractAddress = "0x61F671Dc1d35D506F8A89866842FC76a08d110Db";
-    let dev = true;
+    // dweb:/ipfs/QmXz4p4sGq4Aq28HTdcXp2yEVUTnwSqnQQTEhYRiaiqNDz
+    let NFTContractAddress = "0x7AFC953801CB103b76b965ad770528E39AaBc126";
+    let dev = false;
 
     let ipfsUrl = false;
 
     let photoData = '';
+    let photoDataBuffer = null; // https://ipfs.infura.io:5001/api/v0/cat?arg=QmUmp3TBuYe3zr3qjxW1rXrBDVh8nduognv1cLhwxM4Ha5"
     // demo purposes only
     const codeElem = document.getElementById("code");
     // /demo purposes only
@@ -44,6 +63,16 @@
     // we will wait until the last file being processed
     let isFilesReady = true;
 
+    async function uploadImageOnlyToIPFS() {
+      const ipfs = window.IpfsHttpClient('ipfs.infura.io', '5001', {
+        protocol: 'https'
+      });
+      await ipfs.add(photoDataBuffer, (err, result) => {
+        console.log(err, result);
+      });
+    };
+
+    console.log('ere');
     fileInput.addEventListener("change", async (event) => {
       // clean up earliest items
       myFiles = {};
@@ -60,9 +89,11 @@
         return new Promise((resolve, reject) => {
           const [index, file] = item;
           const reader = new FileReader();
-          reader.readAsBinaryString(file);
+          photoDataBuffer = reader.readAsBinaryString(file);
 
           reader.onload = function(event) {
+            const magic_array_buffer_converted_to_buffer = buffer.Buffer(reader.result);
+            photoDataBuffer = magic_array_buffer_converted_to_buffer;
             // if it's multiple upload field then set the object key as picture[0], picture[1]
             // otherwise just use picture
             const fileKey = `${inputKey}${
@@ -74,6 +105,7 @@
               event.target.result
             )}`;
 
+            //uploadImageOnlyToIPFS();
             resolve();
           };
           reader.onerror = function() {
@@ -88,6 +120,7 @@
           isFilesReady = true;
           photoData = myFiles.picture;
           $('#nft_image_preview').attr('src', photoData);
+          //uploadImageOnlyToIPFS();
         })
         .catch((error) => {
           console.log(error);
@@ -103,9 +136,44 @@
       }
     }
 
-    function mintNFT() {
+    // MintNFT
+    // Also sends it to contract address provided
+    async function mintNFT() {
+      // Call to blockchain code and try and mint NFT with hashUrl
+      console.log('minting');
 
+      var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+      const NSFWContract = new web3.eth.Contract(NFTContractABI, NFTContractAddress);
+
+      // Document elements
+      //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
+      let contractInput = $('#contractToBeApprovedInput').val();
+      if (contractInput.length != 42) {
+        alert('Please enter a valid contract');
+        return;
+      }
+      //let contractToBeApproved = "0x6834C7116b337Fa0894d20016D84e77Ca67ba261";
+      // safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, uint256 tokenId, string memory _password)
+
+      await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
+          contractInput,
+          ipfsUrl, //"https://gateway.pinata.cloud/ipfs/QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
+          "12345"
+        )
+        .send({
+          from: Wolvercoin.currentAccount
+        })
+        .then(function(result, v1, v2) {
+          console.log(result, v1, v2);
+          $("#after_nft_mint").attr("hidden", false);
+          $('#minted_nft_id').html(result.events.Transfer.returnValues.tokenId);
+          var txn = "https://goerli.etherscan.io/tx/" + result.events.Transfer.transactionHash;
+          $("#minted_nft_txn").attr('href', txn).html("View Minted Transaction");
+          // result.events.Transfer.returnValues.tokenId
+          // result.events.Transfer.transactionHash
+        });
     }
+
 
     function updateIPFSHash(hash) {
       // Show 'mint NFT'
@@ -118,17 +186,26 @@
       $('#passwordInput').prop('disabled', true);
       $('#pictureInput').prop('disabled', true);
       $('#nameInput').prop('disabled', true);
+      $('#mint_nft_container').show();
 
     }
 
     function submitFormToIPFS() {
       var self = this;
-      console.log('submitting form');
+      let name = $('#nameInput').val();
+      let desc = $('#descriptionInput').val();
+      if (name.length == 0 || desc.length == 0) {
+        alert('Please enter a name and description for the NFT');
+        return;
+      }
+      let imgTagPhoto = '<img src="' + photoData + '">';
+      //imgTagPhoto = "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png";
       let data = {
-        name: 'test nameInput',
-        description: 'test desc',
-        image: photoData
+        name: name,
+        description: desc,
+        image: imgTagPhoto
       };
+      console.log('Uploading image to IPFS');
       $.ajax({
         url: "https://api.pinata.cloud/pinning/pinJSONToIPFS",
         method: "POST",
@@ -190,34 +267,7 @@
     });
 
     $("#nft_mint").click(async function() {
-      // Call to blockchain code and try and mint NFT with hashUrl
-      console.log('minting');
-
-      var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
-      const NSFWContract = new web3.eth.Contract(NFTContractABI, NFTContractAddress);
-
-      // Document elements
-      //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
-      let contractToBeApproved = "0x6834C7116b337Fa0894d20016D84e77Ca67ba261";
-      //if (classPeriod.value.length > 0 && walletId.value.length > 0) {
-      if (contractToBeApproved.length > 0) {
-
-        // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
-
-
-        // safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, uint256 tokenId, string memory _password)
-        await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
-            contractToBeApproved,
-            "https://gateway.pinata.cloud/ipfs/QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
-            "12345"
-          )
-          .send({
-            from: Wolvercoin.currentAccount
-          })
-          .then(function(result, v1, v2) {
-            console.log(result);
-          });
-      }
+      mintNFT();
     });
 
     if (dev) {

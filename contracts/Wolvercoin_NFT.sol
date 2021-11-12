@@ -14,13 +14,13 @@ contract Wolvercoin_NFT is Owner, IERC721, ERC721URIStorage, ERC721Holder {
     // public on a blockchain or anything... so this should be safe ;)
     // "Not-So-Fungible-Wolvies", "NSFW", "12345"
     uint password;
-    
-    // Optional mapping for token URIs
-    mapping (uint256 => string) private _tokenURIs;
+    uint256 nftIndex;
+    mapping (uint256 => uint256) private _uniqueHashes;
 
   
     constructor(string memory name, string memory symbol, string memory _password) ERC721(name, symbol) {
         password = _saltPassword(_password);
+        nftIndex = 1;
     }
 
     
@@ -37,10 +37,13 @@ contract Wolvercoin_NFT is Owner, IERC721, ERC721URIStorage, ERC721Holder {
     usesPassword(_password) 
     returns (uint256) {
         uint tokenIDToMint = uint(keccak256(abi.encode(tokenURI)));
-        require(!_exists(tokenIDToMint), "ERC721: token already minted");
-        _mint(approvalAddress, tokenIDToMint);  // Mint to Mr. Theiss
-        //approve(approvalAddress, tokenIDToMint);    // Set approval for whomever to modify
-        return tokenIDToMint;
+        require(!_exists(_uniqueHashes[tokenIDToMint]), "ERC721: token already minted");
+        _uniqueHashes[tokenIDToMint] = nftIndex;
+        _mint(approvalAddress, nftIndex);  // Mint to given contract
+        _setTokenURI(nftIndex, tokenURI);
+        
+        nftIndex++;
+        return (nftIndex-1);
     }
         
     // Modifiers can take inputs. This modifier checks that the

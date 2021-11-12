@@ -604,11 +604,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin_NFT.sol": {
-			"keccak256": "0xf78deefe20864acbe169e4418b26e80c9cacf73c930969a55d1c558a37893beb",
+			"keccak256": "0x2ef9a78fb8b1111f7d30fb9bc5d182dd690e08b0be472e21581df32b4f2de97f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7d1c4cd2559022f8f6a849664ffdbefff8225108b68f7d431ac95543b5b39045",
-				"dweb:/ipfs/QmRy5LqPV3PceXa6WW6rQ2EeKyHdpywp522c2W16yYqwte"
+				"bzz-raw://10b84ad2b3c4c62e6df53ac91ddce3bc56c9e21023ea168da661f62c35a5d7a1",
+				"dweb:/ipfs/QmbZc73deWgMp1NGUyLnpr51gkzDATTLQFdFpTJiSaEacR"
 			]
 		},
 		"contracts/includes/Address.sol": {
