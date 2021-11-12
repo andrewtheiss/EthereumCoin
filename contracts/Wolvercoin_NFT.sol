@@ -38,8 +38,8 @@ contract Wolvercoin_NFT is Owner, IERC721, ERC721URIStorage, ERC721Holder {
     returns (uint256) {
         uint tokenIDToMint = uint(keccak256(abi.encode(tokenURI)));
         require(!_exists(tokenIDToMint), "ERC721: token already minted");
-        _mint(address(this), tokenIDToMint);  // Mint to Mr. Theiss
-        approve(approvalAddress, tokenIDToMint);    // Set approval for whomever to modify
+        _mint(approvalAddress, tokenIDToMint);  // Mint to Mr. Theiss
+        //approve(approvalAddress, tokenIDToMint);    // Set approval for whomever to modify
         return tokenIDToMint;
     }
         

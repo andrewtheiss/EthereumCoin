@@ -23,9 +23,11 @@
     <b><a href="" id="ipfs_upload_json_url" target="_blank" class="link-to-ifps-validation"></a></b>
   </div>
   <script>
-      let NFTContractABI = false;
-      let NFTContractAddress = "0x161A4CfbCEF9954b7020A325E0EAFEebE946995D";
-    let dev = false;
+    let NFTContractABI = false;
+
+    // dweb:/ipfs/Qmdi3FZMCLXgJNCZ39whFiMy5GmJjKASNSSqMJo96ncCWZ
+    let NFTContractAddress = "0x61F671Dc1d35D506F8A89866842FC76a08d110Db";
+    let dev = true;
 
     let ipfsUrl = false;
 
@@ -105,7 +107,7 @@
 
     }
 
-   function updateIPFSHash(hash) {
+    function updateIPFSHash(hash) {
       // Show 'mint NFT'
       ipfsUrl = "https://gateway.pinata.cloud/ipfs/" + hash;
       console.log('IPFS upload:' + ipfsUrl)
@@ -128,16 +130,16 @@
         image: photoData
       };
       $.ajax({
-        url : "https://api.pinata.cloud/pinning/pinJSONToIPFS",
+        url: "https://api.pinata.cloud/pinning/pinJSONToIPFS",
         method: "POST",
         data: JSON.stringify(data),
-        contentType : "application/json",
-        headers : {
+        contentType: "application/json",
+        headers: {
           // Dev Only, obfuscate when going to prod
           pinata_api_key: "bb8f09c99b53458ffb7b",
           pinata_secret_api_key: "26d0687df99869d7f5642176e545f4455529a2b52e8a1258ee3f32a76a4fbe75"
         },
-        success : function(response, body, xhr) {
+        success: function(response, body, xhr) {
           /*
             {
                 "IpfsHash": "QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
@@ -147,7 +149,7 @@
           */
           updateIPFSHash(response.IpfsHash);
         },
-        error : function(error) {
+        error: function(error) {
           alert('something went wrong during upload, please check the log');
           console.log(error);
         }
@@ -196,25 +198,27 @@
 
       // Document elements
       //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
-      let contractToBeApproved = "0x9c3C6ff39f65689ED820476362615a347bB23b3F";
+      let contractToBeApproved = "0x6834C7116b337Fa0894d20016D84e77Ca67ba261";
       //if (classPeriod.value.length > 0 && walletId.value.length > 0) {
-      if (contractToBeApproved.length > 0){
+      if (contractToBeApproved.length > 0) {
 
-          // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
+        // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
 
 
-       // safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, uint256 tokenId, string memory _password)
-          await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
+        // safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, uint256 tokenId, string memory _password)
+        await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
             contractToBeApproved,
-            "QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
+            "https://gateway.pinata.cloud/ipfs/QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
             "12345"
           )
-          .send({from : Wolvercoin.currentAccount})
+          .send({
+            from: Wolvercoin.currentAccount
+          })
           .then(function(result, v1, v2) {
             console.log(result);
           });
-        }
-      });
+      }
+    });
 
     if (dev) {
       let hash = 'QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4';
@@ -222,16 +226,12 @@
     }
 
     fetch("pages/nftABI.json").then(response =>
-        response.json().then(data => ({
-            data: data,
-            status: response.status
-        })
-    ).then(res => {
-      NFTContractABI = res.data;
-      //  console.log(res.status, res.data.title)
-    }));
-
-
-
+      response.json().then(data => ({
+        data: data,
+        status: response.status
+      })).then(res => {
+        NFTContractABI = res.data;
+        //  console.log(res.status, res.data.title)
+      }));
   </script>
 </div>

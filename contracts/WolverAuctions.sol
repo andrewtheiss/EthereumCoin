@@ -149,11 +149,11 @@ contract WinAuction {
     address payable public seller;
     address public winner;
 
-    constructor(
-        address _nft,
-        uint _nftId
-    ) {
+    constructor() {
         seller = payable(msg.sender);
+    }
+    
+    function setNFT(address _nft, uint _nftId) public {
         nft = IERC721(_nft);
         nftId = _nftId;
     }
@@ -161,7 +161,7 @@ contract WinAuction {
     // Wins the auction for the specified amount
     function win() external payable {
         winner = msg.sender;
-        nft.safeTransferFrom(seller, msg.sender, nftId);
+        nft.safeTransferFrom(address(this), msg.sender, nftId);
         seller.transfer(msg.value);
 
         emit Win(msg.sender, msg.value);
