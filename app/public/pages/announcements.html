@@ -49,8 +49,10 @@
 
     let ipfsUrl = false;
 
-    let photoData = '';
-    let photoDataBuffer = null; // https://ipfs.infura.io:5001/api/v0/cat?arg=QmUmp3TBuYe3zr3qjxW1rXrBDVh8nduognv1cLhwxM4Ha5"
+    let photoData = ''; // https://ipfs.io/ipfs/QmR26WMoEZqJ27XDB4XzUbTJNz1Bn3Gx5FwxZ8tYD3RfgD
+    let photoDataBuffer = null; // https://ipfs.infura.io:5001/api/v0/cat?arg=QmR26WMoEZqJ27XDB4XzUbTJNz1Bn3Gx5FwxZ8tYD3RfgD"
+    let uploadedPhotoData = null;
+
     // demo purposes only
     const codeElem = document.getElementById("code");
     // /demo purposes only
@@ -69,6 +71,8 @@
       });
       await ipfs.add(photoDataBuffer, (err, result) => {
         console.log(err, result);
+        uploadedPhotoData = "https://ipfs.infura.io:5001/api/v0/cat?arg=" + result[0].hash;
+        console.log("https://ipfs.infura.io:5001/api/v0/cat?arg=" + result[0].hash);
       });
     };
 
@@ -89,11 +93,18 @@
         return new Promise((resolve, reject) => {
           const [index, file] = item;
           const reader = new FileReader();
-          photoDataBuffer = reader.readAsBinaryString(file);
+          photoDataBuffer = reader.readAsArrayBuffer(file);
+
+          const readerBase64 = new FileReader();
+          readerBase64.readAsBinaryString(file);
 
           reader.onload = function(event) {
-            //const magic_array_buffer_converted_to_buffer = buffer.Buffer(reader.result);
-            //photoDataBuffer = magic_array_buffer_converted_to_buffer;
+            const magic_array_buffer_converted_to_buffer = buffer.Buffer(reader.result);
+            photoDataBuffer = magic_array_buffer_converted_to_buffer;
+            uploadImageOnlyToIPFS();
+          }
+
+          readerBase64.onload = function(event) {
             // if it's multiple upload field then set the object key as picture[0], picture[1]
             // otherwise just use picture
             const fileKey = `${inputKey}${
@@ -105,7 +116,6 @@
               event.target.result
             )}`;
 
-            //uploadImageOnlyToIPFS();
             resolve();
           };
           reader.onerror = function() {
@@ -199,6 +209,9 @@
         return;
       }
       let imgTagPhoto = '<img src="' + photoData + '">';
+      if (uploadedPhotoData) {
+        imgTagPhoto = uploadedPhotoData;
+      }
       //imgTagPhoto = "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png";
       let data = {
         name: name,
