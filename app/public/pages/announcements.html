@@ -24,7 +24,8 @@
   </div>
   <script>
       let NFTContractABI = false;
-    let dev = true;
+      let NFTContractAddress = "0x161A4CfbCEF9954b7020A325E0EAFEebE946995D";
+    let dev = false;
 
     let ipfsUrl = false;
 
@@ -191,7 +192,7 @@
       console.log('minting');
 
       var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
-      const NSFWContract = new web3.eth.Contract(NFTContractABI, "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8");
+      const NSFWContract = new web3.eth.Contract(NFTContractABI, NFTContractAddress);
 
       // Document elements
       //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
