@@ -23,6 +23,7 @@
     <b><a href="" id="ipfs_upload_json_url" target="_blank" class="link-to-ifps-validation"></a></b>
   </div>
   <script>
+      let NFTContractABI = false;
     let dev = true;
 
     let ipfsUrl = false;
@@ -185,14 +186,51 @@
       submitFormToIPFS();
     });
 
-    $("#nft_mint").click(function() {
+    $("#nft_mint").click(async function() {
       // Call to blockchain code and try and mint NFT with hashUrl
       console.log('minting');
-    })
+
+      var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+      const NSFWContract = new web3.eth.Contract(NFTContractABI, "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8");
+
+      // Document elements
+      //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
+      let contractToBeApproved = "0x9c3C6ff39f65689ED820476362615a347bB23b3F";
+      //if (classPeriod.value.length > 0 && walletId.value.length > 0) {
+      if (contractToBeApproved.length > 0){
+
+          // https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-send
+
+
+       // safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, uint256 tokenId, string memory _password)
+          await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
+            contractToBeApproved,
+            "QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
+            "12345"
+          )
+          .send({from : Wolvercoin.currentAccount})
+          .then(function(result, v1, v2) {
+            console.log(result);
+          });
+        }
+      });
 
     if (dev) {
       let hash = 'QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4';
       updateIPFSHash(hash);
     }
+
+    fetch("pages/nftABI.json").then(response =>
+        response.json().then(data => ({
+            data: data,
+            status: response.status
+        })
+    ).then(res => {
+      NFTContractABI = res.data;
+      //  console.log(res.status, res.data.title)
+    }));
+
+
+
   </script>
 </div>

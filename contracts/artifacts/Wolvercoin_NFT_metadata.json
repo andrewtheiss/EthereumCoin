@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.7+commit.e28d00a7"
+		"version": "0.8.10+commit.fc410830"
 	},
 	"language": "Solidity",
 	"output": {
@@ -284,8 +284,37 @@
 						"type": "uint256"
 					}
 				],
-				"name": "safeMintToContractAsOwner",
+				"name": "safeMintToThisContractAsOwner",
 				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "approvalAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "tokenURI",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_password",
+						"type": "string"
+					}
+				],
+				"name": "safeMintToThisContractWithApprovalToExternalContractUsingPassword",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -413,49 +442,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					}
-				],
-				"name": "tokenByIndex",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					}
-				],
-				"name": "tokenOfOwnerByIndex",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
 					}
@@ -466,19 +452,6 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "totalSupply",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -553,17 +526,8 @@
 				"symbol()": {
 					"details": "See {IERC721Metadata-symbol}."
 				},
-				"tokenByIndex(uint256)": {
-					"details": "See {IERC721Enumerable-tokenByIndex}."
-				},
-				"tokenOfOwnerByIndex(address,uint256)": {
-					"details": "See {IERC721Enumerable-tokenOfOwnerByIndex}."
-				},
 				"tokenURI(uint256)": {
 					"details": "See {IERC721Metadata-tokenURI}."
-				},
-				"totalSupply()": {
-					"details": "See {IERC721Enumerable-totalSupply}."
 				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC721-transferFrom}."
@@ -598,11 +562,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin_NFT.sol": {
-			"keccak256": "0x196d0811322c721545ddca135a75278f6ae1f06857450438b9bf85c20e979fd7",
+			"keccak256": "0x6c10ea9a196cc1845aa7da4e2f10a295123df1ac0378e9ab6aaf02507bc9b7c2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://94e2258b65bd63a98b8051d6af212a364126451c09a7812fb3274c21c96c7110",
-				"dweb:/ipfs/QmWh2kuSedwwdaJb1FCqLoK4VU5WZdVStVmn72NLUKo72B"
+				"bzz-raw://4bb0f54efc8f743a73e48257d50b10803c0233dda90488c14b612416f5ddbe66",
+				"dweb:/ipfs/QmbuFYVqUF44zzCu1LkYkTVNQp4uAY7JqSCijQbViM2uSW"
 			]
 		},
 		"contracts/includes/Address.sol": {
@@ -643,6 +607,14 @@
 			"urls": [
 				"bzz-raw://39fd3411cccb39c0b06676f614af34fd9e5bbce94803006c1d8655bc5e8eda86",
 				"dweb:/ipfs/QmUzbJGo39spRisLijqZeXSW9Xtai8beJHPj9rjAeZW7Pb"
+			]
+		},
+		"contracts/includes/ERC721URIStorage.sol": {
+			"keccak256": "0xac21ad1b5fbfc3644d2a05d1c43989644b5088e0f45028fc491e7e51b469fff4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://501bd438cd4dce0dda78e187c56f93465efd0531f0056acfdf88c71e990bc0a6",
+				"dweb:/ipfs/QmWCTzk1CV7JXMVKd9hofoC7GX3uxr2C39SnpjYnWcQhKF"
 			]
 		},
 		"contracts/includes/IERC165.sol": {

@@ -1,15 +1,21 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.10;
 
 import "./includes/Owner.sol";
 import "./includes/ERC721Enumerable.sol";
+import "./includes/ERC721URIStorage.sol";
 
-contract Wolvercoin_NFT is Owner, ERC721Enumerable{
+contract Wolvercoin_NFT is Owner, ERC721URIStorage {
   
     // We want to allow students to help mint objects but then stop 
     // giving them permission after sometime.  So we set and salt a 
-    // password to give access
+    // password to give access.  It's not like every contract execution is 
+    // public on a blockchain or anything... so this should be safe ;)
     uint password;
+    
+    // Optional mapping for token URIs
+    mapping (uint256 => string) private _tokenURIs;
+
   
     constructor(string memory name, string memory symbol, string memory _password) ERC721(name, symbol) {
         password = _saltPassword(_password);
@@ -20,11 +26,20 @@ contract Wolvercoin_NFT is Owner, ERC721Enumerable{
         _safeMint(to, tokenId);
     }
     
-    function safeMintToContractAsOwner(uint256 tokenId) public isOwner {
+    function safeMintToThisContractAsOwner(uint256 tokenId) public isOwner {
         _safeMint(address(this), tokenId);
-        _setTokenUri("test", "test");
     }
     
+    function safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, string memory tokenURI, string memory _password) 
+    public 
+    usesPassword(_password) 
+    returns (uint256) {
+        uint tokenIDToMint = uint(keccak256(abi.encode(tokenURI)));
+        require(!_exists(tokenIDToMint), "ERC721: token already minted");
+        _safeMint(address(this), tokenIDToMint);
+        approve(approvalAddress, tokenIDToMint);
+        return tokenIDToMint;
+    }
         
     // Modifiers can take inputs. This modifier checks that the
     // user used a correct password
@@ -61,5 +76,7 @@ contract Wolvercoin_NFT is Owner, ERC721Enumerable{
         // otherwise, use the default ERC721.isApprovedForAll()
         return ERC721.isApprovedForAll(_owner, _operator);
     }
+    
+    
 }
 

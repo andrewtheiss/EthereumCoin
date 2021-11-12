@@ -297,49 +297,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					}
-				],
-				"name": "tokenByIndex",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					}
-				],
-				"name": "tokenOfOwnerByIndex",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
 					}
@@ -350,19 +307,6 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "totalSupply",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -393,7 +337,7 @@
 			}
 		],
 		"devdoc": {
-			"details": "This implements an optional extension of {ERC721} defined in the EIP that adds enumerability of all the token ids in the contract as well as all token ids owned by each account.",
+			"details": "ERC721 token with storage based token URI management.",
 			"kind": "dev",
 			"methods": {
 				"approve(address,uint256)": {
@@ -429,17 +373,8 @@
 				"symbol()": {
 					"details": "See {IERC721Metadata-symbol}."
 				},
-				"tokenByIndex(uint256)": {
-					"details": "See {IERC721Enumerable-tokenByIndex}."
-				},
-				"tokenOfOwnerByIndex(address,uint256)": {
-					"details": "See {IERC721Enumerable-tokenOfOwnerByIndex}."
-				},
 				"tokenURI(uint256)": {
 					"details": "See {IERC721Metadata-tokenURI}."
-				},
-				"totalSupply()": {
-					"details": "See {IERC721Enumerable-totalSupply}."
 				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC721-transferFrom}."
@@ -455,7 +390,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/includes/ERC721Enumerable.sol": "ERC721Enumerable"
+			"contracts/includes/ERC721URIStorage.sol": "ERC721URIStorage"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -501,12 +436,12 @@
 				"dweb:/ipfs/QmbtrC6QkmbncYiaH5kCyjFmrHGuaBfK51FXh3D1kPEUEp"
 			]
 		},
-		"contracts/includes/ERC721Enumerable.sol": {
-			"keccak256": "0xc249f2e22da8a77afa52d7bae48fe723015caba4f9b65367679da79334c64d69",
+		"contracts/includes/ERC721URIStorage.sol": {
+			"keccak256": "0xac21ad1b5fbfc3644d2a05d1c43989644b5088e0f45028fc491e7e51b469fff4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://39fd3411cccb39c0b06676f614af34fd9e5bbce94803006c1d8655bc5e8eda86",
-				"dweb:/ipfs/QmUzbJGo39spRisLijqZeXSW9Xtai8beJHPj9rjAeZW7Pb"
+				"bzz-raw://501bd438cd4dce0dda78e187c56f93465efd0531f0056acfdf88c71e990bc0a6",
+				"dweb:/ipfs/QmWCTzk1CV7JXMVKd9hofoC7GX3uxr2C39SnpjYnWcQhKF"
 			]
 		},
 		"contracts/includes/IERC165.sol": {
@@ -523,14 +458,6 @@
 			"urls": [
 				"bzz-raw://4321e784e1b5e6103a8b1069bc8e7637d7c050568fa04bdc0d5556fd35d16cf3",
 				"dweb:/ipfs/QmSaomHzJ4XjRd28yZj5z5CnGtxK6JVzMUCBSDFopb1YnF"
-			]
-		},
-		"contracts/includes/IERC721Enumerable.sol": {
-			"keccak256": "0xc38845ded1618b609ec5b6d833c4fdd2260b17a1fa429f06bcf6f4c885b31db0",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://1bb12b685cccaf892f7a8186cf92228c261f9f8f84ec47259f5393982aa81b9f",
-				"dweb:/ipfs/QmPohaCQYBWotegrxwWcjDRgguh5vFxkRbiCCvJsLjKW24"
 			]
 		},
 		"contracts/includes/IERC721Metadata.sol": {

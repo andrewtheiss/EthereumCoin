@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.7+commit.e28d00a7"
+		"version": "0.8.10+commit.fc410830"
 	},
 	"language": "Solidity",
 	"output": {
@@ -454,11 +454,11 @@
 			]
 		},
 		"contracts/includes/ERC721Burnable.sol": {
-			"keccak256": "0x219f4a8c0136c68d5eaeb902126d188a2b0acc1557cdd7e07f6642f3ee44a38f",
+			"keccak256": "0x70744527198558d9d5480cac0d80021f6f6e7f488ee69b115c90a52ceeaa8d42",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8759e14c8b2acbda2c83295ba65220a00a40c8188128242b7da0722813259cee",
-				"dweb:/ipfs/Qmc2pU8jQgD2Zvhf1BrVgr5UH1sUpZCTNKjAw9zDwpq6vb"
+				"bzz-raw://d66fb634d4aa85db1407a162c2913d032e275ad49c547ffa6d3e926979abaa57",
+				"dweb:/ipfs/QmcuMzw8BBuhoMb5zv2w7rc9NTbVudFU1oHMRcaEtVzZHF"
 			]
 		},
 		"contracts/includes/IERC165.sol": {
