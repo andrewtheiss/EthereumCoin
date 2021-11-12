@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.10+commit.fc410830"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -237,6 +237,40 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"name": "onERC721Received",
+				"outputs": [
+					{
+						"internalType": "bytes4",
+						"name": "",
+						"type": "bytes4"
+					}
+				],
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -508,6 +542,9 @@
 				"name()": {
 					"details": "See {IERC721Metadata-name}."
 				},
+				"onERC721Received(address,address,uint256,bytes)": {
+					"details": "See {IERC721Receiver-onERC721Received}. Always returns `IERC721Receiver.onERC721Received.selector`."
+				},
 				"ownerOf(uint256)": {
 					"details": "See {IERC721-ownerOf}."
 				},
@@ -531,6 +568,11 @@
 				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC721-transferFrom}."
+				}
+			},
+			"stateVariables": {
+				"ERC721_RECEIVED": {
+					"details": "Magic value to be returned upon successful reception of an NFT  Equals to `bytes4(keccak256(\"onERC721Received(address,uint256,bytes)\"))`,  which can be also obtained as `ERC721Receiver(0).onERC721Received.selector`"
 				}
 			},
 			"version": 1
@@ -562,11 +604,11 @@
 	},
 	"sources": {
 		"contracts/Wolvercoin_NFT.sol": {
-			"keccak256": "0x6c10ea9a196cc1845aa7da4e2f10a295123df1ac0378e9ab6aaf02507bc9b7c2",
+			"keccak256": "0xaafa008068bf9c1a0d5247fdad9cfc8efb7d1f66e412ad75229b12aa76f2d69b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4bb0f54efc8f743a73e48257d50b10803c0233dda90488c14b612416f5ddbe66",
-				"dweb:/ipfs/QmbuFYVqUF44zzCu1LkYkTVNQp4uAY7JqSCijQbViM2uSW"
+				"bzz-raw://e528d7dbdc1496f004b719c61f6a7e3c93c9bbc15623a4305b8119a0c7920209",
+				"dweb:/ipfs/QmaMGAdt4TLwu631uyW45RHrEp2ULMqhWjNNtwB5FF7Vd4"
 			]
 		},
 		"contracts/includes/Address.sol": {
@@ -607,6 +649,14 @@
 			"urls": [
 				"bzz-raw://39fd3411cccb39c0b06676f614af34fd9e5bbce94803006c1d8655bc5e8eda86",
 				"dweb:/ipfs/QmUzbJGo39spRisLijqZeXSW9Xtai8beJHPj9rjAeZW7Pb"
+			]
+		},
+		"contracts/includes/ERC721Holder.sol": {
+			"keccak256": "0x784891d6aa234b2952bf9dae2a22a8b53af1811842f3699595bd77a871ca042b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e38b9b629075acd723041446a5aa3cb603bfef77f8859ae913e3db0258c94df8",
+				"dweb:/ipfs/QmZRQojxVqrE8e5SZsQLHSUkwvPQ97y8NSrJ3QS8PYMqMy"
 			]
 		},
 		"contracts/includes/ERC721URIStorage.sol": {
@@ -658,11 +708,11 @@
 			]
 		},
 		"contracts/includes/Owner.sol": {
-			"keccak256": "0xa140e318c0e77bfc7a954653a04e65ca2085b37a4e66a33dd23572b3b786b4ce",
+			"keccak256": "0x1e624ada939528fff73575187024d951aa6d33d4cbaad97ecf1f3e2a7d717583",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://707fc0dcab5247a461d78baca03daecc88d74e5b6502dacd7059623f74ddef6e",
-				"dweb:/ipfs/QmQERuB4PdrNyMfua66NvPL1reT6XB6JM3nak41s6rpScx"
+				"bzz-raw://e3f3c6ab93acd1a8bd389f852149d59b6d713efc51458ff95bba42c3329fb0d1",
+				"dweb:/ipfs/QmP7NEPrSbYRM4DzpJ31YUC2KNXUX4USuQk3jMNRUdzVyV"
 			]
 		},
 		"contracts/includes/Strings.sol": {
