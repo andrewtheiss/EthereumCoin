@@ -408,3 +408,24 @@ border: 2px solid #dd3333;
   width: 150px;
   height: 150px;
 }
+.approve-wolvercoin-container {
+  margin: 0px auto;
+  width: 300px;
+}
+.approve-wolvercoin-button {
+  border-radius: 30px;
+  font-size: 20px;
+  background: #cccc00;
+  border: 2px solid #cc0000;
+  padding: 5px 20px;
+  font-weight: 600;
+  color: #000000;
+}
+.approve-wolvercoin-button:hover {
+  background: #ffff00;
+  border: 2px solid #ff0000;
+}
+.approve-wolvercoin-button:active {
+  background: #999900;
+  border: 2px solid #990000;
+}
