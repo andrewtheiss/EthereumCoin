@@ -1,6 +1,4 @@
 <div>
-  NFTs will be here!
-
   <div class="hidden">
     <label for="nftAuctionContractAddress">NFT Auction Contract Addy:</label>
     <input id="nft_auction_contract" name="nftAuctionContractAddress" type="text"></input><br />
@@ -8,7 +6,7 @@
   </div>
 
   <div id="ntf_auction_set_approval_container" class="approve-wolvercoin-container">
-    <button id="nft_auction_set_approval_button" class="approve-wolvercoin-button">Approve Wolvercoin</button>
+    <button id="nft_auction_set_approval_button" class="approve-wolvercoin-button hidden">Approve Wolvercoin</button>
   </div>
 </div>
 
@@ -20,6 +18,10 @@
   let inputAddress = $("#nft_auction_contract").val();
   if (inputAddress.length == auctionContractAddress.length) {
     auctionContractAddress = inputAddress;
+  }
+
+  function showApproval() {
+    $('#nft_auction_set_approval_button').show();
   }
 
   /*
@@ -36,13 +38,19 @@
 
     let allowance = null;
     // allowance takes (owner, spender) so (msg.sender, contractToSpend)
-    await WolvercoinContract.methods.allowance(ethereum.selectedAddress, auctionContractAddress).call(function(err, res) {
+    await WolvercoinContract.methods.allowance(ethereum.selectedAddress, auctionContractAddress).call(async function(err, res) {
       console.log(err, res);
 
       // Call method to handle approved items or not
       if (res == '115792089237316195423570985008687907853269984665640564039457584007913129639935') { // show bidding options
         console.log('approval granted');
       } else { // show 'approve hw coin'
+        await WolvercoinContract.methods.balanceOf(ethereum.selectedAddress).call(function(err, res) {
+          // If they don't have wolvercoin, no need to approve
+          if (res != "0") {
+            showApproval();
+          }
+        });
 
       }
     });

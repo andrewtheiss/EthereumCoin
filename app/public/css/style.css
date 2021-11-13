@@ -428,4 +428,7 @@ border: 2px solid #dd3333;
 .approve-wolvercoin-button:active {
   background: #999900;
   border: 2px solid #990000;
+}.
+.approve-wolvercoin-button.hidden {
+  display: none;
 }
