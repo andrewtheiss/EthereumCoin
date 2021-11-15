@@ -14,22 +14,24 @@
     <div class="auction-item-image">
     </div>
     <div class="auction-item-details">
-      <div class="auction-item title">
-        <span class="auction-item-price-title" id="auction-item-nft-name">Not-So-Fungible-Wolvies</span>
-        <span class="auction-item-price-label">Price</span>
+      <div class="auction-item-row auction-item title">
+        <div class="auction-item-price-title" id="auction-item-nft-name">Not-So-Fungible-Wolvies</div>
       </div>
-      <div class="auction-item row">
+      <div class="auction-item-row">
         <span class="auction-item-nft-name">NSFW #<span class="auction-item-nft-id"></span></span>
         <span class="auction-item-price-label">
+          <span class="auction-item-price-title-fl">Price</span>
           <span class="crypto-icon">
             <span id="crypto_currency_price" class="crypto-currency">0.1</span>
           </span>
       </div>
-      <div class="auction-item-auction-time">
-        <span>Sale <span id="auction-start-finish-text">begins</span>
-        <span id="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
+      <div class="auction-item-row">
+        <div class="auction-item-auction-time">
+          <span id="auction-start-finish-text" class="auction-start-finish-text">begins</span>
+          <span id="auction-start-finish-time" class="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
+        </div>
       </div>
-      <div class="auction-item-auction-container hidden">
+      <div class="auction-item-auction-container hidden auction-item-row">
         <span><input id="auction-item-place-bid-input" class="auction-item-place-bid-input"></input>
         <button id="auction-item-place-bid">Place Bid</button>
         </span>
@@ -59,17 +61,55 @@
     id : 5,
     imgUrl : 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
     latestBid : 3.2,
-    startTimestamp : null,
-    endTimestamp : null,
+    startTimestamp : new Date().getTime() + 50000,
+    endTimestamp : new Date().getTime() + 50000,
     highestBidder : null,
     auctionClaimed : false
   };
+  function msToTime(ms) {
+    let seconds = (ms / 1000).toFixed(1);
+    let minutes = (ms / (1000 * 60)).toFixed(1);
+    let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+    let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+    if (seconds < 60) return Math.round(seconds) + " Sec";
+    else if (minutes < 60) return minutes + " Min";
+    else if (hours < 24) return hours + " Hrs";
+    else return days + " Days"
+  }
+
+  console.log()
 
   // Takes auction item details, grabs details, appends to grid, binds interactions
   function generateAndAddAuction(_auctionDetails, baseHtml, auctionGrid) {
     var nextAuction = $(baseHtml).clone();
     nextAuction.find(".auction-item-nft-id").html(_auctionDetails.id);
     nextAuction.attr('name',_auctionDetails.id);
+
+    // Handle timing for auction
+    // Check for current, ended, or ending auction
+    let timestampNow = new Date().getTime();
+    if (_auctionDetails.startTimestamp > timestampNow) {
+      console.log('auction hasnt started yet');// The auction hasn't started yet
+      nextAuction.find(".auction-start-finish-text").html("Auction starts in:");
+      var auctionBeginDifference = msToTime(_auctionDetails.startTimestamp - timestampNow);
+      nextAuction.find(".auction-start-finish-time").html(auctionBeginDifference);
+
+
+    } else if (_auctionDetails.endTimestamp > timestampNow) {
+      console.log('auction finished');  // Auction finished
+      nextAuction.find(".auction-start-finish-text").html("Auction starts on:");
+      var auctionBeginDifference = _auctionDetails.startTimestamp - timestampNow;
+      nextAuction.find(".auction-start-finish-time").html("Auction starts on:");
+
+
+    } else if (_auctionDetails.startTimestamp < timestampNow || _auctionDetails.endTimestamp > timestampNow) {
+        console.log('auction running');// Auction has started
+
+    } else {
+      // Auction is not up for auction
+      console.log('clear out details of auction');
+
+    }
 
     // Append to the auction grid
     auctionGrid.append(nextAuction);
