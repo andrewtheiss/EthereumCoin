@@ -9,26 +9,83 @@
     <button id="nft_auction_set_approval_button" class="approve-wolvercoin-button hidden">Approve Wolvercoin</button>
   </div>
 
-  <!-- Begin template for auction item -->
+  <div class="auction-grid" id="auction-grid">
   <div class="auction-item-container">
     <div class="auction-item-image">
     </div>
     <div class="auction-item-details">
       <div class="auction-item title">
-        <span id="auction-item-nft-name">NSFW's</span>
+        <span class="auction-item-price-title" id="auction-item-nft-name">Not-So-Fungible-Wolvies</span>
         <span class="auction-item-price-label">Price</span>
       </div>
       <div class="auction-item row">
-        <span id="auction-item-nft-name" class="auction-item-nft-name">#4</span>
+        <span class="auction-item-nft-name">NSFW #<span class="auction-item-nft-id"></span></span>
         <span class="auction-item-price-label">
           <span class="crypto-icon">
             <span id="crypto_currency_price" class="crypto-currency">0.1</span>
           </span>
       </div>
+      <div class="auction-item-auction-time">
+        <span>Sale <span id="auction-start-finish-text">begins</span>
+        <span id="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
+      </div>
+      <div class="auction-item-auction-container hidden">
+        <span><input id="auction-item-place-bid-input" class="auction-item-place-bid-input"></input>
+        <button id="auction-item-place-bid">Place Bid</button>
+        </span>
+      </div>
+      <div class="auction-item-auction-buy-now hidden"></div>
     </div>
   </div>
 
+  </div>
+
+  <!-- Begin template for auction item -->
 </div>
+
+<script>
+  function auctionInteraction(event) {
+    console.log('you interacted with auction id:' + event.data);
+  }
+
+
+  // This grabs the inner html which is just the auction container
+  var auctionGrid = $('#auction-grid');
+  var baseAuctionHTML = $("#auction-grid").html();
+  $("#auction-grid").html('');
+
+  // Create test html for single item
+  let auctionDetails = {
+    id : 5,
+    imgUrl : 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
+    latestBid : 3.2,
+    startTimestamp : null,
+    endTimestamp : null,
+    highestBidder : null,
+    auctionClaimed : false
+  };
+
+  // Takes auction item details, grabs details, appends to grid, binds interactions
+  function generateAndAddAuction(_auctionDetails, baseHtml, auctionGrid) {
+    var nextAuction = $(baseHtml).clone();
+    nextAuction.find(".auction-item-nft-id").html(_auctionDetails.id);
+    nextAuction.attr('name',_auctionDetails.id);
+
+    // Append to the auction grid
+    auctionGrid.append(nextAuction);
+
+    // Bind items
+    var auctionToAdd = auctionGrid.find("[name='" + _auctionDetails.id + "']");
+    auctionToAdd.on('click', _auctionDetails.id, auctionInteraction);
+    return nextAuction;
+  }
+
+  // Generate auction
+  generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
+
+
+  console.log('create auction items');
+</script>
 
 <script>
   let hasApprovalForHWToken = false;
