@@ -356,6 +356,12 @@ body {
   margin-right: 10px;
   background-image: url('/wcoin.png');
   background-size: contain;
+  background-repeat: no-repeat;
+}
+.crypto-currency {
+  margin-left: 21px;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
 }
 
 .load-hide {
@@ -431,4 +437,43 @@ border: 2px solid #dd3333;
 }.
 .approve-wolvercoin-button.hidden {
   display: none;
+}
+
+
+/*            */
+.auction-item-container {
+  width: 250px;
+  height: 375px;
+  border: 1px solid white;
+  border-radius: 10px;
+  filter: drop-shadow(0px 0px 8px #444444);
+  background-image: linear-gradient(to right, #888 0%, #fff 70%);
+  margin-top: 3px;
+  font-family: Poppins, sans-serif;
+}
+.auction-item-container:hover {
+  filter: drop-shadow(0px 0px 6px #aaaaaa);
+  margin-top: 0px;
+  margin-bottom: 3px;
+}
+.auction-item-image {
+  height: 250px;
+  width: 250px;
+  border-bottom: 1px solid white;
+}
+.auction-item-details {
+  height: 125px;
+  width: 250px;
+  background-color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.auction-item-price-label {
+  float: right;
+  padding: 5px;
+}
+.auction-item-nft-name {
+  font-weight: 600;
+  padding: 5px;
+  float: left;
 }

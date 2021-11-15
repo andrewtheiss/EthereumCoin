@@ -8,16 +8,47 @@
   <div id="ntf_auction_set_approval_container" class="approve-wolvercoin-container">
     <button id="nft_auction_set_approval_button" class="approve-wolvercoin-button hidden">Approve Wolvercoin</button>
   </div>
+
+  <!-- Begin template for auction item -->
+  <div class="auction-item-container">
+    <div class="auction-item-image">
+    </div>
+    <div class="auction-item-details">
+      <div class="auction-item title">
+        <span id="auction-item-nft-name">NSFW's</span>
+        <span class="auction-item-price-label">Price</span>
+      </div>
+      <div class="auction-item row">
+        <span id="auction-item-nft-name" class="auction-item-nft-name">#4</span>
+        <span class="auction-item-price-label">
+          <span class="crypto-icon">
+            <span id="crypto_currency_price" class="crypto-currency">0.1</span>
+          </span>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
   let hasApprovalForHWToken = false;
+  let renderBidInterface = false;
 
   // Get the nft auction contract address
   let auctionContractAddress = "0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF";
   let inputAddress = $("#nft_auction_contract").val();
   if (inputAddress.length == auctionContractAddress.length) {
     auctionContractAddress = inputAddress;
+  }
+
+  function updateBalance() {
+
+  }
+
+  // Go through all available bid items and show the bid interface
+  function showBidUI() {
+    renderBidInterface = true;
+    console.log('approved, show UI');
   }
 
   function showApproval() {
@@ -44,6 +75,7 @@
       // Call method to handle approved items or not
       if (res == '115792089237316195423570985008687907853269984665640564039457584007913129639935') { // show bidding options
         console.log('approval granted');
+        showBidUI();
       } else { // show 'approve hw coin'
         await WolvercoinContract.methods.balanceOf(ethereum.selectedAddress).call(function(err, res) {
           // If they don't have wolvercoin, no need to approve
@@ -71,4 +103,10 @@
   $('#nft_auction_set_approval_button').click(function() {
     approveWolvercoin();
   });
+</script>
+
+<script>
+  // Get auctions
+  // Get all auction ID's
+  // Go through auctions and grab each data
 </script>
