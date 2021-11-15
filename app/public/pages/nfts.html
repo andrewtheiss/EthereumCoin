@@ -61,11 +61,12 @@
     id : 5,
     imgUrl : 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
     latestBid : 3.2,
-    startTimestamp : new Date().getTime() + 50000,
-    endTimestamp : new Date().getTime() + 50000,
+    startTimestamp : new Date().getTime() - 50000,
+    endTimestamp : new Date().getTime() + 67000,
     highestBidder : null,
     auctionClaimed : false
   };
+
   function msToTime(ms) {
     let seconds = (ms / 1000).toFixed(1);
     let minutes = (ms / (1000 * 60)).toFixed(1);
@@ -76,8 +77,39 @@
     else if (hours < 24) return hours + " Hrs";
     else return days + " Days"
   }
+  function updateAuctionTime(startTime, endTime, auctionEl) {
+    let flagContinueToUpdate = false;  // Was going to have countdown... but maybe later
+    let timestampNow = new Date().getTime();
+    if (startTime > timestampNow) {
+      console.log('auction hasnt started yet');// The auction hasn't started yet
+      auctionEl.find(".auction-start-finish-text").html("Auction starts in:");
+      var auctionBeginDifference = msToTime(startTime - timestampNow);
+      auctionEl.find(".auction-start-finish-time").html(auctionBeginDifference);
 
-  console.log()
+
+    } else if (endTime < timestampNow) {
+      console.log('auction finished');  // Auction finished
+      auctionEl.find(".auction-start-finish-text").html("Auction ended!");
+      auctionEl.find(".auction-start-finish-time").html("");
+
+
+    } else if (startTime < timestampNow || endTime > timestampNow) {
+      console.log('auction running');// Auction has started
+      auctionEl.find(".auction-start-finish-text").html("Auction ends in:");
+      var auctionEndDifference = msToTime(endTime - timestampNow);
+      auctionEl.find(".auction-start-finish-time").html(auctionEndDifference);
+      flagContinueToUpdate = true;
+      setTimeout(function(){
+        updateAuctionTime(startTime, endTime, auctionEl);
+      }, 1000);
+    } else {
+      // Auction is not up for auction
+      console.log('clear out details of auction');
+      auctionEl.find(".auction-start-finish-text").html("");
+      auctionEl.find(".auction-start-finish-time").html("");
+    }
+
+  }
 
   // Takes auction item details, grabs details, appends to grid, binds interactions
   function generateAndAddAuction(_auctionDetails, baseHtml, auctionGrid) {
@@ -87,30 +119,7 @@
 
     // Handle timing for auction
     // Check for current, ended, or ending auction
-    let timestampNow = new Date().getTime();
-    if (_auctionDetails.startTimestamp > timestampNow) {
-      console.log('auction hasnt started yet');// The auction hasn't started yet
-      nextAuction.find(".auction-start-finish-text").html("Auction starts in:");
-      var auctionBeginDifference = msToTime(_auctionDetails.startTimestamp - timestampNow);
-      nextAuction.find(".auction-start-finish-time").html(auctionBeginDifference);
-
-
-    } else if (_auctionDetails.endTimestamp > timestampNow) {
-      console.log('auction finished');  // Auction finished
-      nextAuction.find(".auction-start-finish-text").html("Auction starts on:");
-      var auctionBeginDifference = _auctionDetails.startTimestamp - timestampNow;
-      nextAuction.find(".auction-start-finish-time").html("Auction starts on:");
-
-
-    } else if (_auctionDetails.startTimestamp < timestampNow || _auctionDetails.endTimestamp > timestampNow) {
-        console.log('auction running');// Auction has started
-
-    } else {
-      // Auction is not up for auction
-      console.log('clear out details of auction');
-
-    }
-
+    updateAuctionTime(_auctionDetails.startTimestamp, _auctionDetails.endTimestamp, nextAuction);
     // Append to the auction grid
     auctionGrid.append(nextAuction);
 
