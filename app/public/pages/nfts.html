@@ -10,35 +10,35 @@
   </div>
 
   <div class="auction-grid" id="auction-grid">
-  <div class="auction-item-container">
-    <div class="auction-item-image">
-    </div>
-    <div class="auction-item-details">
-      <div class="auction-item-row auction-item title">
-        <div class="auction-item-price-title" id="auction-item-nft-name">Not-So-Fungible-Wolvies</div>
+    <div class="auction-item-container">
+      <div class="auction-item-image">
       </div>
-      <div class="auction-item-row">
-        <span class="auction-item-nft-name">NSFW #<span class="auction-item-nft-id"></span></span>
-        <span class="auction-item-price-label">
-          <span class="auction-item-price-title-fl">Price</span>
-          <span class="crypto-icon">
-            <span id="crypto_currency_price" class="crypto-currency">0.1</span>
-          </span>
-      </div>
-      <div class="auction-item-row">
-        <div class="auction-item-auction-time">
-          <span id="auction-start-finish-text" class="auction-start-finish-text">begins</span>
-          <span id="auction-start-finish-time" class="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
+      <div class="auction-item-details">
+        <div class="auction-item-row auction-item title">
+          <div class="auction-item-price-title" id="auction-item-nft-name">Not-So-Fungible-Wolvies</div>
         </div>
+        <div class="auction-item-row">
+          <span class="auction-item-nft-name">NSFW #<span class="auction-item-nft-id"></span></span>
+          <span class="auction-item-price-label">
+            <span class="auction-item-price-title-fl">Price</span>
+            <span class="crypto-icon">
+              <span id="crypto_currency_price" class="crypto-currency">0.1</span>
+            </span>
+        </div>
+        <div class="auction-item-row">
+          <div class="auction-item-auction-time">
+            <span id="auction-start-finish-text" class="auction-start-finish-text">begins</span>
+            <span id="auction-start-finish-time" class="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
+          </div>
+        </div>
+        <div class="auction-item-auction-container hidden auction-item-row">
+          <span><input id="auction-item-place-bid-input" class="auction-item-place-bid-input"></input>
+            <button id="auction-item-place-bid">Place Bid</button>
+          </span>
+        </div>
+        <div class="auction-item-auction-buy-now hidden"></div>
       </div>
-      <div class="auction-item-auction-container hidden auction-item-row">
-        <span><input id="auction-item-place-bid-input" class="auction-item-place-bid-input"></input>
-        <button id="auction-item-place-bid">Place Bid</button>
-        </span>
-      </div>
-      <div class="auction-item-auction-buy-now hidden"></div>
     </div>
-  </div>
 
   </div>
 
@@ -58,13 +58,13 @@
 
   // Create test html for single item
   let auctionDetails = {
-    id : 5,
-    imgUrl : 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
-    latestBid : 3.2,
-    startTimestamp : new Date().getTime() - 50000,
-    endTimestamp : new Date().getTime() + 67000,
-    highestBidder : null,
-    auctionClaimed : false
+    id: 5,
+    imgUrl: 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
+    latestBid: 3.2,
+    startTimestamp: new Date().getTime() - 50000,
+    endTimestamp: new Date().getTime() + 67000,
+    highestBidder: null,
+    auctionClaimed: false
   };
 
   function msToTime(ms) {
@@ -77,29 +77,30 @@
     else if (hours < 24) return hours + " Hrs";
     else return days + " Days"
   }
+
   function updateAuctionTime(startTime, endTime, auctionEl) {
-    let flagContinueToUpdate = false;  // Was going to have countdown... but maybe later
+    let flagContinueToUpdate = false; // Was going to have countdown... but maybe later
     let timestampNow = new Date().getTime();
     if (startTime > timestampNow) {
-      console.log('auction hasnt started yet');// The auction hasn't started yet
+      console.log('auction hasnt started yet'); // The auction hasn't started yet
       auctionEl.find(".auction-start-finish-text").html("Auction starts in:");
       var auctionBeginDifference = msToTime(startTime - timestampNow);
       auctionEl.find(".auction-start-finish-time").html(auctionBeginDifference);
 
 
     } else if (endTime < timestampNow) {
-      console.log('auction finished');  // Auction finished
+      console.log('auction finished'); // Auction finished
       auctionEl.find(".auction-start-finish-text").html("Auction ended!");
       auctionEl.find(".auction-start-finish-time").html("");
 
 
     } else if (startTime < timestampNow || endTime > timestampNow) {
-      console.log('auction running');// Auction has started
+      console.log('auction running'); // Auction has started
       auctionEl.find(".auction-start-finish-text").html("Auction ends in:");
       var auctionEndDifference = msToTime(endTime - timestampNow);
       auctionEl.find(".auction-start-finish-time").html(auctionEndDifference);
       flagContinueToUpdate = true;
-      setTimeout(function(){
+      setTimeout(function() {
         updateAuctionTime(startTime, endTime, auctionEl);
       }, 1000);
     } else {
@@ -115,7 +116,7 @@
   function generateAndAddAuction(_auctionDetails, baseHtml, auctionGrid) {
     var nextAuction = $(baseHtml).clone();
     nextAuction.find(".auction-item-nft-id").html(_auctionDetails.id);
-    nextAuction.attr('name',_auctionDetails.id);
+    nextAuction.attr('name', _auctionDetails.id);
 
     // Handle timing for auction
     // Check for current, ended, or ending auction
@@ -142,6 +143,13 @@
 
   // Get the nft auction contract address
   let auctionContractAddress = "0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF";
+
+  // Allow for override in the url_of_contract
+  // http://wolvercoin.com/#nfts#0x9b37E894FB19050A9679AE8a964684B5aa0a29f8
+  if (Wolvercoin.overrideApprovalContractId !== undefined) {
+    auctionContractAddress = Wolvercoin.overrideApprovalContractId;
+    console.log('override to' + Wolvercoin.overrideApprovalContractId);
+  }
   let inputAddress = $("#nft_auction_contract").val();
   if (inputAddress.length == auctionContractAddress.length) {
     auctionContractAddress = inputAddress;

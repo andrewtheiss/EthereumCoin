@@ -1,6 +1,15 @@
 function getNavFromUrl(urlString) {
-  let navIdx = urlString.lastIndexOf("#") + 1;
+  let navIdx = urlString.indexOf("#") + 1;
+  let overrideApprovalContractId = urlString.lastIndexOf("#") + 1;
   let nav = urlString.substring(navIdx);
+
+  // Set global override for contract id
+  if (navIdx != overrideApprovalContractId) {
+    Wolvercoin.overrideApprovalContractId = urlString.substring(navIdx + 5);
+    console.log('override contract approval with:' + Wolvercoin.overrideApprovalContractId);
+    nav = urlString.substring(navIdx, overrideApprovalContractId-1);
+  }
+
   if (navIdx == 0) {
     nav = "";
   }
