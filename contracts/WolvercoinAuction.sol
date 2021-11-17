@@ -21,7 +21,7 @@ contract WolvercoinAuction is Ownable {
     
     // All auctions
    ClassicAuction[] public _allAuctions;
-   ClassicAuction[] public _activeAuctions;
+   ClassicAuction[] public _finishedAuctions;
     
     
     uint256 private _totalAuctionCount;
@@ -52,19 +52,22 @@ contract WolvercoinAuction is Ownable {
      *      a. Create a getter to grab an auction by index
      */
     function findAuctionIndexByNftId(uint nftId) public view returns (uint256 auctionIndex) {
+        bool auctionIndexFound = false;
         for (uint i = 0; i < _allAuctions.length; i++) {
             if (_allAuctions[i].nftId == nftId) {
                 auctionIndex = i;
                 i = _allAuctions.length;
+                auctionIndexFound = true;
             }
         }
+        require(auctionIndexFound, "No auction exists for given NFT ID");
     }
     
     // Deleting an element creates a gap in the array.
     // One trick to keep the array compact is to
     // move the last element into the place to delete.
     function removeAuctionByIndex(uint index) public {
-        require(index < _activeAuctions.length, "index out of bound");
+        require(index < _allAuctions.length, "index out of bound");
         
         // Move the last element into the place to delete
         _allAuctions[index] = _allAuctions[_allAuctions.length - 1];
@@ -88,6 +91,10 @@ contract WolvercoinAuction is Ownable {
     
     function getAllAuctions() public view returns (ClassicAuction[] memory) {
         return _allAuctions;
+    }
+    function getAuctionsByNFTId(uint256 nftId) public view returns (ClassicAuction memory) {
+        uint256 index = findAuctionIndexByNftId(nftId);
+        return _allAuctions[index];
     }
      
      /*  // _activeAuctions array + access
@@ -149,6 +156,10 @@ contract WolvercoinAuction is Ownable {
      function TEST_getBlockTime() public view returns (uint) {
          return block.timestamp;
      }
+     function TEST_setEndTimeByNFTId(uint256 nftId, uint256 newEndTime) public {
+         uint256 index = findAuctionIndexByNftId(nftId);
+         _allAuctions[index].endTime = newEndTime;
+     }
      
      /*  // Pay wolvercoin to contract (transferFrom)
      *  6 Create a method to transfer a certain uint256 value of wolvercoin to this contract 
@@ -182,11 +193,15 @@ contract WolvercoinAuction is Ownable {
          
          // 
          uint256 auctionIndex = findAuctionIndexByNftId(auction.nftId);
+         _finishedAuctions.push(_allAuctions[auctionIndex]);
          removeAuctionByIndex(auctionIndex);
          
      }
      
-     // Transfer 
+     // Get all finished auctions
+    function getAllFinishedAuctions() public view returns (ClassicAuction[] memory) {
+        return _finishedAuctions;
+    }
      
      /*
      *  // Bid
@@ -233,6 +248,6 @@ contract WolvercoinAuction is Ownable {
 
     function extendAuction(ClassicAuction memory auction, uint256 extension) public pure{
         auction.endTime += extension;
-     }
+    }
 
 }

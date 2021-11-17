@@ -78,11 +78,29 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "newEndTime",
+						"type": "uint256"
+					}
+				],
+				"name": "TEST_setEndTimeByNFTId",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "_activeAuctions",
+				"name": "_allAuctions",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -131,7 +149,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "_allAuctions",
+				"name": "_finishedAuctions",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -343,6 +361,56 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "getAllFinishedAuctions",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "nftId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "auctionEnded",
+								"type": "bool"
+							},
+							{
+								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "highestBidder",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "highestBid",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct WolvercoinAuction.ClassicAuction[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -392,6 +460,62 @@
 						],
 						"internalType": "struct WolvercoinAuction.ClassicAuction",
 						"name": "auctionToReturn",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "getAuctionsByNFTId",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "nftId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "auctionEnded",
+								"type": "bool"
+							},
+							{
+								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "highestBidder",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "highestBid",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct WolvercoinAuction.ClassicAuction",
+						"name": "",
 						"type": "tuple"
 					}
 				],
@@ -603,11 +727,11 @@
 	},
 	"sources": {
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0x1ea844a1dbbfb6e208f81cb93f53e6d32b9ebd1f4862445f28137e8d2cd38c6f",
+			"keccak256": "0xbd01effb65278b6a7fdccf9e195764810c68bfdc436298fa4a229cbf5c638c05",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://845a3b3bb1e3daf48f078efa731c02084c0606790f6c032f15b918c4bbdab8ba",
-				"dweb:/ipfs/QmT2CwCTfrZ4537dHQVuM9ZhCw2Jh9bge1s4ARC13XYM7M"
+				"bzz-raw://6cb2f5af634afa73280bc232730baf4b1479d28a1ad7c6cca7b30b642e3f3b93",
+				"dweb:/ipfs/QmagzTZNZCWEcHqvNtrmig8dz1tN8bdHFb6QCoxuCSCXmm"
 			]
 		},
 		"contracts/includes/Context.sol": {
