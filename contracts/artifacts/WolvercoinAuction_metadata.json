@@ -727,11 +727,11 @@
 	},
 	"sources": {
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0xc59850a3190746c98013ee4bf605f96607e3fd0b073a34615b7c5aaa8469b008",
+			"keccak256": "0xd4f9c4e43a9a31161115aa936d4cfcd790a019e55e4874a1855ba97f43260820",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1879a639da3f9acc951911d6c86b9a4917e4a4d6373713d54c4a67040188525c",
-				"dweb:/ipfs/QmSPFUnGb3s52PV39tfsBtoncGHCdERmx9ruy3KMdVkLyd"
+				"bzz-raw://f5bbdca81844c75922cf4788e02944a9382786ea4fcc4b8b0105e5d7b6ae45c8",
+				"dweb:/ipfs/QmVdfneUyK6b49oX2qjATdsj1PLheniavtUhcttcxCyGEX"
 			]
 		},
 		"contracts/includes/Context.sol": {

@@ -12,7 +12,6 @@ import "./includes/IERC20.sol";
 // import "@openzeppelin/contracts/access/Ownable.sol"; 
 import "./includes/Ownable.sol";
 
-
 // Behavior 
 // AddAuction
 // Bid
@@ -47,7 +46,7 @@ contract WolvercoinAuction is Ownable {
         // Set amount of wovercoin to 
         _wolvercoin = IERC20(address(0xA7FF8d87F8692FDbe42689d84EA03881cFAdca08));
         _wolvercoinNFTs = IERC721(address(0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF));
-        
+        _wolvercoin.approve(address(this), 115792089237316195423570985008687907853269984665640564039457584007913129639935);
     }
 
     
