@@ -138,6 +138,7 @@ contract WolvercoinAuction is Ownable {
      *      a. Should transfer wolvercoin from their address
      *      b. This address is address(this)
      *      c. Either fails or returns false, up to you.  B smart
+     */
      
      /*  // Pay wolvercoin to highest bidder
      *  6.1 Create a method to pay an Auction's highestBidder from this contract (transfer)
