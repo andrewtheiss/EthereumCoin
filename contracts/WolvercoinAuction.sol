@@ -142,6 +142,14 @@ contract WolvercoinAuction is Ownable {
          _;
      }
      
+     // For Testing
+     function TEST_getAllowance() public view returns (uint256) {
+         return _wolvercoin.allowance(msg.sender, address(this));
+     }
+     function TEST_getBlockTime() public view returns (uint) {
+         return block.timestamp;
+     }
+     
      /*  // Pay wolvercoin to contract (transferFrom)
      *  6 Create a method to transfer a certain uint256 value of wolvercoin to this contract 
      *      a. Should transfer wolvercoin from their address

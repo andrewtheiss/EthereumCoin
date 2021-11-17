@@ -49,6 +49,32 @@
 				"type": "event"
 			},
 			{
+				"inputs": [],
+				"name": "TEST_getAllowance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "TEST_getBlockTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -577,11 +603,11 @@
 	},
 	"sources": {
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0x7c5e20bf9c462e433bc1ea75128ee964a553886b498ce0b02854cc50262c7edc",
+			"keccak256": "0x1ea844a1dbbfb6e208f81cb93f53e6d32b9ebd1f4862445f28137e8d2cd38c6f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://57baaf27f7460280b96300e99d54ebbc3066e7abf87206985373a499a6ca54f9",
-				"dweb:/ipfs/QmYtcTTEN2kuK9nV46MAn1PwF3y13xz2ikkeq5sYzx1aDb"
+				"bzz-raw://845a3b3bb1e3daf48f078efa731c02084c0606790f6c032f15b918c4bbdab8ba",
+				"dweb:/ipfs/QmT2CwCTfrZ4537dHQVuM9ZhCw2Jh9bge1s4ARC13XYM7M"
 			]
 		},
 		"contracts/includes/Context.sol": {
