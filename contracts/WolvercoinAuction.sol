@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.6.0;
+pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -16,6 +17,10 @@ contract WolvercoinAuction is Ownable {
     IERC721 private _wolvercoinNFTs;
     IERC20 immutable private _wolvercoin;
     
+    // All auctions
+   ClassicAuction[] public _allAuctions;
+   ClassicAuction[] public _activeAuctions;
+    
     
     uint256 private _totalAuctionCount;
     struct ClassicAuction {
@@ -27,17 +32,66 @@ contract WolvercoinAuction is Ownable {
         uint256 highestBid;
     }
     
-    // Todo:
+    
+    constructor() public {
+        _totalAuctionCount = 0;
+        
+        // Set amount of wovercoin to 
+        _wolvercoin = IERC20(address(0xA7FF8d87F8692FDbe42689d84EA03881cFAdca08));
+        _wolvercoinNFTs = IERC721(address(0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF));
+        
+    }
+
     
     /*  
      *  // _allAuctions array + access
      *  1 Create array of 'AllAuctions' (_allAuctions) with either index or mapping
      *      a. Create a getter to grab an auction by index
-     *
-     *  // _activeAuctions array + access
+     */
+    function findAuctionIndexByNftId(uint nftId) public view returns (uint256 auctionIndex) {
+        for (uint i = 0; i < _allAuctions.length; i++) {
+            if (_allAuctions[i].nftId == nftId) {
+                auctionIndex = i;
+                i = _allAuctions.length;
+            }
+        }
+    }
+    
+    // Deleting an element creates a gap in the array.
+    // One trick to keep the array compact is to
+    // move the last element into the place to delete.
+    function removeAuctionByIndex(uint index) public {
+        require(index < _activeAuctions.length, "index out of bound");
+        
+        // Move the last element into the place to delete
+        _allAuctions[index] = _allAuctions[_allAuctions.length - 1];
+        
+        // Remove the last element
+        _allAuctions.pop();
+    }
+    
+    function addAuction(uint _nftId, uint256 _startTime, uint256 _endTime, uint256 _startingBid) public {
+        ClassicAuction memory newAuction = ClassicAuction({
+            nftId : _nftId,
+            startTime : _startTime,
+            endTime : _endTime,
+            auctionEnded : false,
+            highestBidder : address(0),
+            highestBid : _startingBid
+        });
+        _allAuctions.push(newAuction);
+    }
+    
+    function getAllAuctions() public view returns (ClassicAuction[] memory) {
+        return _allAuctions;
+    }
+     
+     /*  // _activeAuctions array + access
      *  2 Create array of 'ActiveAuctions' (_activeAuctions)
      *      a. Create method to Add an 'Auction' struct to ActiveAuctions array
      *      b. Create method to Remove an 'Auction' struct to ActiveAuctions array
+     */
+     /*
      *      c. Copy and paste behavior for 'FinishedAuctions'
      *
      *  // Check Expired
@@ -67,6 +121,14 @@ contract WolvercoinAuction is Ownable {
      *  // Transfer nft
      *  8 Transfer NFT to address of Auction highestBidder
      *      a. Requires a modifier requiring auction to be ended
+     */
+    
+    function transferNFT(ClassicAuction memory auction) public pure {
+        require(auction.auctionEnded, "Auction has not ended");
+    //   _wolvercoinNFTs.safeTransferFrom(address(this), auction.highestBidder, auction.nftId);
+    }
+    
+     /*
      *
      *  // Extend auction  
      *  9 Extends an auction given amount of time
@@ -76,21 +138,6 @@ contract WolvercoinAuction is Ownable {
      *
      */
     
-    
-    IERC721 public nft;
-    uint public nftId;
-
-    address payable public seller;
-
-    constructor() {
-        _totalAuctionCount = 0;
-        
-        // Set amount of wovercoin to 
-        _wolvercoin = IERC20(address(0xA7FF8d87F8692FDbe42689d84EA03881cFAdca08));
-        _wolvercoinNFTs = IERC721(address(0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF));
-        
-    }
-    
     function setNFT(address _nft) public onlyOwner {
         _wolvercoinNFTs = IERC721(_nft);
     }
@@ -99,26 +146,9 @@ contract WolvercoinAuction is Ownable {
         // sender, recipient, amount
         _wolvercoin.transferFrom(msg.sender, address(this), amount);
     }
-    
-    // Can call approve to pay WVC to any contract via http://wolvercoin.com/#nfts#0x9b37E894FB19050A9679AE8a964684B5aa0a29f8
-    // where '0x9b37E894FB19050A9679AE8a964684B5aa0a29f8' is your deployed test WovercoinAuction contract
-    function _TEST_approveWolvercoinSpend() public {
-        uint256 approvalAmount = 115792089237316195423570985008687907853269984665640564039457584007913129639935; //(2^256 - 1 )
-        nft.approve(address(this), approvalAmount);
-    }
 
-    // Wins the auction for the specified amount
-    function win() external payable {
-        nft.safeTransferFrom(address(this), msg.sender, nftId);
-        
-        // Check approval first
-        _wolvercoin.transfer(msg.sender, 10);
-    }
-    
-    function startItemAuction(
-        uint _nftId, 
-        uint256 _startTime,
-        uint256 _endTime) public onlyOwner {
-            
-        }
+    function extendAuction(ClassicAuction memory auction, uint256 extension) public pure{
+        auction.endTime += extension;
+     }
+
 }
