@@ -80,6 +80,11 @@
 					},
 					{
 						"internalType": "address",
+						"name": "seller",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
 						"name": "highestBidder",
 						"type": "address"
 					},
@@ -121,6 +126,11 @@
 						"internalType": "bool",
 						"name": "auctionEnded",
 						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "seller",
+						"type": "address"
 					},
 					{
 						"internalType": "address",
@@ -167,6 +177,24 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "bid",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"components": [
 							{
 								"internalType": "uint256",
@@ -187,6 +215,11 @@
 								"internalType": "bool",
 								"name": "auctionEnded",
 								"type": "bool"
+							},
+							{
+								"internalType": "address",
+								"name": "seller",
+								"type": "address"
 							},
 							{
 								"internalType": "address",
@@ -261,6 +294,11 @@
 							},
 							{
 								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
 								"name": "highestBidder",
 								"type": "address"
 							},
@@ -312,6 +350,11 @@
 							},
 							{
 								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
 								"name": "highestBidder",
 								"type": "address"
 							},
@@ -340,6 +383,24 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "wolvercoinAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "previousBidder",
+						"type": "address"
+					}
+				],
+				"name": "refundWovercoinToPreviousBidder",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -391,6 +452,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "transferCompletedAuctionByNftId",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"components": [
 							{
 								"internalType": "uint256",
@@ -414,6 +488,11 @@
 							},
 							{
 								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
 								"name": "highestBidder",
 								"type": "address"
 							},
@@ -428,9 +507,9 @@
 						"type": "tuple"
 					}
 				],
-				"name": "transferNFT",
+				"name": "transferNftAndPayAuctionHighestBidderAndRemoveAuction",
 				"outputs": [],
-				"stateMutability": "pure",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -442,6 +521,19 @@
 					}
 				],
 				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "wolvercoinAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "transferWovercoinToContract",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -525,11 +617,11 @@
 			]
 		},
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0x6df325dd32c10d09ee3e62d050345ed44841cb4df2dd38af4f704fbf697820ad",
+			"keccak256": "0xe99ce156452d5c818f6a138c32f82ed3b9d417e5957ee917968da744a2cf50c7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ba4df75e9c941a93bbc01fc3730ecb9efa79caceff7aecc96fdf11147b2dfce9",
-				"dweb:/ipfs/QmNNd59gch3a42iqpk4q9uvEKJHUwc7D8bJ4gA6wDWBs4i"
+				"bzz-raw://bce440aa1ae77d2022428285115664edeefde9adf6d0afa17acb85f0866ca3b3",
+				"dweb:/ipfs/QmQYDLStUGWLrLi594VaJYHz6Y7qCGkqvf35xfXqYHb8kE"
 			]
 		}
 	},

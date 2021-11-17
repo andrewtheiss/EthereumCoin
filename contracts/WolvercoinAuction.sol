@@ -28,6 +28,7 @@ contract WolvercoinAuction is Ownable {
         uint256 startTime;
         uint256 endTime;
         bool auctionEnded;
+        address seller;
         address highestBidder;
         uint256 highestBid;
     }
@@ -76,6 +77,7 @@ contract WolvercoinAuction is Ownable {
             startTime : _startTime,
             endTime : _endTime,
             auctionEnded : false,
+            seller : address(this),
             highestBidder : address(0),
             highestBid : _startingBid
         });
@@ -133,27 +135,71 @@ contract WolvercoinAuction is Ownable {
          _;
      }
      
+     modifier hasEnoughWolvercoin(uint amount) {
+         require(_wolvercoin.balanceOf(msg.sender) > amount, "Insufficient wolvercoin balance");
+         _;
+     }
+     
      /*  // Pay wolvercoin to contract (transferFrom)
      *  6 Create a method to transfer a certain uint256 value of wolvercoin to this contract 
      *      a. Should transfer wolvercoin from their address
      *      b. This address is address(this)
      *      c. Either fails or returns false, up to you.  B smart
      */
+     function transferWovercoinToContract(uint256 wolvercoinAmount) 
+     public 
+     hasEnoughWolvercoin(wolvercoinAmount) 
+     isApprovedForWolvercoin(wolvercoinAmount) {
+         _wolvercoin.transferFrom(msg.sender, address(this), wolvercoinAmount);
+         
+     }
+
+    // Need to refund wolvercoin to previous bidder
+    function refundWovercoinToPreviousBidder(uint256 wolvercoinAmount, address previousBidder) 
+     public {
+         _wolvercoin.transferFrom(address(this), previousBidder, wolvercoinAmount);
+         
+     }
      
      /*  // Pay wolvercoin to highest bidder
      *  6.1 Create a method to pay an Auction's highestBidder from this contract (transfer)
-     *
+     */
+     function transferNftAndPayAuctionHighestBidderAndRemoveAuction(ClassicAuction memory auction) public {
+         _wolvercoinNFTs.transferFrom(address(this), auction.highestBidder, auction.nftId);
+         
+         // ERC20 - transferFrom(address sender, address recipient, uint256 amount) → bool
+         _wolvercoin.transferFrom(address(this), auction.highestBidder, auction.highestBid);
+         
+         // 
+         uint256 auctionIndex = findAuctionIndexByNftId(auction.nftId);
+         removeAuctionByIndex(auctionIndex);
+         
+     }
+     
+     // Transfer 
+     
+     /*
      *  // Bid
      *  7 Create method to bid on a Auction given an nftId and amount
-     *
-     *  // Transfer nft
-     *  8 Transfer NFT to address of Auction highestBidder
-     *      a. Requires a modifier requiring auction to be ended
      */
+     function bid(uint256 nftId, uint256 amount) public  {
+         // Transfer the new higher bid
+         transferWovercoinToContract(amount);
+         
+         // Refund the previous bid
+         uint256 auctionIndex = findAuctionIndexByNftId(nftId);
+         refundWovercoinToPreviousBidder(_allAuctions[auctionIndex].highestBid, _allAuctions[auctionIndex].highestBidder);
+         
+         // Set the new auction details
+         _allAuctions[auctionIndex].highestBid = amount;
+         _allAuctions[auctionIndex].highestBidder = msg.sender;
+     }
+     
     
-    function transferNFT(ClassicAuction memory auction) public pure {
-        require(auction.auctionEnded, "Auction has not ended");
-    //   _wolvercoinNFTs.safeTransferFrom(address(this), auction.highestBidder, auction.nftId);
+    // Complete auction
+    function transferCompletedAuctionByNftId(uint256 nftId) public isAuctionExpired(getAuctionByNftId(nftId)){
+         ClassicAuction memory auction = getAuctionByNftId(nftId);
+         transferNftAndPayAuctionHighestBidderAndRemoveAuction(auction);
     }
     
      /*
