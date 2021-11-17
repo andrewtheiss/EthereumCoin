@@ -12,6 +12,11 @@ import "./includes/IERC20.sol";
 // import "@openzeppelin/contracts/access/Ownable.sol"; 
 import "./includes/Ownable.sol";
 
+
+// Behavior 
+// AddAuction
+// Bid
+// TransferCompletedAuctionByNftId after auction
 contract WolvercoinAuction is Ownable {
     
     event Win(address winner, uint256 amount);
@@ -76,14 +81,26 @@ contract WolvercoinAuction is Ownable {
         _allAuctions.pop();
     }
     
-    function addAuction(uint _nftId, uint256 _startTime, uint256 _endTime, uint256 _startingBid) public {
+    modifier auctionDoesntExistsForNFTId(uint nftId) {
+        bool auctionIndexFound = false;
+        for (uint i = 0; i < _allAuctions.length; i++) {
+            if (_allAuctions[i].nftId == nftId) {
+                i = _allAuctions.length;
+                auctionIndexFound = true;
+            }
+        }
+        require(!auctionIndexFound, "Auction Already Exists");
+        _;
+    }
+    
+    function addAuction(uint _nftId, uint256 _startTime, uint256 _endTime, uint256 _startingBid) public onlyOwner auctionDoesntExistsForNFTId(_nftId) {
         ClassicAuction memory newAuction = ClassicAuction({
             nftId : _nftId,
             startTime : _startTime,
             endTime : _endTime,
             auctionEnded : false,
             seller : address(this),
-            highestBidder : address(0),
+            highestBidder : address(this),
             highestBid : _startingBid
         });
         _allAuctions.push(newAuction);
@@ -208,11 +225,14 @@ contract WolvercoinAuction is Ownable {
      *  7 Create method to bid on a Auction given an nftId and amount
      */
      function bid(uint256 nftId, uint256 amount) public  {
+         // Refund the previous bid
+         uint256 auctionIndex = findAuctionIndexByNftId(nftId);
+         require(_allAuctions[auctionIndex].highestBid < amount, "There is already a higher bid!");
+         
          // Transfer the new higher bid
          transferWovercoinToContract(amount);
          
-         // Refund the previous bid
-         uint256 auctionIndex = findAuctionIndexByNftId(nftId);
+         // Refund previous bidder
          refundWovercoinToPreviousBidder(_allAuctions[auctionIndex].highestBid, _allAuctions[auctionIndex].highestBidder);
          
          // Set the new auction details
@@ -222,7 +242,7 @@ contract WolvercoinAuction is Ownable {
      
     
     // Complete auction
-    function transferCompletedAuctionByNftId(uint256 nftId) public isAuctionExpired(getAuctionByNftId(nftId)){
+    function transferCompletedAuctionByNftId(uint256 nftId) public {
          ClassicAuction memory auction = getAuctionByNftId(nftId);
          transferNftAndPayAuctionHighestBidderAndRemoveAuction(auction);
     }
