@@ -190,11 +190,11 @@
 	},
 	"sources": {
 		"contracts/WolverAuctions.sol": {
-			"keccak256": "0xdbf9b64c4697df74aa3456561d0dadb85b3e3468c5f98bc3a8b790f3f4d4f813",
+			"keccak256": "0xb0291da29dca9a2bd8a1051d902cb74cd40047e21739ab615227dc4485748cb1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ab905a283571b30822a10553a139c5efbe826c7c82a48a0924ad99a11e4b2cd0",
-				"dweb:/ipfs/QmdqDN3KFkLds7mg7LKgkrhX3Xqpd7YfGiLGToDxSByt7w"
+				"bzz-raw://83da572773ef102478cd3d758a0aaa0d1411c7b918d4cc410af68fe2ba262034",
+				"dweb:/ipfs/QmW7npdv7AzKz5JAriTswx39JNosP79dPgSbT45YjkspXH"
 			]
 		},
 		"contracts/includes/Address.sol": {
