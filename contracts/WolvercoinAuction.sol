@@ -97,22 +97,49 @@ contract WolvercoinAuction is Ownable {
      *  // Check Expired
      *  3 Create method which checks if an auction is expired, returns a bool
      *      a. Create a method which is a modifier of similar behavior (we need both types)
-     *
-     *  // Get auction
+     */
+     modifier isAuctionExpired(ClassicAuction memory auction) {
+         bool ended = auction.auctionEnded;
+         bool outOfTimeFrame = (auction.endTime < block.timestamp) && (auction.startTime > block.timestamp);
+         require(ended || outOfTimeFrame, "Auction has expired");
+         _;
+     }
+     
+     modifier auctionStarted(ClassicAuction memory auction) {
+         require(block.timestamp > auction.startTime && block.timestamp < auction.endTime && !auction.auctionEnded, "Auction not running");
+         _;
+     }
+     
+     /*  // Get auction
      *  4 Create a method which grabs an acution by nftId or activeAuctionId
      *    a. activeAuctionId will be the id used to access the _activeAuctions
-     *
+     */
+     function getAuctionByNftId(uint256 _nftId) public view returns (ClassicAuction memory auctionToReturn) {
+         for (uint i = 0; i < _allAuctions.length; i++) {
+             if (_allAuctions[i].nftId == _nftId) {
+                 auctionToReturn = _allAuctions[i]; 
+             }
+         }
+     }
+     
+     /*
      *  // Approval
      *  5 Create a method to check if the msg.sender is approved for given amount of wolvercoin spending
      *      a. should return a bool
-     *  
-     *  // Pay wolvercoin to contract (transferFrom)
+     */
+     modifier isApprovedForWolvercoin(uint amount) {
+         uint256 howMuchWolvercoinCanThisContractSpend = _wolvercoin.allowance(msg.sender, address(this));
+         require(howMuchWolvercoinCanThisContractSpend > amount, "Please approve more wolvercoin spending");
+         _;
+     }
+     
+     /*  // Pay wolvercoin to contract (transferFrom)
      *  6 Create a method to transfer a certain uint256 value of wolvercoin to this contract 
      *      a. Should transfer wolvercoin from their address
      *      b. This address is address(this)
      *      c. Either fails or returns false, up to you.  B smart
-     *
-     *  // Pay wolvercoin to highest bidder
+     
+     /*  // Pay wolvercoin to highest bidder
      *  6.1 Create a method to pay an Auction's highestBidder from this contract (transfer)
      *
      *  // Bid
