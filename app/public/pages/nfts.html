@@ -30,7 +30,7 @@
             <span id="auction-start-nameInput" class="auction-start-nameInput">name</span>
             <span id="auction-start-description" class="auction-start-description">desc</span>
           </div>
-          <div class="auction-item-auction-time">
+          <div class="auction-item-row">
             <span id="auction-start-finish-text" class="auction-start-finish-text">begins</span>
             <span id="auction-start-finish-time" class="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
           </div>
@@ -141,10 +141,6 @@
   }
 
 
-  // Generate auction
-  generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
-
-
   console.log('create auction items');
 </script>
 
@@ -208,7 +204,7 @@
                 description: '',
                 image: ''
               };
-              if (res.nftTokenMetadata) {
+              if (res[i].nftTokenMetadata) {
                 metadata = JSON.parse(res[i].nftTokenMetadata);
               }
               auctionDetails = {
@@ -222,7 +218,7 @@
                 name: metadata.name,
                 description: metadata.description
               };
-
+              console.log('add auction');
               //      auctionDetails.id = ...
               generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
             }
