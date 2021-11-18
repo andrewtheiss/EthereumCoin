@@ -64,7 +64,9 @@
     startTimestamp: new Date().getTime() - 50000,
     endTimestamp: new Date().getTime() + 67000,
     highestBidder: null,
-    auctionClaimed: false
+    auctionClaimed: false,
+    name: '',
+    description: ''
   };
 
   function msToTime(ms) {
@@ -187,9 +189,28 @@
         const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
 
         WolvercoinAuctionContract.methods.getAllAuctions().call(async function(err, res) {
-          console.log(err, res);
           allAuctions = res;
-          console.log('Got all auctions', res);
+          console.log('Got all auctions', allAuctions);
+          if (res && res.length > 0) {
+            for (var i = 0; i < res.length; i++) {
+              /*
+              // Create test html for single item
+              let auctionDetails = {
+                id: 5,
+                imgUrl: 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
+                latestBid: 3.2,
+                startTimestamp: new Date().getTime() - 50000,
+                endTimestamp: new Date().getTime() + 67000,
+                highestBidder: null,
+                auctionClaimed: false,
+                name: '',
+                description: ''
+              };
+              */
+              //      auctionDetails.id = ...
+              //    generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
+            }
+          }
         });
       }));
   }

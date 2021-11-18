@@ -36,6 +36,7 @@ contract WolvercoinAuction is Owner {
         address seller;
         address highestBidder;
         uint256 highestBid;
+        string nftTokenMetadata;
     }
     
     
@@ -49,26 +50,28 @@ contract WolvercoinAuction is Owner {
     }
 
     // 1 Add Auctions
-    function addAuction(uint _nftId, uint256 _startTime, uint256 _endTime, uint256 _startingBid) public isOwner auctionDoesntExistsForNFTId(_nftId) {
+    function addAuction(uint _nftId, uint256 _startTime, uint256 _endTime, uint256 _startingBid, string memory _nftTokenMetadata) public isOwner auctionDoesntExistsForNFTId(_nftId) {
         ClassicAuction memory newAuction = ClassicAuction({
             nftId : _nftId,
             startTime : _startTime,
             endTime : _endTime,
             seller : address(this),
             highestBidder : address(this),
-            highestBid : _startingBid
+            highestBid : _startingBid,
+            nftTokenMetadata : _nftTokenMetadata
         });
         _allAuctions.push(newAuction);
     }
     
-    function addAuctionRelativeTimes(uint _nftId, uint256 _hoursFromNow, uint256 _hoursAfterStart, uint256 _startingBid) public isOwner auctionDoesntExistsForNFTId(_nftId) { 
+    function addAuctionRelativeTimes(uint _nftId, uint256 _hoursFromNow, uint256 _hoursAfterStart, uint256 _startingBid, string memory _nftTokenMetadata) public isOwner auctionDoesntExistsForNFTId(_nftId) { 
         ClassicAuction memory newAuction = ClassicAuction({
             nftId : _nftId,
             startTime : block.timestamp + (_hoursFromNow * 3600),
             endTime : block.timestamp + (_hoursFromNow * 3600) + (_hoursAfterStart * 3600),
             seller : address(this),
             highestBidder : address(this),
-            highestBid : _startingBid
+            highestBid : _startingBid,
+            nftTokenMetadata : _nftTokenMetadata
         });
         _allAuctions.push(newAuction);
     }
@@ -229,6 +232,10 @@ contract WolvercoinAuction is Owner {
      
     function _setNFT(address _nft) public isOwner {
         _wolvercoinNFTs = IERC721(_nft);
+    }
+    function _removeAuction(uint256 _nftId) public isOwner {
+        uint256 index = getAuctionIndexByNftId(_nftId);
+        removeAuctionByIndex(index);
     }
 
 }

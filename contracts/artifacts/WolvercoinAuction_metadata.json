@@ -87,6 +87,11 @@
 						"internalType": "uint256",
 						"name": "highestBid",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "nftTokenMetadata",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -131,9 +136,27 @@
 						"internalType": "uint256",
 						"name": "highestBid",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "nftTokenMetadata",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "_removeAuction",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -170,6 +193,11 @@
 						"internalType": "uint256",
 						"name": "_startingBid",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_nftTokenMetadata",
+						"type": "string"
 					}
 				],
 				"name": "addAuction",
@@ -198,6 +226,11 @@
 						"internalType": "uint256",
 						"name": "_startingBid",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_nftTokenMetadata",
+						"type": "string"
 					}
 				],
 				"name": "addAuctionRelativeTimes",
@@ -271,6 +304,11 @@
 								"internalType": "uint256",
 								"name": "highestBid",
 								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "nftTokenMetadata",
+								"type": "string"
 							}
 						],
 						"internalType": "struct WolvercoinAuction.ClassicAuction[]",
@@ -316,6 +354,11 @@
 								"internalType": "uint256",
 								"name": "highestBid",
 								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "nftTokenMetadata",
+								"type": "string"
 							}
 						],
 						"internalType": "struct WolvercoinAuction.ClassicAuction[]",
@@ -367,6 +410,11 @@
 								"internalType": "uint256",
 								"name": "highestBid",
 								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "nftTokenMetadata",
+								"type": "string"
 							}
 						],
 						"internalType": "struct WolvercoinAuction.ClassicAuction",
@@ -477,11 +525,11 @@
 	},
 	"sources": {
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0x11100f554abe9cdee3b75093948af4d99656d9d657c1b8d33205ee975949cbe0",
+			"keccak256": "0x05a418d470ba7b3a8835b747109a68e95d9d8b1900bdcc9b28a146b049495470",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b989e8f4f6cc0edc9365bbc73b78a3a6290d70d9b21adb3e08ae99e3dbcd00db",
-				"dweb:/ipfs/QmRbrJZZ7QMmmbpVDN73adRofJRh1pkpAXRwz3nrhzix5w"
+				"bzz-raw://b08eb66d4913b75a138caee72e61fa30e51d912b7dbf0704d7b912c4bc889220",
+				"dweb:/ipfs/QmbqwSEd1FqUrvqrL3hmzqL85qXkZHsMSdjqgbAkgwkU5B"
 			]
 		},
 		"contracts/includes/IERC165.sol": {

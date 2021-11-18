@@ -135,6 +135,18 @@ async function showWalletConnected() {
               if (err) {
                 console.log("An error occured", err);
                 return
+              } else {
+                $('#prodNft_ID_nftTokenMetadata').val(res);
+                $.ajax({
+                  url: res,
+                  dataType: 'json',
+                  complete : function(res){
+                      //alert(this.url)
+                  },
+                  success: function(json){
+                    $('#prodNft_ID_nftTokenMetadata').val(JSON.stringify(json));
+                  }
+              });
               }
             });
           }, 2000);
@@ -145,13 +157,15 @@ async function showWalletConnected() {
           let startTimeHoursFromNow = $('#prodNft_startTimeHoursFromNow').val();
           let durationHours = $('#prodNft_durationHours').val();
           let startingPrice = Number($('#prodNft_startingPrice').val())  * Math.pow(10,18);
+          let tokenURI = $('#prodNft_ID_nftTokenMetadata').val();
           var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
           const NSFWContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
           await NSFWContract.methods.addAuctionRelativeTimes(
             nftId,
             startTimeHoursFromNow,
             durationHours,
-            startingPrice + ''
+            startingPrice + '',
+            tokenURI
           ).send({
             from: Wolvercoin.currentAccount
           })
