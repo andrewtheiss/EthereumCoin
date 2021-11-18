@@ -26,6 +26,10 @@
             </span>
         </div>
         <div class="auction-item-row">
+          <div class="auction-item-auction-name">
+            <span id="auction-start-nameInput" class="auction-start-nameInput">name</span>
+            <span id="auction-start-description" class="auction-start-description">desc</span>
+          </div>
           <div class="auction-item-auction-time">
             <span id="auction-start-finish-text" class="auction-start-finish-text">begins</span>
             <span id="auction-start-finish-time" class="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
@@ -118,9 +122,12 @@
   function generateAndAddAuction(_auctionDetails, baseHtml, auctionGrid) {
     var nextAuction = $(baseHtml).clone();
     nextAuction.find(".auction-item-nft-id").html(_auctionDetails.id);
-    nextAuction.attr('name', _auctionDetails.id);
-    let bid = Math.round(_auctionDetails.latestBid / Math.pow(10,15)) / 1000;
+    nextAuction.attr('name', _auctionDetails.name);
+    let bid = Math.round(_auctionDetails.latestBid / Math.pow(10, 15)) / 1000;
     nextAuction.find(".crypto_currency_price").html(bid);
+    nextAuction.find(".auction-start-description").html(_auctionDetails.description);
+    nextAuction.find(".auction-start-nameInput").html(_auctionDetails.name);
+
     // Handle timing for auction
     // Check for current, ended, or ending auction
     updateAuctionTime(_auctionDetails.startTimestamp, _auctionDetails.endTimestamp, nextAuction);
@@ -196,17 +203,21 @@
             for (var i = 0; i < res.length; i++) {
 
               // Create test html for single item
-              let metadata = {name : '', description : '', image : ''};
+              let metadata = {
+                name: '',
+                description: '',
+                image: ''
+              };
               if (res.nftTokenMetadata) {
                 metadata = JSON.parse(res[i].nftTokenMetadata);
               }
               auctionDetails = {
                 id: res[i].nftId,
                 imgUrl: res[i].image,
-                latestBid: res[i].highestBid / Math.pow(10,18),
+                latestBid: res[i].highestBid,
                 startTimestamp: res[i].startTime,
                 endTimestamp: res[i].endTime,
-                highestBidder: res[i].highestBidder.substring(0,7) + "....",
+                highestBidder: res[i].highestBidder.substring(0, 7) + "....",
                 auctionClaimed: false,
                 name: metadata.name,
                 description: metadata.description
