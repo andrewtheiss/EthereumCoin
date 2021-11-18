@@ -22,7 +22,7 @@
           <span class="auction-item-price-label">
             <span class="auction-item-price-title-fl">Price</span>
             <span class="crypto-icon">
-              <span id="crypto_currency_price" class="crypto-currency">0.1</span>
+              <span id="crypto_currency_price" class="crypto_currency_price crypto-currency">0.1</span>
             </span>
         </div>
         <div class="auction-item-row">
@@ -119,7 +119,8 @@
     var nextAuction = $(baseHtml).clone();
     nextAuction.find(".auction-item-nft-id").html(_auctionDetails.id);
     nextAuction.attr('name', _auctionDetails.id);
-
+    let bid = Math.round(_auctionDetails.latestBid / Math.pow(10,15)) / 1000;
+    nextAuction.find(".crypto_currency_price").html(bid);
     // Handle timing for auction
     // Check for current, ended, or ending auction
     updateAuctionTime(_auctionDetails.startTimestamp, _auctionDetails.endTimestamp, nextAuction);
@@ -193,22 +194,26 @@
           console.log('Got all auctions', allAuctions);
           if (res && res.length > 0) {
             for (var i = 0; i < res.length; i++) {
-              /*
+
               // Create test html for single item
-              let auctionDetails = {
-                id: 5,
-                imgUrl: 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
-                latestBid: 3.2,
-                startTimestamp: new Date().getTime() - 50000,
-                endTimestamp: new Date().getTime() + 67000,
-                highestBidder: null,
+              let metadata = {name : '', description : '', image : ''};
+              if (res.nftTokenMetadata) {
+                metadata = JSON.parse(res[i].nftTokenMetadata);
+              }
+              auctionDetails = {
+                id: res[i].nftId,
+                imgUrl: res[i].image,
+                latestBid: res[i].highestBid / Math.pow(10,18),
+                startTimestamp: res[i].startTime,
+                endTimestamp: res[i].endTime,
+                highestBidder: res[i].highestBidder.substring(0,7) + "....",
                 auctionClaimed: false,
-                name: '',
-                description: ''
+                name: metadata.name,
+                description: metadata.description
               };
-              */
+
               //      auctionDetails.id = ...
-              //    generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
+              generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
             }
           }
         });
