@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.10+commit.fc410830"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -49,50 +49,6 @@
 				"type": "event"
 			},
 			{
-				"inputs": [],
-				"name": "TEST_getAllowance",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "TEST_getBlockTime",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "nftId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "newEndTime",
-						"type": "uint256"
-					}
-				],
-				"name": "TEST_setEndTimeByNFTId",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -116,11 +72,6 @@
 						"internalType": "uint256",
 						"name": "endTime",
 						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "auctionEnded",
-						"type": "bool"
 					},
 					{
 						"internalType": "address",
@@ -167,11 +118,6 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "bool",
-						"name": "auctionEnded",
-						"type": "bool"
-					},
-					{
 						"internalType": "address",
 						"name": "seller",
 						"type": "address"
@@ -188,6 +134,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_nft",
+						"type": "address"
+					}
+				],
+				"name": "_setNFT",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -222,6 +181,34 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "_nftId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_hoursFromNow",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_hoursAfterStart",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_startingBid",
+						"type": "uint256"
+					}
+				],
+				"name": "addAuctionRelativeTimes",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "nftId",
 						"type": "uint256"
 					},
@@ -234,80 +221,6 @@
 				"name": "bid",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "nftId",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "startTime",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "endTime",
-								"type": "uint256"
-							},
-							{
-								"internalType": "bool",
-								"name": "auctionEnded",
-								"type": "bool"
-							},
-							{
-								"internalType": "address",
-								"name": "seller",
-								"type": "address"
-							},
-							{
-								"internalType": "address",
-								"name": "highestBidder",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "highestBid",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct WolvercoinAuction.ClassicAuction",
-						"name": "auction",
-						"type": "tuple"
-					},
-					{
-						"internalType": "uint256",
-						"name": "extension",
-						"type": "uint256"
-					}
-				],
-				"name": "extendAuction",
-				"outputs": [],
-				"stateMutability": "pure",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "nftId",
-						"type": "uint256"
-					}
-				],
-				"name": "findAuctionIndexByNftId",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "auctionIndex",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -330,11 +243,6 @@
 								"internalType": "uint256",
 								"name": "endTime",
 								"type": "uint256"
-							},
-							{
-								"internalType": "bool",
-								"name": "auctionEnded",
-								"type": "bool"
 							},
 							{
 								"internalType": "address",
@@ -380,11 +288,6 @@
 								"internalType": "uint256",
 								"name": "endTime",
 								"type": "uint256"
-							},
-							{
-								"internalType": "bool",
-								"name": "auctionEnded",
-								"type": "bool"
 							},
 							{
 								"internalType": "address",
@@ -438,11 +341,6 @@
 								"type": "uint256"
 							},
 							{
-								"internalType": "bool",
-								"name": "auctionEnded",
-								"type": "bool"
-							},
-							{
 								"internalType": "address",
 								"name": "seller",
 								"type": "address"
@@ -474,49 +372,12 @@
 						"type": "uint256"
 					}
 				],
-				"name": "getAuctionsByNFTId",
+				"name": "getAuctionIndexByNftId",
 				"outputs": [
 					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "nftId",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "startTime",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "endTime",
-								"type": "uint256"
-							},
-							{
-								"internalType": "bool",
-								"name": "auctionEnded",
-								"type": "bool"
-							},
-							{
-								"internalType": "address",
-								"name": "seller",
-								"type": "address"
-							},
-							{
-								"internalType": "address",
-								"name": "highestBidder",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "highestBid",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct WolvercoinAuction.ClassicAuction",
-						"name": "",
-						"type": "tuple"
+						"internalType": "uint256",
+						"name": "auctionIndex",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -539,16 +400,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "wolvercoinAmount",
+						"name": "nftId",
 						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "previousBidder",
-						"type": "address"
 					}
 				],
-				"name": "refundWovercoinToPreviousBidder",
+				"name": "payAndTransferCompletedAuctionForNftId",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -577,113 +433,11 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_nft",
-						"type": "address"
-					}
-				],
-				"name": "setNFT",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "testPayAuction",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "nftId",
-						"type": "uint256"
-					}
-				],
-				"name": "transferCompletedAuctionByNftId",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "nftId",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "startTime",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "endTime",
-								"type": "uint256"
-							},
-							{
-								"internalType": "bool",
-								"name": "auctionEnded",
-								"type": "bool"
-							},
-							{
-								"internalType": "address",
-								"name": "seller",
-								"type": "address"
-							},
-							{
-								"internalType": "address",
-								"name": "highestBidder",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "highestBid",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct WolvercoinAuction.ClassicAuction",
-						"name": "auction",
-						"type": "tuple"
-					}
-				],
-				"name": "transferNftAndPayAuctionHighestBidderAndRemoveAuction",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "newOwner",
 						"type": "address"
 					}
 				],
 				"name": "transferOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "wolvercoinAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "transferWovercoinToContract",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -727,11 +481,11 @@
 	},
 	"sources": {
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0xd4f9c4e43a9a31161115aa936d4cfcd790a019e55e4874a1855ba97f43260820",
+			"keccak256": "0x4205f14e2a65f7b1c24924188b4fae24aa2ab619c0b14637f7382375d0331b4b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f5bbdca81844c75922cf4788e02944a9382786ea4fcc4b8b0105e5d7b6ae45c8",
-				"dweb:/ipfs/QmVdfneUyK6b49oX2qjATdsj1PLheniavtUhcttcxCyGEX"
+				"bzz-raw://d9d3586b70a125687be471165bd258c1996904a53d2146174e38b315913dfc7e",
+				"dweb:/ipfs/QmfM7dMHDxuv71RQVT9KgVPYHuLc8pBn3Hd7THLCVcKAnY"
 			]
 		},
 		"contracts/includes/Context.sol": {

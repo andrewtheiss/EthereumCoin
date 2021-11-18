@@ -4,6 +4,12 @@ let Wolvercoin = {
   currentAccount : "",
   pagesLoaded : {
     home : true
+  },
+  contracts : {
+    'wolvercoinAuction' : {
+      ABI : false,
+      address : "0x6748BA5468bFA6e742eec5765568670dA3a5A808"
+    }
   }
 };
 
