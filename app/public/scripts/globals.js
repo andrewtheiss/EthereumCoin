@@ -9,6 +9,10 @@ let Wolvercoin = {
     'wolvercoinAuction' : {
       ABI : false,
       address : "0x6748BA5468bFA6e742eec5765568670dA3a5A808"
+    },
+    'wolvercoinNFT' : {
+      ABI : false,
+      address : "0xe48d2D6CDd7999B85DC5D3F53150F1629fE442A9"
     }
   }
 };

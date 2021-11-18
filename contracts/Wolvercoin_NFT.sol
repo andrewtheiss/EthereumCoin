@@ -12,7 +12,7 @@ contract Wolvercoin_NFT is Owner, IERC721, ERC721URIStorage, ERC721Holder {
     // giving them permission after sometime.  So we set and salt a 
     // password to give access.  It's not like every contract execution is 
     // public on a blockchain or anything... so this should be safe ;)
-    // "Not-So-Fungible-Wolvies", "NSFW", "12345"
+    // "Not-So-Fungible-Wolvies", "NSFW", "12345"  "omgwtfbbqlol"
     uint password;
     uint256 nftIndex;
     mapping (uint256 => uint256) private _uniqueHashes;
@@ -22,7 +22,6 @@ contract Wolvercoin_NFT is Owner, IERC721, ERC721URIStorage, ERC721Holder {
         password = _saltPassword(_password);
         nftIndex = 1;
     }
-
     
     function safeMintAsOwner(address to, uint256 tokenId) public isOwner {
         _safeMint(to, tokenId);

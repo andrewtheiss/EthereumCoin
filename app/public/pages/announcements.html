@@ -9,10 +9,6 @@
 
     <label for="descriptionInput">Description</label>
     <textarea id="descriptionInput" cols="30" rows="2" name="message"></textarea><br />
-    <!--
-    <label for="passwordInput">Password</label>
-    <input id="passwordInput" cols="30" rows="2" name="password"></input><br />
-    -->
     <label for="pictureInput">Picture</label>
     <input type="file" id="pictureInput" name="picture" multiple /><br />
 
@@ -24,6 +20,8 @@
     <div class="hidden" id="mint_nft_container">
       <label for="contractToBeApprovedInput">Your Auction Smart Contract Address:</label>
       <input id="contractToBeApprovedInput" cols="30" name="contract"></input><br />
+      <label for="passwordInput">Password</label>
+      <input id="passwordInput" cols="30" rows="2" name="password"></input><br />
       <button id="nft_mint" class="button" disabled="disabled">Mint NFT</button><br />
       <b><a href="" id="ipfs_upload_json_url" target="_blank" class="link-to-ifps-validation"></a></b>
     </div>
@@ -150,38 +148,67 @@
     // Also sends it to contract address provided
     async function mintNFT() {
       // Call to blockchain code and try and mint NFT with hashUrl
-      console.log('minting');
+      var productionNFTCreation = false;
+      var password = $('#passwordInput').val();
 
-      var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
-      const NSFWContract = new web3.eth.Contract(NFTContractABI, NFTContractAddress);
-
-      // Document elements
-      //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
-      let contractInput = $('#contractToBeApprovedInput').val();
-      if (contractInput.length != 42) {
-        alert('Please enter a valid contract');
-        return;
+      // Please only submit to the actual auction contract if you know what your doing
+      // You need to know the password, keep the auction contract blank...
+      if (password.length > 6 && password.indexOf("lol") != -1 && $('#contractToBeApprovedInput').val().length == 0) {
+        productionNFTCreation = true;
       }
-      //let contractToBeApproved = "0x6834C7116b337Fa0894d20016D84e77Ca67ba261";
-      // safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, uint256 tokenId, string memory _password)
+      var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
-      await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
-          contractInput,
-          ipfsUrl, //"https://gateway.pinata.cloud/ipfs/QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
-          "12345"
-        )
-        .send({
-          from: Wolvercoin.currentAccount
-        })
-        .then(function(result, v1, v2) {
-          console.log(result, v1, v2);
-          $("#after_nft_mint").attr("hidden", false);
-          $('#minted_nft_id').html(result.events.Transfer.returnValues.tokenId);
-          var txn = "https://goerli.etherscan.io/tx/" + result.events.Transfer.transactionHash;
-          $("#minted_nft_txn").attr('href', txn).html("View Minted Transaction");
-          // result.events.Transfer.returnValues.tokenId
-          // result.events.Transfer.transactionHash
-        });
+      if (!productionNFTCreation) {
+        console.log('minting dev NFT');
+        const NSFWContract = new web3.eth.Contract(NFTContractABI, NFTContractAddress);
+
+        // Document elements
+        //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
+        let contractInput = $('#contractToBeApprovedInput').val();
+        if (contractInput.length != 42) {
+          alert('Please enter a valid contract');
+          return;
+        }
+        //let contractToBeApproved = "0x6834C7116b337Fa0894d20016D84e77Ca67ba261";
+        // safeMintToThisContractWithApprovalToExternalContractUsingPassword(address approvalAddress, uint256 tokenId, string memory _password)
+
+        await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
+            contractInput,
+            ipfsUrl, //"https://gateway.pinata.cloud/ipfs/QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4",
+            "12345"
+          )
+          .send({
+            from: Wolvercoin.currentAccount
+          })
+          .then(function(result, v1, v2) {
+            console.log(result, v1, v2);
+            $("#after_nft_mint").attr("hidden", false);
+            $('#minted_nft_id').html(result.events.Transfer.returnValues.tokenId);
+            var txn = "https://goerli.etherscan.io/tx/" + result.events.Transfer.transactionHash;
+            $("#minted_nft_txn").attr('href', txn).html("View Minted Transaction");
+            // result.events.Transfer.returnValues.tokenId
+            // result.events.Transfer.transactionHash
+          });
+      } else {
+
+        console.log('minting prod NFT');
+        const NSFWContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinNFT.ABI, Wolvercoin.contracts.wolvercoinNFT.address);
+        await NSFWContract.methods.safeMintToThisContractWithApprovalToExternalContractUsingPassword(
+            Wolvercoin.contracts.wolvercoinAuction.address,
+            ipfsUrl,
+            password
+          )
+          .send({
+            from: Wolvercoin.currentAccount
+          })
+          .then(function(result, v1, v2) {
+            console.log(result, v1, v2);
+            $("#after_nft_mint").attr("hidden", false);
+            $('#minted_nft_id').html(result.events.Transfer.returnValues.tokenId);
+            var txn = "https://goerli.etherscan.io/tx/" + result.events.Transfer.transactionHash;
+            $("#minted_nft_txn").attr('href', txn).html("View Minted Transaction");
+          });
+      }
     }
 
 
@@ -193,7 +220,6 @@
       $('#nft_mint').prop('disabled', false);
       $('#nft_ipfs_upload').prop('disabled', true);
       $('#descriptionInput').prop('disabled', true);
-      $('#passwordInput').prop('disabled', true);
       $('#pictureInput').prop('disabled', true);
       $('#nameInput').prop('disabled', true);
       $('#mint_nft_container').show();
@@ -288,13 +314,28 @@
       updateIPFSHash(hash);
     }
 
-    fetch("pages/nftABI.json").then(response =>
+    fetch("pages/dev_nftABI.json").then(response =>
       response.json().then(data => ({
         data: data,
         status: response.status
       })).then(res => {
         NFTContractABI = res.data;
-        //  console.log(res.status, res.data.title)
       }));
+    fetch("pages/prod_nftABI.json").then(response =>
+      response.json().then(data => ({
+        data: data,
+        status: response.status
+      })).then(res => {
+        Wolvercoin.contracts.wolvercoinNFT.ABI = res.data;
+      }));
+    if (!Wolvercoin.contracts.wolvercoinAuction.ABI) {
+      fetch("pages/prod_auctionABI.json").then(response =>
+        response.json().then(data => ({
+          data: data,
+          status: response.status
+        })).then(res => {
+          Wolvercoin.contracts.wolvercoinAuction.ABI = res.data;
+        }));
+    }
   </script>
 </div>

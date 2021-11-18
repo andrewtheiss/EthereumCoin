@@ -175,7 +175,7 @@
   let allAuctions = [];
 
   async function getAuctionABI() {
-    fetch("pages/auctionABI.json").then(response =>
+    fetch("pages/prod_auctionABI.json").then(response =>
       response.json().then(data => ({
         data: data,
         status: response.status
