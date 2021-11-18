@@ -62,6 +62,9 @@
 			"details": "Contract module which provides a basic access control mechanism, where there is an account (an owner) that can be granted exclusive access to specific functions. By default, the owner account will be the one that deploys the contract. This can later be changed with {transferOwnership}. This module is used through inheritance. It will make available the modifier `onlyOwner`, which can be applied to your functions to restrict their use to the owner.",
 			"kind": "dev",
 			"methods": {
+				"constructor": {
+					"details": "Initializes the contract setting the deployer as the initial owner."
+				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
 				},
@@ -82,7 +85,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/includes/OwnableUpgradeable.sol": "OwnableUpgradeable"
+			"contracts/includes/Ownable.sol": "Ownable"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -96,28 +99,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/includes/ContextUpgradeable.sol": {
-			"keccak256": "0xa4d8ed92d61ed5a295c8bbd5a7ec0da0fa7af5a9eede7b97516e738247f5dcee",
+		"contracts/includes/Context.sol": {
+			"keccak256": "0x5d0f925d07aed7df9aab02e0b57d60021fef2d85155ac1e0b37c890461047c0c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3595d722506d052592a3222887655c651caaccea2ab380be9e614437d3d256df",
-				"dweb:/ipfs/QmeSvaKH7SX7Y2bWYV8oAJmkW5rS38kRomRrpizPXF9Rvj"
+				"bzz-raw://c41bf64650fb7c98d94db76cfe2737a9f57ee885d2edcbc14e4f3efd6c2a49da",
+				"dweb:/ipfs/QmQzpyT19tQ9atCLcbRt2y9svkoQB5RFEXmU2TKYHec9du"
 			]
 		},
-		"contracts/includes/Initializable.sol": {
-			"keccak256": "0x476523e15af92c3a58f7aba9ae2ee4f5dffac4ff3b3490cffaf2020f50c09b83",
+		"contracts/includes/Ownable.sol": {
+			"keccak256": "0x8ff5706b76b1c0d20041d2aa7674f8adc03913dc39f695c6eeb7b57d0dc2d50d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fe615eefc638937427e9f0cad5a7538369971a8cc31d9247a4c670b7c266cc4c",
-				"dweb:/ipfs/QmRW3bh4qxhjPDbNxTm2nMpSa7qpjMbKSbtTSQ1rVtY4yn"
-			]
-		},
-		"contracts/includes/OwnableUpgradeable.sol": {
-			"keccak256": "0xe29c81c2924d9ea64d741a30d8bb91f0ad46f03975f4beaa342d8506a8b4dfb7",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://c54c2a4db2613d193687b0bec922059cd2d0ee58cede0a411c4b62d9430bed20",
-				"dweb:/ipfs/QmWp6KMa73amxXU72Pmhc83a412akFVMi9qqeNyXs2LQzr"
+				"bzz-raw://23d88077a9dc6eaaf18b1c356b5fbf19dca87c7b8d31fcec0c2dedb836fca827",
+				"dweb:/ipfs/QmUNaADnybdjkP8P2ctpkP7P1EdTdDCzzPpVKsSDHjtwyj"
 			]
 		}
 	},

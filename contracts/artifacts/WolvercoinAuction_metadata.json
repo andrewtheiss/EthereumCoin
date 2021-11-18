@@ -16,7 +16,7 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "previousOwner",
+						"name": "oldOwner",
 						"type": "address"
 					},
 					{
@@ -26,7 +26,7 @@
 						"type": "address"
 					}
 				],
-				"name": "OwnershipTransferred",
+				"name": "OwnerSet",
 				"type": "event"
 			},
 			{
@@ -49,69 +49,114 @@
 				"type": "event"
 			},
 			{
-				"inputs": [],
-				"name": "_TEST_approveWolvercoinSpend",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "nft",
-				"outputs": [
-					{
-						"internalType": "contract IERC721",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "nftId",
-				"outputs": [
+				"inputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "owner",
+				"name": "_allAuctions",
 				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endTime",
+						"type": "uint256"
+					},
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "seller",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "highestBidder",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "highestBid",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "nftTokenMetadata",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "seller",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "_finishedAuctions",
 				"outputs": [
 					{
-						"internalType": "address payable",
-						"name": "",
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "seller",
 						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "highestBidder",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "highestBid",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "nftTokenMetadata",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "_removeAuction",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -122,7 +167,7 @@
 						"type": "address"
 					}
 				],
-				"name": "setNFT",
+				"name": "_setNFT",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -143,9 +188,19 @@
 						"internalType": "uint256",
 						"name": "_endTime",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_startingBid",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_nftTokenMetadata",
+						"type": "string"
 					}
 				],
-				"name": "startItemAuction",
+				"name": "addAuction",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -154,11 +209,49 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "_nftId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_hoursFromNow",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_hoursAfterStart",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_startingBid",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_nftTokenMetadata",
+						"type": "string"
+					}
+				],
+				"name": "addAuctionRelativeTimes",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
 						"name": "amount",
 						"type": "uint256"
 					}
 				],
-				"name": "testPayAuction",
+				"name": "bid",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -171,30 +264,240 @@
 						"type": "address"
 					}
 				],
-				"name": "transferOwnership",
+				"name": "changeOwner",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "win",
+				"name": "getAllAuctions",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "nftId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "highestBidder",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "highestBid",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "nftTokenMetadata",
+								"type": "string"
+							}
+						],
+						"internalType": "struct WolvercoinAuction.ClassicAuction[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllFinishedAuctions",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "nftId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "highestBidder",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "highestBid",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "nftTokenMetadata",
+								"type": "string"
+							}
+						],
+						"internalType": "struct WolvercoinAuction.ClassicAuction[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "getAuctionByNftId",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "nftId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "seller",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "highestBidder",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "highestBid",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "nftTokenMetadata",
+								"type": "string"
+							}
+						],
+						"internalType": "struct WolvercoinAuction.ClassicAuction",
+						"name": "auctionToReturn",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "getAuctionIndexByNftId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "auctionIndex",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "nftId",
+						"type": "uint256"
+					}
+				],
+				"name": "payAndTransferCompletedAuctionForNftId",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "removeAuctionByIndex",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
 		"devdoc": {
 			"kind": "dev",
 			"methods": {
-				"owner()": {
-					"details": "Returns the address of the current owner."
+				"changeOwner(address)": {
+					"details": "Change owner",
+					"params": {
+						"newOwner": "address of new owner"
+					}
 				},
-				"renounceOwnership()": {
-					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
-				},
-				"transferOwnership(address)": {
-					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				"getOwner()": {
+					"details": "Return owner address ",
+					"returns": {
+						"_0": "address of owner"
+					}
 				}
 			},
 			"version": 1
@@ -221,52 +524,44 @@
 		"remappings": []
 	},
 	"sources": {
-		"@openzeppelin/contracts/access/Ownable.sol": {
-			"keccak256": "0x6bb804a310218875e89d12c053e94a13a4607cdf7cc2052f3e52bd32a0dc50a1",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://b2ebbbe6d0011175bd9e7268b83de3f9c2f9d8d4cbfbaef12aff977d7d727163",
-				"dweb:/ipfs/Qmd5c7Vxtis9wzkDNhxwc6A2QT5H9xn9kfjhx7qx44vpro"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-			"keccak256": "0x027b891937d20ccf213fdb9c31531574256de774bda99d3a70ecef6e1913ed2a",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://087318b21c528119f649899f5b5580566dd8d7b0303d4904bd0e8580c3545f14",
-				"dweb:/ipfs/Qmbn5Mj7aUn8hJuQ8VrQjjEXRsXyJKykgnjR9p4C3nfLtL"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-			"keccak256": "0xf101e8720213560fab41104d53b3cc7ba0456ef3a98455aa7f022391783144a0",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://3e7820bcf567e6892d937c3cb10db263a4042e446799bca602535868d822384e",
-				"dweb:/ipfs/QmPG2oeDjKncqsEeyYGjAN7CwAJmMgHterXGGnpzhha4z7"
-			]
-		},
-		"@openzeppelin/contracts/utils/Context.sol": {
-			"keccak256": "0x90565a39ae45c80f0468dc96c7b20d0afc3055f344c8203a0c9258239f350b9f",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://26e8b38a7ac8e7b4463af00cf7fff1bf48ae9875765bf4f7751e100124d0bc8c",
-				"dweb:/ipfs/QmWcsmkVr24xmmjfnBQZoemFniXjj3vwT78Cz6uqZW1Hux"
-			]
-		},
-		"@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-			"keccak256": "0xa28007762d9da9db878dd421960c8cb9a10471f47ab5c1b3309bfe48e9e79ff4",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://796ab6e88af7bf0e78def0f059310c903af6a312b565344e0ff524a0f26e81c6",
-				"dweb:/ipfs/QmcsVgLgzWdor3UnAztUkXKNGcysm1MPneWksF72AvnwBx"
-			]
-		},
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0xac342baa813ed2bf6170f4d7abacdf52f3706131e65bc61c30a50d5a8ca3b4b6",
+			"keccak256": "0x05a418d470ba7b3a8835b747109a68e95d9d8b1900bdcc9b28a146b049495470",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b46165ae80b669e4fb664201564d7d9429dc993e3345b4c5b4f7f0cd0f6f56cd",
-				"dweb:/ipfs/QmRXVX82dsSEQFPkrmMRmWkGEYKJQrvpDbEJLFaJNgZnpw"
+				"bzz-raw://b08eb66d4913b75a138caee72e61fa30e51d912b7dbf0704d7b912c4bc889220",
+				"dweb:/ipfs/QmbqwSEd1FqUrvqrL3hmzqL85qXkZHsMSdjqgbAkgwkU5B"
+			]
+		},
+		"contracts/includes/IERC165.sol": {
+			"keccak256": "0x45fad00a8b56c2971664ee286914030ba6d777af3db201f34817b3255d296692",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bbfb4f8a18f107ed6722b13b2bd7f3d46e2d4997ae2e0b0f2a77c4ffff1c04f3",
+				"dweb:/ipfs/QmZJjN3tMMMG8bTfXgHL6Lf6cbNPHWZwsTRnCdNMD4isZG"
+			]
+		},
+		"contracts/includes/IERC20.sol": {
+			"keccak256": "0x6a7ad162b0f5cdf5c5986a00af904728407eada0458c8a610ecc758c91ff2800",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://70e189ddc436e9420f3827778510d9d2eb0bfc87b03db103ba6c65fd6d52d266",
+				"dweb:/ipfs/Qmd1xpLzBSbK888Y2qdKMX5BMtNTuzbhkwVZVEb2eAXU2D"
+			]
+		},
+		"contracts/includes/IERC721.sol": {
+			"keccak256": "0xa4f980d2eed93511bcf5a3e11dbe93c8e43c58d88b93a931802956202b3a2e28",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4321e784e1b5e6103a8b1069bc8e7637d7c050568fa04bdc0d5556fd35d16cf3",
+				"dweb:/ipfs/QmSaomHzJ4XjRd28yZj5z5CnGtxK6JVzMUCBSDFopb1YnF"
+			]
+		},
+		"contracts/includes/Owner.sol": {
+			"keccak256": "0x1e624ada939528fff73575187024d951aa6d33d4cbaad97ecf1f3e2a7d717583",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://e3f3c6ab93acd1a8bd389f852149d59b6d713efc51458ff95bba42c3329fb0d1",
+				"dweb:/ipfs/QmP7NEPrSbYRM4DzpJ31YUC2KNXUX4USuQk3jMNRUdzVyV"
 			]
 		}
 	},

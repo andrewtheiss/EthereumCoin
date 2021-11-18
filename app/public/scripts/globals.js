@@ -4,9 +4,49 @@ let Wolvercoin = {
   currentAccount : "",
   pagesLoaded : {
     home : true
+  },
+  contracts : {
+    'wolvercoinAuction' : {
+      ABI : false,
+      address : "0xAE91919D9985518770bb94F449B6bb02fc6D47AC"
+    },
+    'wolvercoinNFT' : {
+      ABI : false,
+      address : "0xe48d2D6CDd7999B85DC5D3F53150F1629fE442A9"
+    }
+  },
+  devContracts : {
+    'wolvercoinNFT' : {
+      ABI : false,
+      address : "0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF"
+    }
   }
 };
 
+
+fetch("pages/dev_nftABI.json").then(response =>
+  response.json().then(data => ({
+    data: data,
+    status: response.status
+  })).then(res => {
+    Wolvercoin.devContracts.wolvercoinNFT.ABI = res.data;
+  }));
+fetch("pages/prod_nftABI.json").then(response =>
+  response.json().then(data => ({
+    data: data,
+    status: response.status
+  })).then(res => {
+    Wolvercoin.contracts.wolvercoinNFT.ABI = res.data;
+  }));
+if (!Wolvercoin.contracts.wolvercoinAuction.ABI) {
+  fetch("pages/prod_auctionABI.json").then(response =>
+    response.json().then(data => ({
+      data: data,
+      status: response.status
+    })).then(res => {
+      Wolvercoin.contracts.wolvercoinAuction.ABI = res.data;
+    }));
+}
 
 
 /*

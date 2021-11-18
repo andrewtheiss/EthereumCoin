@@ -101,7 +101,8 @@ async function showBalances() {
  * showWalletConnected
  *    will update all UI elements given the connected account
  */
-function showWalletConnected() {
+let lookupNFTTimeout = false;
+async function showWalletConnected() {
   const el = document.querySelector('#wallet-connected');
   if (el.classList.contains("hidden")) {
     el.classList.remove("hidden");
@@ -116,6 +117,62 @@ function showWalletConnected() {
       const el = document.querySelector('#isAdminOnly');
       if (el.classList.contains("hidden")) {
         el.classList.remove("hidden");
+        $('#prodNft_ID').change(function(event) {
+            // Grab and update NFT
+          let id = event.target.value;
+
+          if (lookupNFTTimeout != false) {
+            clearTimeout(lookupNFTTimeout);
+          }
+          lookupNFTTimeout = setTimeout(async function(){
+            var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+            if (!Wolvercoin.contracts.wolvercoinNFT.ABI) {
+              console.log("NO WOLVERCOIN NFT ABI");
+              return;
+            }
+            const NSFWContract = new web3.eth.Contract(Wolvercoin.devContracts.wolvercoinNFT.ABI, Wolvercoin.devContracts.wolvercoinNFT.address);
+            await NSFWContract.methods.tokenURI($('#prodNft_ID').val()).call(function (err, res) {
+              if (err) {
+                console.log("An error occured", err);
+                return
+              } else {
+                $('#prodNft_ID_nftTokenMetadata').val(res);
+                $.ajax({
+                  url: res,
+                  dataType: 'json',
+                  complete : function(res){
+                      //alert(this.url)
+                  },
+                  success: function(json){
+                    $('#prodNft_ID_nftTokenMetadata').val(JSON.stringify(json));
+                  }
+              });
+              }
+            });
+          }, 2000);
+
+        });
+        $('#prodNft_createAuctionButton').click(async function() {
+          let nftId = $('#prodNft_ID').val();
+          let startTimeHoursFromNow = $('#prodNft_startTimeHoursFromNow').val();
+          let durationHours = $('#prodNft_durationHours').val();
+          let startingPrice = Number($('#prodNft_startingPrice').val())  * Math.pow(10,18);
+          let tokenURI = $('#prodNft_ID_nftTokenMetadata').val();
+          var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+          const NSFWContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
+          await NSFWContract.methods.addAuctionRelativeTimes(
+            nftId,
+            startTimeHoursFromNow,
+            durationHours,
+            startingPrice + '',
+            tokenURI
+          ).send({
+            from: Wolvercoin.currentAccount
+          })
+          .then(function(result) {
+            console.log(result);
+          });
+        })
       }
   }
 

@@ -64,7 +64,9 @@
     startTimestamp: new Date().getTime() - 50000,
     endTimestamp: new Date().getTime() + 67000,
     highestBidder: null,
-    auctionClaimed: false
+    auctionClaimed: false,
+    name: '',
+    description: ''
   };
 
   function msToTime(ms) {
@@ -130,6 +132,7 @@
     return nextAuction;
   }
 
+
   // Generate auction
   generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
 
@@ -138,21 +141,90 @@
 </script>
 
 <script>
+  // Auction interaction
+  // Bid
+  async function bid(event) {
+    // amount =
+    let amount = 500;
+    let nftId = 5;
+    const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
+
+    let amountToSend = amount * Math.pow(10, 18);
+    amountToSend = amountToSend + '';
+    await WolvercoinAuctionContract.methods.bid(nftId, amountToSend)
+      .send({
+        from: Wolvercoin.currentAccount
+      })
+      .then(function(result) {
+        console.log(result);
+      });
+  }
+
+  async function completeAuction(nftId) {
+    await WolvercoinAuctionContract.methods.payAndTransferCompletedAuctionForNftId(nftId)
+      .send({
+        from: Wolvercoin.currentAccount
+      })
+      .then(function(result) {
+        console.log(result);
+      });
+  }
+</script>
+
+<script>
   let hasApprovalForHWToken = false;
   let renderBidInterface = false;
+  let allAuctions = [];
 
-  // Get the nft auction contract address
-  let auctionContractAddress = "0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF";
+  async function getAuctionABI() {
+    fetch("pages/prod_auctionABI.json").then(response =>
+      response.json().then(data => ({
+        data: data,
+        status: response.status
+      })).then(res => {
+        Wolvercoin.contracts.wolvercoinAuction.ABI = res.data;
+
+        // Check for approval, if so, show a different UI
+        var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+        const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
+
+        WolvercoinAuctionContract.methods.getAllAuctions().call(async function(err, res) {
+          allAuctions = res;
+          console.log('Got all auctions', allAuctions);
+          if (res && res.length > 0) {
+            for (var i = 0; i < res.length; i++) {
+              /*
+              // Create test html for single item
+              let auctionDetails = {
+                id: 5,
+                imgUrl: 'https://lh3.googleusercontent.com/8tnMvh2mkQCrWp9tx6aKXcJNdI3dpqUyChFvY2B2EuLheJ-k55Lob-9zB2PgVcFpOFpw2IW_NA9zta-p07sizI1s-zy_9ZePdu1miQ=s0',
+                latestBid: 3.2,
+                startTimestamp: new Date().getTime() - 50000,
+                endTimestamp: new Date().getTime() + 67000,
+                highestBidder: null,
+                auctionClaimed: false,
+                name: '',
+                description: ''
+              };
+              */
+              //      auctionDetails.id = ...
+              //    generateAndAddAuction(auctionDetails, baseAuctionHTML, auctionGrid);
+            }
+          }
+        });
+      }));
+  }
+  getAuctionABI();
 
   // Allow for override in the url_of_contract
   // http://wolvercoin.com/#nfts#0x9b37E894FB19050A9679AE8a964684B5aa0a29f8
   if (Wolvercoin.overrideApprovalContractId !== undefined) {
-    auctionContractAddress = Wolvercoin.overrideApprovalContractId;
+    Wolvercoin.contracts.wolvercoinAuction.address = Wolvercoin.overrideApprovalContractId;
     console.log('override to' + Wolvercoin.overrideApprovalContractId);
   }
   let inputAddress = $("#nft_auction_contract").val();
-  if (inputAddress.length == auctionContractAddress.length) {
-    auctionContractAddress = inputAddress;
+  if (inputAddress.length == Wolvercoin.contracts.wolvercoinAuction.address.length) {
+    Wolvercoin.contracts.wolvercoinAuction.address = inputAddress;
   }
 
   function updateBalance() {
@@ -176,14 +248,13 @@
    */
   async function checkAllowance() {
     console.log('checking allowance');
-
     // Check for approval, if so, show a different UI
     var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
     const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
 
     let allowance = null;
     // allowance takes (owner, spender) so (msg.sender, contractToSpend)
-    await WolvercoinContract.methods.allowance(ethereum.selectedAddress, auctionContractAddress).call(async function(err, res) {
+    await WolvercoinContract.methods.allowance(ethereum.selectedAddress, Wolvercoin.contracts.wolvercoinAuction.address).call(async function(err, res) {
       console.log(err, res);
 
       // Call method to handle approved items or not
@@ -208,7 +279,7 @@
     var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
     const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
     let approve_amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'; //(2^256 - 1 )
-    await WolvercoinContract.methods.approve(auctionContractAddress, approve_amount).send({
+    await WolvercoinContract.methods.approve(Wolvercoin.contracts.wolvercoinAuction.address, approve_amount).send({
       from: ethereum.selectedAddress
     });
 
