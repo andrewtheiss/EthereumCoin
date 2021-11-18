@@ -39,10 +39,6 @@
     </div>
   </div>
   <script>
-    let NFTContractABI = false;
-
-    // dweb:/ipfs/QmXz4p4sGq4Aq28HTdcXp2yEVUTnwSqnQQTEhYRiaiqNDz
-    let NFTContractAddress = "0x13066EE900a8C4e2C9cD7cE0096ADF9B907D0CfF";
     let dev = false;
 
     let ipfsUrl = false;
@@ -160,7 +156,7 @@
 
       if (!productionNFTCreation) {
         console.log('minting dev NFT');
-        const NSFWContract = new web3.eth.Contract(NFTContractABI, NFTContractAddress);
+        const NSFWContract = new web3.eth.Contract(Wolvercoin.devContracts.wolvercoinNFT.ABI, Wolvercoin.devContracts.wolvercoinNFT.address);
 
         // Document elements
         //let classPeriod = document.getElementById('addWalletToClass_ClassPeriod');
@@ -312,30 +308,6 @@
     if (dev) {
       let hash = 'QmTWtKPjcNk67dUeNPrCMsnsiDxV1kvuWh2uBQ2z5YsNx4';
       updateIPFSHash(hash);
-    }
-
-    fetch("pages/dev_nftABI.json").then(response =>
-      response.json().then(data => ({
-        data: data,
-        status: response.status
-      })).then(res => {
-        NFTContractABI = res.data;
-      }));
-    fetch("pages/prod_nftABI.json").then(response =>
-      response.json().then(data => ({
-        data: data,
-        status: response.status
-      })).then(res => {
-        Wolvercoin.contracts.wolvercoinNFT.ABI = res.data;
-      }));
-    if (!Wolvercoin.contracts.wolvercoinAuction.ABI) {
-      fetch("pages/prod_auctionABI.json").then(response =>
-        response.json().then(data => ({
-          data: data,
-          status: response.status
-        })).then(res => {
-          Wolvercoin.contracts.wolvercoinAuction.ABI = res.data;
-        }));
     }
   </script>
 </div>

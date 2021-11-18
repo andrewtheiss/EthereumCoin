@@ -93,6 +93,19 @@
     </div>
     <div id="isAdminOnly" class="admin-only hidden">
       <div class="add-wallet-to-class">
+        <label for="prodNft_ID">NFT ID</label>
+        <input type="text" size="10" id="prodNft_ID"></input><br />
+        <label for="prodNft_startTimeHoursFromNow">Start Time (# Hours From Now):</label>
+        <input type="text" size="40" id="prodNft_startTimeHoursFromNow"></input><br />
+        <label for="prodNft_durationHours">Duration in Hours</label>
+        <input type="text" size="40" id="prodNft_durationHours"></input><br />
+        <label for="prodNft_startingPrice">Starting Price</label>
+        <input type="text" size="40" id="prodNft_startingPrice"></input><br />
+        <button id="prodNft_createAuctionButton">Create Auction</button>
+        <br />
+      </div>
+
+      <div class="add-wallet-to-class">
         <button id="checkBalanceForWallet">Check Balance</button>
         <br />
         <label for="checkBalanceForWallet_WalletId">Wallet Id:</label>

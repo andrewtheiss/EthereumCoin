@@ -16,7 +16,7 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "previousOwner",
+						"name": "oldOwner",
 						"type": "address"
 					},
 					{
@@ -26,7 +26,7 @@
 						"type": "address"
 					}
 				],
-				"name": "OwnershipTransferred",
+				"name": "OwnerSet",
 				"type": "event"
 			},
 			{
@@ -224,6 +224,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "changeOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getAllAuctions",
 				"outputs": [
@@ -385,7 +398,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "owner",
+				"name": "getOwner",
 				"outputs": [
 					{
 						"internalType": "address",
@@ -421,39 +434,22 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "newOwner",
-						"type": "address"
-					}
-				],
-				"name": "transferOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
 			"kind": "dev",
 			"methods": {
-				"owner()": {
-					"details": "Returns the address of the current owner."
+				"changeOwner(address)": {
+					"details": "Change owner",
+					"params": {
+						"newOwner": "address of new owner"
+					}
 				},
-				"renounceOwnership()": {
-					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
-				},
-				"transferOwnership(address)": {
-					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				"getOwner()": {
+					"details": "Return owner address ",
+					"returns": {
+						"_0": "address of owner"
+					}
 				}
 			},
 			"version": 1
@@ -481,19 +477,11 @@
 	},
 	"sources": {
 		"contracts/WolvercoinAuction.sol": {
-			"keccak256": "0x4205f14e2a65f7b1c24924188b4fae24aa2ab619c0b14637f7382375d0331b4b",
+			"keccak256": "0x11100f554abe9cdee3b75093948af4d99656d9d657c1b8d33205ee975949cbe0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d9d3586b70a125687be471165bd258c1996904a53d2146174e38b315913dfc7e",
-				"dweb:/ipfs/QmfM7dMHDxuv71RQVT9KgVPYHuLc8pBn3Hd7THLCVcKAnY"
-			]
-		},
-		"contracts/includes/Context.sol": {
-			"keccak256": "0x5d0f925d07aed7df9aab02e0b57d60021fef2d85155ac1e0b37c890461047c0c",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://c41bf64650fb7c98d94db76cfe2737a9f57ee885d2edcbc14e4f3efd6c2a49da",
-				"dweb:/ipfs/QmQzpyT19tQ9atCLcbRt2y9svkoQB5RFEXmU2TKYHec9du"
+				"bzz-raw://b989e8f4f6cc0edc9365bbc73b78a3a6290d70d9b21adb3e08ae99e3dbcd00db",
+				"dweb:/ipfs/QmRbrJZZ7QMmmbpVDN73adRofJRh1pkpAXRwz3nrhzix5w"
 			]
 		},
 		"contracts/includes/IERC165.sol": {
@@ -520,12 +508,12 @@
 				"dweb:/ipfs/QmSaomHzJ4XjRd28yZj5z5CnGtxK6JVzMUCBSDFopb1YnF"
 			]
 		},
-		"contracts/includes/Ownable.sol": {
-			"keccak256": "0x8ff5706b76b1c0d20041d2aa7674f8adc03913dc39f695c6eeb7b57d0dc2d50d",
-			"license": "MIT",
+		"contracts/includes/Owner.sol": {
+			"keccak256": "0x1e624ada939528fff73575187024d951aa6d33d4cbaad97ecf1f3e2a7d717583",
+			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://23d88077a9dc6eaaf18b1c356b5fbf19dca87c7b8d31fcec0c2dedb836fca827",
-				"dweb:/ipfs/QmUNaADnybdjkP8P2ctpkP7P1EdTdDCzzPpVKsSDHjtwyj"
+				"bzz-raw://e3f3c6ab93acd1a8bd389f852149d59b6d713efc51458ff95bba42c3329fb0d1",
+				"dweb:/ipfs/QmP7NEPrSbYRM4DzpJ31YUC2KNXUX4USuQk3jMNRUdzVyV"
 			]
 		}
 	},

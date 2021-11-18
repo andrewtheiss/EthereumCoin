@@ -10,7 +10,7 @@
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "previousOwner",
+				"name": "oldOwner",
 				"type": "address"
 			},
 			{
@@ -20,7 +20,7 @@
 				"type": "address"
 			}
 		],
-		"name": "OwnershipTransferred",
+		"name": "OwnerSet",
 		"type": "event"
 	},
 	{
@@ -218,6 +218,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "changeOwner",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "getAllAuctions",
 		"outputs": [
@@ -379,7 +392,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "owner",
+		"name": "getOwner",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -412,26 +425,6 @@
 			}
 		],
 		"name": "removeAuctionByIndex",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

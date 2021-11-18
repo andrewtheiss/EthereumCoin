@@ -10,13 +10,13 @@ import "./includes/IERC20.sol";
 // Allows for onlyOwner modifier
 // auto-sets variable address '_owner' as owner
 // import "@openzeppelin/contracts/access/Ownable.sol"; 
-import "./includes/Ownable.sol";
+import "./includes/Owner.sol";
 
 // Behavior 
 // AddAuction
 // Bid
 // TransferCompletedAuctionByNftId after auction
-contract WolvercoinAuction is Ownable {
+contract WolvercoinAuction is Owner {
     
     event Win(address winner, uint256 amount);
 
@@ -39,7 +39,7 @@ contract WolvercoinAuction is Ownable {
     }
     
     
-    constructor() {
+    constructor() Owner() {
         _totalAuctionCount = 0;
         
         // Set amount of wovercoin to 
@@ -49,7 +49,7 @@ contract WolvercoinAuction is Ownable {
     }
 
     // 1 Add Auctions
-    function addAuction(uint _nftId, uint256 _startTime, uint256 _endTime, uint256 _startingBid) public onlyOwner auctionDoesntExistsForNFTId(_nftId) {
+    function addAuction(uint _nftId, uint256 _startTime, uint256 _endTime, uint256 _startingBid) public isOwner auctionDoesntExistsForNFTId(_nftId) {
         ClassicAuction memory newAuction = ClassicAuction({
             nftId : _nftId,
             startTime : _startTime,
@@ -61,7 +61,7 @@ contract WolvercoinAuction is Ownable {
         _allAuctions.push(newAuction);
     }
     
-    function addAuctionRelativeTimes(uint _nftId, uint256 _hoursFromNow, uint256 _hoursAfterStart, uint256 _startingBid) public onlyOwner auctionDoesntExistsForNFTId(_nftId) { 
+    function addAuctionRelativeTimes(uint _nftId, uint256 _hoursFromNow, uint256 _hoursAfterStart, uint256 _startingBid) public isOwner auctionDoesntExistsForNFTId(_nftId) { 
         ClassicAuction memory newAuction = ClassicAuction({
             nftId : _nftId,
             startTime : block.timestamp + (_hoursFromNow * 3600),
@@ -227,7 +227,7 @@ contract WolvercoinAuction is Ownable {
      }
      
      
-    function _setNFT(address _nft) public onlyOwner {
+    function _setNFT(address _nft) public isOwner {
         _wolvercoinNFTs = IERC721(_nft);
     }
 
