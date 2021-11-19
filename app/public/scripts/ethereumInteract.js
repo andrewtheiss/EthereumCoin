@@ -26,6 +26,20 @@ document.getElementById('checkBalanceForWallet').onclick = async function() {
 };
 
 
+$('#removeAuctionByNFTId').click(async function() {
+  let nftId = $('#removeAuctionByNFTId_nftId').val();
+  var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+  const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
+  await WolvercoinAuctionContract.methods._removeAuction(nftId).send({
+    from: Wolvercoin.currentAccount
+  })
+  .then(function(result) {
+    console.log(result);
+  });
+});
+
+
+
 document.getElementById('getWalletsForClass').onclick = async function() {
   var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
   const WolvercoinContract = new web3.eth.Contract(ECR20_WVCABI, WVC_ADDRESS.goerli);
