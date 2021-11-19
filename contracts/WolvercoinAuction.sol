@@ -79,7 +79,7 @@ contract WolvercoinAuction is Owner {
      /*
      *  2 Bid on auction by nft ID
      */
-     function bid(uint256 nftId, uint256 amount) public  {
+     function bid(uint256 nftId, uint256 amount) public isApprovedForWolvercoin(amount) {
          // Refund the previous bid
          uint256 auctionIndex = getAuctionIndexByNftId(nftId);
          require(_allAuctions[auctionIndex].highestBid < amount, "There is already a higher bid!");
@@ -95,7 +95,7 @@ contract WolvercoinAuction is Owner {
          // Set the new auction details
          _allAuctions[auctionIndex].highestBid = amount;
          _allAuctions[auctionIndex].highestBidder = msg.sender;
-         _allAuctions[auctionIndex].endTime = 5 minutes;
+         _allAuctions[auctionIndex].endTime = _allAuctions[auctionIndex].endTime + 5 minutes;
      }
      
     
@@ -220,7 +220,7 @@ contract WolvercoinAuction is Owner {
          _wolvercoinNFTs.transferFrom(address(this), auction.highestBidder, auction.nftId);
          
          // ERC20 - transferFrom(address sender, address recipient, uint256 amount) → bool
-         _wolvercoin.transferFrom(address(this), auction.highestBidder, auction.highestBid);
+         //_wolvercoin.transferFrom(address(this), auction.highestBidder, auction.highestBid);
          
          // 
          uint256 auctionIndex = getAuctionIndexByNftId(auction.nftId);

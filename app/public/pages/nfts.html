@@ -58,6 +58,34 @@
 </div>
 
 <script>
+  // Auction interaction
+  // Bid
+  let placeBid = async function(nftId, rawAmount) {
+    var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+    const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
+    let amountToSend = rawAmount * Math.pow(10, 18);
+    amountToSend = amountToSend + '';
+    await WolvercoinAuctionContract.methods.bid(nftId, amountToSend)
+      .send({
+        from: Wolvercoin.currentAccount
+      })
+      .then(function(result) {
+        console.log(result);
+      });
+  }
+
+  let completeAuction = async function(nftId) {
+    var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+    const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
+    await WolvercoinAuctionContract.methods.payAndTransferCompletedAuctionForNftId(nftId)
+      .send({
+        from: Wolvercoin.currentAccount
+      })
+      .then(function(result) {
+        console.log(result);
+      });
+  }
+
   function auctionInteraction(event) {
     console.log('you interacted with auction id:' + event.data);
   }
@@ -100,6 +128,7 @@
       auctionEl.find(".auction-start-finish-text").html("Start in");
       var auctionBeginDifference = msToTime(startTime - timestampNow);
       auctionEl.find(".auction-start-finish-time").html(auctionBeginDifference);
+      auctionEl.find(".auction-bid-container").hide();
 
 
     } else if (endTime < timestampNow) {
@@ -140,6 +169,8 @@
     nextAuction.find(".auction-start-description").html(_auctionDetails.description);
     nextAuction.find(".auction-start-nameInput").html(_auctionDetails.name);
     nextAuction.find(".auction-item-image-tag").attr("src", _auctionDetails.imgUrl);
+    nextAuction.find(".auction-item-place-bid").data("id", _auctionDetails.id);
+    nextAuction.find(".auction-item-complete-bid-button").data("id", _auctionDetails.id);
     let auctionEnded = false;
     let timestampNow = new Date().getTime();
     if ((_auctionDetails.endTimestamp * 1000) < timestampNow) {
@@ -152,10 +183,11 @@
     console.log('generate and add auction');
 
     nextAuction.find('.auction-item-place-bid').click(function() {
-      alert('place bid');
+      let bidAmount = $(event.target).parent().find(".auction-item-place-bid-input").val();
+      placeBid($(event.target).data("id"), bidAmount);
     })
-    nextAuction.find('.auction-item-complete-bid-button').click(function() {
-      alert('complete auction');
+    nextAuction.find('.auction-item-complete-bid-button').click(function(event) {
+      completeAuction($(event.target).data("id"));
     })
     // Handle timing for auction
     // Check for current, ended, or ending auction
@@ -171,40 +203,7 @@
 
 
   console.log('create auction items');
-</script>
 
-<script>
-  // Auction interaction
-  // Bid
-  async function bid(event) {
-    // amount =
-    let amount = 500;
-    let nftId = 5;
-    const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
-
-    let amountToSend = amount * Math.pow(10, 18);
-    amountToSend = amountToSend + '';
-    await WolvercoinAuctionContract.methods.bid(nftId, amountToSend)
-      .send({
-        from: Wolvercoin.currentAccount
-      })
-      .then(function(result) {
-        console.log(result);
-      });
-  }
-
-  async function completeAuction(nftId) {
-    await WolvercoinAuctionContract.methods.payAndTransferCompletedAuctionForNftId(nftId)
-      .send({
-        from: Wolvercoin.currentAccount
-      })
-      .then(function(result) {
-        console.log(result);
-      });
-  }
-</script>
-
-<script>
   let hasApprovalForHWToken = false;
   let renderBidInterface = false;
   let allAuctions = [];
@@ -299,7 +298,7 @@
       console.log(err, res);
 
       // Call method to handle approved items or not
-      if (res == '115792089237316195423570985008687907853269984665640564039457584007913129639935') { // show bidding options
+      if (res >= Number('105792089237316195423570985008687907853269984665640564039457584007913129639935')) { // show bidding options
         console.log('approval granted');
         showBidUI();
       } else { // show 'approve hw coin'

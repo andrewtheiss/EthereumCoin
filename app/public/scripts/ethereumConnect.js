@@ -144,6 +144,7 @@ async function showWalletConnected() {
                       //alert(this.url)
                   },
                   success: function(json){
+                    console.log('Got valid metadata for ' + id);
                     $('#prodNft_ID_nftTokenMetadata').val(JSON.stringify(json));
                   }
               });
