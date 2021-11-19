@@ -5,10 +5,11 @@ let Wolvercoin = {
   pagesLoaded : {
     home : true
   },
+  approvedSpend : false,
   contracts : {
     'wolvercoinAuction' : {
       ABI : false,
-      address : "0x7B763788c1C8f1C3af1Ad46Ea5559b028c5208bA"
+      address : "0x317Db518f600ccB50578e039Ed8080590Fc5589F"
     },
     'wolvercoinNFT' : {
       ABI : false,

@@ -34,6 +34,11 @@
               <span id="crypto_currency_price" class="crypto_currency_price crypto-currency">0.1</span>
             </span>
         </div>
+        <div class="auction-item-row you-are-highest-bidder" style="display:none;">
+          <div class="highest-bidder-text">
+            You are the highest bidder!
+          </div>
+        </div>
         <div class="bid-toggle">
           <div class="auction-item-row tbl auction-bid-container">
             <div class="auction-item-auction-container auction-item-row tr">
@@ -44,7 +49,7 @@
           <div class="auction-bid-complete-auction auction-item-row">
             <button id="auction-item-place-bid" class="auction-item-complete-bid-button ib tc">Complete Auction</button>
           </div>
-          <div class="auction-item-row">
+          <div class="auction-item-row description">
             Description: <span id="auction-start-description" class="auction-start-description">desc</span>
           </div>
         </div>
@@ -60,17 +65,32 @@
 <script>
   // Auction interaction
   // Bid
-  let placeBid = async function(nftId, rawAmount) {
+  let placeBid = async function(nftId, rawAmount, $el) {
     var web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
     const WolvercoinAuctionContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinAuction.ABI, Wolvercoin.contracts.wolvercoinAuction.address);
     let amountToSend = rawAmount * Math.pow(10, 18);
     amountToSend = amountToSend + '';
+    $el.find(".auction-item-place-bid").attr("disabled", "disabled");
+    $el.find(".auction-item-place-bid").html("Bidding...");
     await WolvercoinAuctionContract.methods.bid(nftId, amountToSend)
       .send({
         from: Wolvercoin.currentAccount
       })
       .then(function(result) {
+        $el.find(".auction-item-place-bid").attr("disabled", false);
+        $el.find(".auction-item-place-bid").html("Place Bid");
+        $el.parent().find(".auction-item-place-bid-input").val('');
+        $el.parent().parent().parent().parent().find('.crypto-currency').html(rawAmount);
         console.log(result);
+      })
+      .catch(function(result, a, b) {
+        $el.find(".auction-item-place-bid").attr("disabled", false);
+        $el.find(".auction-item-place-bid").html("Place Bid");
+        if (!Wolvercoin.approvedSpend) {
+          alert('Please approve spending of Wolvercoin!');
+        } else {
+          alert('Bid failed!  Refresh to see if someone bid higher and make sure you got enough $$$');
+        }
       });
   }
 
@@ -180,11 +200,15 @@
     } else {
       nextAuction.find('.auction-bid-complete-auction').hide();
     }
-    console.log('generate and add auction');
+
+    if (Wolvercoin.currentAccount.substring(0, 9).toLocaleLowerCase() == _auctionDetails.highestBidder.substring(0, 9).toLocaleLowerCase()) {
+      nextAuction.find('.you-are-highest-bidder').show();
+      nextAuction.addClass('highestBidder');
+    }
 
     nextAuction.find('.auction-item-place-bid').click(function() {
       let bidAmount = $(event.target).parent().find(".auction-item-place-bid-input").val();
-      placeBid($(event.target).data("id"), bidAmount);
+      placeBid($(event.target).data("id"), bidAmount, $(event.target).parent());
     })
     nextAuction.find('.auction-item-complete-bid-button').click(function(event) {
       completeAuction($(event.target).data("id"));
@@ -241,7 +265,7 @@
                 latestBid: res[i].highestBid,
                 startTimestamp: res[i].startTime,
                 endTimestamp: res[i].endTime,
-                highestBidder: res[i].highestBidder.substring(0, 7) + "....",
+                highestBidder: res[i].highestBidder.substring(0, 9) + "..",
                 auctionClaimed: false,
                 name: metadata.name,
                 description: metadata.description
@@ -301,6 +325,7 @@
       if (res >= Number('105792089237316195423570985008687907853269984665640564039457584007913129639935')) { // show bidding options
         console.log('approval granted');
         showBidUI();
+        Wolvercoin.approvedSpend = true;
       } else { // show 'approve hw coin'
         await WolvercoinContract.methods.balanceOf(ethereum.selectedAddress).call(function(err, res) {
           // If they don't have wolvercoin, no need to approve
@@ -321,6 +346,9 @@
     let approve_amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'; //(2^256 - 1 )
     await WolvercoinContract.methods.approve(Wolvercoin.contracts.wolvercoinAuction.address, approve_amount).send({
       from: ethereum.selectedAddress
+    }).then(function() {
+      Wolvercoin.approvedSpend = true;
+      $('#nft_auction_set_approval_button').hide();
     });
 
     checkAllowance();
