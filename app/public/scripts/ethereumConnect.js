@@ -130,7 +130,7 @@ async function showWalletConnected() {
               console.log("NO WOLVERCOIN NFT ABI");
               return;
             }
-            const NSFWContract = new web3.eth.Contract(Wolvercoin.devContracts.wolvercoinNFT.ABI, Wolvercoin.devContracts.wolvercoinNFT.address);
+            const NSFWContract = new web3.eth.Contract(Wolvercoin.contracts.wolvercoinNFT.ABI, Wolvercoin.contracts.wolvercoinNFT.address);
             await NSFWContract.methods.tokenURI($('#prodNft_ID').val()).call(function (err, res) {
               if (err) {
                 console.log("An error occured", err);
