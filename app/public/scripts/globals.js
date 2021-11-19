@@ -8,7 +8,7 @@ let Wolvercoin = {
   contracts : {
     'wolvercoinAuction' : {
       ABI : false,
-      address : "0xAE91919D9985518770bb94F449B6bb02fc6D47AC"
+      address : "0x46c5E3b61149fbFA3B213c3864e18Ddd82ead726"
     },
     'wolvercoinNFT' : {
       ABI : false,

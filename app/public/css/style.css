@@ -359,6 +359,7 @@ body {
   background-repeat: no-repeat;
 }
 .crypto-currency {
+  font-size: 18px;
   margin-left: 21px;
   font-family: Poppins, sans-serif;
   font-weight: 600;
@@ -443,7 +444,7 @@ border: 2px solid #dd3333;
 /*            */
 .auction-item-container {
   width: 250px;
-  height: 375px;
+  min-height: 375px;
   border: 1px solid white;
   border-radius: 10px;
   filter: drop-shadow(0px 0px 8px #444444);
@@ -464,7 +465,7 @@ border: 2px solid #dd3333;
   border-bottom: 1px solid white;
 }
 .auction-item-details {
-  height: 125px;
+  min-height: 125px;
   width: 250px;
   background-color: white;
   border-bottom-left-radius: 10px;
@@ -475,8 +476,9 @@ border: 2px solid #dd3333;
   padding: 5px;
 }
 .auction-item-nft-name {
+  margin-top: 3px;
   font-weight: 600;
-  padding: 5px;
+  padding-left: 5px;
   float: left;
 }
 .auction-grid {
@@ -491,7 +493,7 @@ border: 2px solid #dd3333;
   margin: 0px 5px;
   padding-top: 5px;
   text-shadow: 1px 0 #ddd;
-  font-size: 16px;
+  font-size: 13px;
 }
 .auction-item-price-title-fl {
   float: left;
@@ -504,7 +506,6 @@ border: 2px solid #dd3333;
   line-height: 11px;
 }
 .auction-item-row {
-  width: 100%;
   min-height: 24px;
 }
 .auction-item-auction-time {
@@ -513,4 +514,49 @@ border: 2px solid #dd3333;
   float: left;
   font-weight: bold;
   margin: 5px;
+}
+.auction-start-nameInput {
+  float: left;
+}
+.auction-start-finish-text {
+    float: left;
+    color: #999;
+    font-weight: 600;
+    padding-right: 4px;
+    padding-top: 5px;
+    text-shadow: 1px 0 #ddd;
+    font-size: 13px;
+    line-height: 15px;
+}
+.auction-start-finish-time {
+  font-size: 18px;
+}
+.auction-item-image-tag {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.auction-item-place-bid-input {
+
+}
+.auction-item-place-bid {
+
+}
+.ib {
+  display: inline-block;
+}
+.tbl {
+  display: table;
+}
+.tr {
+  display: table-row;
+}
+.tc {
+  display: table-cell;
+}
+.auction-item-row.tbl {
+  padding: 5px 20px;
+}
+.auction-item-place-bid {
+  margin-right: 10px;
+  margin-left: 10px;
 }

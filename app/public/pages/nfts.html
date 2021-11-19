@@ -12,33 +12,41 @@
   <div class="auction-grid" id="auction-grid">
     <div class="auction-item-container">
       <div class="auction-item-image">
+        <img class="auction-item-image-tag" src="" alt="" width="250" height="250">
       </div>
       <div class="auction-item-details">
         <div class="auction-item-row auction-item title">
-          <div class="auction-item-price-title" id="auction-item-nft-name">Not-So-Fungible-Wolvies</div>
+          <div class="auction-item-price-title" id="auction-item-nft-name">Not-So-Fungible-Wolvies #<span class="auction-item-nft-id"></span></div>
         </div>
         <div class="auction-item-row">
-          <span class="auction-item-nft-name">NSFW #<span class="auction-item-nft-id"></span></span>
+          <span class="auction-item-nft-name">
+            <span id="auction-start-nameInput" class="auction-start-nameInput">name</span>
+          </span>
+        </div>
+        <div class="auction-item-row">
+          <span class="auction-item-nft-name">
+            <span id="auction-start-finish-text" class="auction-start-finish-text">begins</span>
+            <span id="auction-start-finish-time" class="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
+          </span>
           <span class="auction-item-price-label">
             <span class="auction-item-price-title-fl">Price</span>
             <span class="crypto-icon">
               <span id="crypto_currency_price" class="crypto_currency_price crypto-currency">0.1</span>
             </span>
         </div>
-        <div class="auction-item-row">
-          <div class="auction-item-auction-name">
-            <span id="auction-start-nameInput" class="auction-start-nameInput">name</span>
-            <span id="auction-start-description" class="auction-start-description">desc</span>
+        <div class="bid-toggle">
+          <div class="auction-item-row tbl auction-bid-container">
+            <div class="auction-item-auction-container auction-item-row tr">
+              <button id="auction-item-place-bid" class="auction-item-place-bid ib tc">Place Bid</button>
+              <input id="auction-item-place-bid-input" size="10" class="auction-item-place-bid-input ib tc"></input>
+            </div>
+          </div>
+          <div class="auction-bid-complete-auction auction-item-row">
+            <button id="auction-item-place-bid" class="auction-item-complete-bid-button ib tc">Complete Auction</button>
           </div>
           <div class="auction-item-row">
-            <span id="auction-start-finish-text" class="auction-start-finish-text">begins</span>
-            <span id="auction-start-finish-time" class="auction-start-finish-time">Nov 15th 13:35 pm PST</span>
+            Description: <span id="auction-start-description" class="auction-start-description">desc</span>
           </div>
-        </div>
-        <div class="auction-item-auction-container hidden auction-item-row">
-          <span><input id="auction-item-place-bid-input" class="auction-item-place-bid-input"></input>
-            <button id="auction-item-place-bid">Place Bid</button>
-          </span>
         </div>
         <div class="auction-item-auction-buy-now hidden"></div>
       </div>
@@ -84,30 +92,34 @@
     else return days + " Days"
   }
 
-  function updateAuctionTime(startTime, endTime, auctionEl) {
+  function updateAuctionTime(startTime, endTime, auctionEl, winner) {
     let flagContinueToUpdate = false; // Was going to have countdown... but maybe later
     let timestampNow = new Date().getTime();
     if (startTime > timestampNow) {
       console.log('auction hasnt started yet'); // The auction hasn't started yet
-      auctionEl.find(".auction-start-finish-text").html("Auction starts in:");
+      auctionEl.find(".auction-start-finish-text").html("Start in");
       var auctionBeginDifference = msToTime(startTime - timestampNow);
       auctionEl.find(".auction-start-finish-time").html(auctionBeginDifference);
 
 
     } else if (endTime < timestampNow) {
       console.log('auction finished'); // Auction finished
-      auctionEl.find(".auction-start-finish-text").html("Auction ended!");
+      if (winner) {
+        auctionEl.find(".auction-start-finish-text").html("Winner " + winner);
+      } else {
+        auctionEl.find(".auction-start-finish-text").html("Ended!");
+      }
       auctionEl.find(".auction-start-finish-time").html("");
 
 
     } else if (startTime < timestampNow || endTime > timestampNow) {
       console.log('auction running'); // Auction has started
-      auctionEl.find(".auction-start-finish-text").html("Auction ends in:");
+      auctionEl.find(".auction-start-finish-text").html("Ends in");
       var auctionEndDifference = msToTime(endTime - timestampNow);
       auctionEl.find(".auction-start-finish-time").html(auctionEndDifference);
       flagContinueToUpdate = true;
       setTimeout(function() {
-        updateAuctionTime(startTime, endTime, auctionEl);
+        updateAuctionTime(startTime, endTime, auctionEl, null);
       }, 1000);
     } else {
       // Auction is not up for auction
@@ -127,10 +139,27 @@
     nextAuction.find(".crypto_currency_price").html(bid);
     nextAuction.find(".auction-start-description").html(_auctionDetails.description);
     nextAuction.find(".auction-start-nameInput").html(_auctionDetails.name);
+    nextAuction.find(".auction-item-image-tag").attr("src", _auctionDetails.imgUrl);
+    let auctionEnded = false;
+    let timestampNow = new Date().getTime();
+    if ((_auctionDetails.endTimestamp * 1000) < timestampNow) {
+      auctionEnded = _auctionDetails.highestBidder;
+      nextAuction.find('.auction-bid-container').hide();
+      nextAuction.find('.auction-bid-complete-auction').show();
+    } else {
+      nextAuction.find('.auction-bid-complete-auction').hide();
+    }
+    console.log('generate and add auction');
 
+    nextAuction.find('.auction-item-place-bid').click(function() {
+      alert('place bid');
+    })
+    nextAuction.find('.auction-item-complete-bid-button').click(function() {
+      alert('complete auction');
+    })
     // Handle timing for auction
     // Check for current, ended, or ending auction
-    updateAuctionTime(_auctionDetails.startTimestamp, _auctionDetails.endTimestamp, nextAuction);
+    updateAuctionTime(_auctionDetails.startTimestamp * 1000, _auctionDetails.endTimestamp * 1000, nextAuction, auctionEnded);
     // Append to the auction grid
     auctionGrid.append(nextAuction);
 
@@ -209,7 +238,7 @@
               }
               auctionDetails = {
                 id: res[i].nftId,
-                imgUrl: res[i].image,
+                imgUrl: metadata.image,
                 latestBid: res[i].highestBid,
                 startTimestamp: res[i].startTime,
                 endTimestamp: res[i].endTime,
