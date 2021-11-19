@@ -121,7 +121,7 @@ document.getElementById('addCoinToMetamask').onclick = async function() {
   const tokenAddress = WVC_ADDRESS.goerli;
   const tokenSymbol = 'WVC';
   const tokenDecimals = 18;
-  const tokenImage = 'http://wolvercoin.com/wcoin.png';
+  const tokenImage = 'http://wolvercoin.com/wvc.png';
 
   try {
     // wasAdded is a boolean. Like any RPC method, an error may be thrown.

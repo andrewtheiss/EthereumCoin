@@ -351,10 +351,10 @@ body {
 }
 
 .crypto-icon {
-  width: 14px;
-  height: 14px;
+  width: 22px;
+  height: 22px;
   margin-right: 10px;
-  background-image: url('/wcoin.png');
+  background-image: url('/wvc.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
