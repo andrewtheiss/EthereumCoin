@@ -3,29 +3,33 @@ var width = 640;
 
 var canvasEl = document.createElement("canvas");
 var ctx=canvasEl.getContext("2d");
-  ctx.canvas.width  =width;
-  ctx.canvas.height = height;
-var imageObj1 = new Image();
-var imageObj2 = new Image();
-imageObj1.src = "bg2.png"
-imageObj1.onload = function() {
-   ctx.drawImage(imageObj1, 0, 0, width, height);
-   imageObj2.src = "base.png";
-   imageObj2.onload = function() {
-      ctx.drawImage(imageObj2, 0, 0, width, height);
+ctx.canvas.width  =width;
+ctx.canvas.height = height;
+
+async function addLayer(context, imgSrc, last = false) {
+  var nextImage = new Image();
+  nextImage.src = imgSrc;
+  nextImage.onload = await function() {
+    context.drawImage(nextImage, 0, 0, width, height);
+    if (last) {
       var img = canvasEl.toDataURL("image/png");
       document.write('<img src="' + img + '" width="'+ width +'" height="' + height + '"/>');
-   }
-};
-
-
-async function addLayer(context) {
-  var nextImage = new Image();
-  nextImage.src = "face1.png";
-  nextImage.onload = function() {
-     context.drawImage(nextImage, 0, 0, width, height);
-     return true;
+    }
   };
 }
 
-addLayer(ctx);
+function lol() {
+  var img = canvasEl.toDataURL("image/png");
+  document.write('<img src="' + img + '" width="'+ width +'" height="' + height + '"/>');
+
+}
+
+async function generateNft() {
+  await addLayer(ctx, "bg2.png");
+  await addLayer(ctx, "base.png");
+  await addLayer(ctx, "face1.png");
+  await addLayer(ctx, "hat2.png", true);
+  lol();
+}
+
+generateNft();
