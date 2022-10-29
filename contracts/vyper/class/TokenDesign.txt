@@ -1,0 +1,4 @@
+# Features for token design
+Have a list of confirmed students and allow them to mint X amount of tokens each week
+
+Elligible for NFT mint or special reward if they use it a lot
