@@ -46,7 +46,7 @@ def __init__(_name: String[32], _symbol: String[32], _decimals: uint8, _supply: 
     self.balanceOf[msg.sender] = minterSupply
     self.totalSupply = block.num
     self.minter = msg.sender
-    log Transfer(empty(address), msg.sender, init_supply)
+    log Transfer(empty(address), msg.sender, 0)
 
 
 

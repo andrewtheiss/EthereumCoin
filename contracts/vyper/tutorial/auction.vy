@@ -5,6 +5,7 @@
 beneficiary: public(address)
 auctionStart: public(uint256)
 auctionEnd: public(uint256)
+users: public(address[100])
 
 # Current state of auction
 highestBidder: public(address)
@@ -13,6 +14,10 @@ highestBid: public(uint256)
 # Set to true at the end, disallows any change
 ended: public(bool)
 
+
+myFavoriteWallet : public(address)
+
+
 # Keep track of refunded bids so we can follow the withdraw pattern
 pendingReturns: public(HashMap[address, uint256])
 
@@ -20,12 +25,13 @@ pendingReturns: public(HashMap[address, uint256])
 # `_bidding_time` seconds bidding time on behalf of the
 # beneficiary address `_beneficiary`.
 @external
-def __init__(_beneficiary: address, _auction_start: uint256, _bidding_time: uint256):
-    self.beneficiary = _beneficiary
+def __init__(beneficiary: address, _auction_start: uint256, _bidding_time: uint256):
+    self.beneficiary = beneficiary
+    self.myFavoriteWallet = 0xC718B2FD6F5912511D558b1D6A04a9D2b9BE25bb
     self.auctionStart = _auction_start  # auction start time can be in the past, present or future
     self.auctionEnd = self.auctionStart + _bidding_time
     assert block.timestamp < self.auctionEnd # auction end time should be in the future
-
+    
 # Bid on the auction with the value sent
 # together with this transaction.
 # The value will only be refunded if the
